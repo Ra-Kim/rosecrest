@@ -62,6 +62,7 @@ const Footer: React.FC<FooterProps> = ({ quickLinks = defaultQuickLinks }) => {
                 className="-ml-1.5"
               />
             </Link>
+            
             <p
               className={`${sourceSans.className} text-[#64748B] text-sm lg:text-base leading-relaxed max-w-sm mt-2`}
             >
