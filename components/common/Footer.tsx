@@ -17,7 +17,7 @@ const defaultQuickLinks: QuickLink[] = [
   { label: "Services", href: "/services" },
   { label: "About Us", href: "/about" },
   { label: "Contact", href: "/contact" },
-  { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Terms of Engagement", href: "/terms" },
 ];
 
 const Footer: React.FC<FooterProps> = ({ quickLinks = defaultQuickLinks }) => {
@@ -36,7 +36,8 @@ const Footer: React.FC<FooterProps> = ({ quickLinks = defaultQuickLinks }) => {
     },
     {
       icon: MapPin,
-      label: "London, United Kingdom",
+      label:
+        "71-75 Shelton Street, Covent Garden, London, United Kingdom, WC2H 9JQ",
       href: "#",
     },
   ];
@@ -62,7 +63,7 @@ const Footer: React.FC<FooterProps> = ({ quickLinks = defaultQuickLinks }) => {
                 className="-ml-1.5"
               />
             </Link>
-            
+
             <p
               className={`${sourceSans.className} text-[#64748B] text-sm lg:text-base leading-relaxed max-w-sm mt-2`}
             >

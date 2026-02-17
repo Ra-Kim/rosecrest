@@ -9,7 +9,6 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import {
   Sheet,
@@ -40,6 +39,35 @@ const Navbar = () => {
     }
   }, [pathname]);
 
+  const isHomePage = pathname === "/";
+
+  const isDarkNav = useMemo(() => {
+    const darkPaths = ["survey-level-1", "survey-level-2", "survey-level-3"];
+    return darkPaths.some((val) => pathname.includes(val));
+  }, [pathname]);
+
+  // Homepage: Simple centered logo only
+  if (isHomePage) {
+    return (
+      <nav
+        className={`${sourceSans.className} absolute z-50 left-0 right-0 mx-auto top-4 lg:top-20 h-16 lg:h-20 max-w-[90%] lg:max-w-[90%] w-full flex items-center justify-center px-4 lg:px-8`}
+      >
+        {/* Logo - Centered */}
+        <Link href="/" className="flex items-center">
+          <Image
+            src={`/assets/svgs/logo.svg`}
+            alt="Rosecrest Group Ltd logo"
+            width={252}
+            height={38}
+            className=""
+            priority
+          />
+        </Link>
+      </nav>
+    );
+  }
+
+  // Other pages: Full navigation
   return (
     <nav
       className={`${sourceSans.className} absolute z-50 left-0 right-0 mx-auto top-4 lg:top-8 h-16 lg:h-20 max-w-[90%] lg:max-w-[90%] w-full grid grid-cols-3 items-center lg:flex lg:items-center lg:justify-between px-4 lg:px-8 bg-white/10 backdrop-blur-[30px] rounded-full border border-white/50 shadow-[0_8px_32px_0_rgba(31,38,135,0.15)]`}
@@ -47,7 +75,9 @@ const Navbar = () => {
       {/* Logo */}
       <Link href="/" className="flex items-center">
         <Image
-          src={`/assets/svgs/logo.svg`}
+          src={
+            isDarkNav ? `/assets/svgs/logo-blue.svg` : `/assets/svgs/logo.svg`
+          }
           alt="Rosecrest Group Ltd logo"
           width={252}
           height={38}
@@ -55,7 +85,9 @@ const Navbar = () => {
           priority
         />
         <Image
-          src={`/assets/svgs/logo.svg`}
+          src={
+            isDarkNav ? `/assets/svgs/logo-blue.svg` : `/assets/svgs/logo.svg`
+          }
           alt="Rosecrest Group Ltd logo"
           width={120}
           height={29}
@@ -67,45 +99,39 @@ const Navbar = () => {
       {/* Desktop Navigation */}
       <div className="hidden lg:block">
         <NavigationMenu>
-          <NavigationMenuList className="gap-1">
+          <NavigationMenuList className="gap-16">
             <NavigationMenuItem>
-              <Link href="/services"  passHref>
-                <NavigationMenuLink
-                  className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-white/20 transition-all ${
-                    active === "services"
-                      ? "text-white font-semibold"
-                      : "text-white/90 font-normal"
-                  }`}
+              <NavigationMenuLink href="/services">
+                <p
+                  className={`${sourceSans.className} bg-transparent hover:underline transition-all ${
+                    active === "services" ? "font-semibold" : "font-normal"
+                  } ${isDarkNav ? "text-[#151515]" : "text-white"}`}
                 >
                   Services
-                </NavigationMenuLink>
-              </Link>
+                </p>
+              </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/about"  passHref>
-                <NavigationMenuLink
-                  className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-white/20 transition-all ${
-                    active === "about"
-                      ? "text-white font-semibold"
-                      : "text-white/90 font-normal"
+              <NavigationMenuLink href="/about">
+                <p
+                  className={`${sourceSans.className} bg-transparent hover:underline ${isDarkNav ? "text-[#151515]" : "text-white"} transition-all ${
+                    active === "about" ? "font-semibold" : "font-normal"
                   }`}
                 >
                   About
-                </NavigationMenuLink>
-              </Link>
+                </p>
+              </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/contact"  passHref>
-                <NavigationMenuLink
-                  className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-white/20 transition-all ${
-                    active === "contact"
-                      ? "text-white font-semibold"
-                      : "text-white/90 font-normal"
+              <NavigationMenuLink href="/contact">
+                <p
+                  className={`${sourceSans.className} bg-transparent hover:underline ${isDarkNav ? "text-[#151515]" : "text-white"} transition-all ${
+                    active === "contact" ? "font-semibold" : "font-normal"
                   }`}
                 >
                   Contact
-                </NavigationMenuLink>
-              </Link>
+                </p>
+              </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
@@ -115,7 +141,7 @@ const Navbar = () => {
       <div className="hidden lg:block">
         <Link href="/contact">
           <Button
-            className="bg-white text-[#1E293B] hover:bg-white/90 font-medium px-6 py-2.5 rounded-full transition-all shadow-md hover:shadow-lg min-h-12"
+            className={`${isDarkNav ? "bg-[#262A6F] text-white" : "bg-white text-[#1E293B]"}  hover:bg-white/90 font-medium px-6 py-2.5 rounded-full transition-all shadow-md hover:shadow-lg min-h-12`}
             size="lg"
           >
             Book a discussion
@@ -125,7 +151,7 @@ const Navbar = () => {
 
       {/* Mobile - Current Page Indicator */}
       <div className="lg:hidden text-center">
-        <p className="capitalize text-white text-sm font-medium tracking-wide">
+        <p className="capitalize text-gray-900 text-sm font-medium tracking-wide">
           {active === "home" ? "" : active}
         </p>
       </div>
@@ -133,7 +159,7 @@ const Navbar = () => {
       {/* Mobile Menu Button */}
       <div className="lg:hidden flex justify-end items-center">
         <Sheet open={navOpen} onOpenChange={setNavOpen}>
-          <SheetTrigger className="lg:hidden text-white">
+          <SheetTrigger className="lg:hidden text-gray-900">
             <Menu className="w-7 h-7" />
             <span className="sr-only">Open menu</span>
           </SheetTrigger>
@@ -148,7 +174,7 @@ const Navbar = () => {
                 />
               </Link>
             </SheetTitle>
-            
+
             {/* Mobile Navigation */}
             <nav className="mt-8">
               <ul className="flex flex-col gap-6">

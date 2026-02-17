@@ -2,7 +2,6 @@ import Footer from "@/components/common/Footer";
 import Brands from "@/fragments/landing/Brands";
 import Hero from "@/fragments/landing/Hero";
 import Services from "@/fragments/landing/Services";
-import DampAndMould from "@/fragments/shared/DampMould";
 
 export default function Home() {
   return (
@@ -10,7 +9,7 @@ export default function Home() {
       <Hero />
       <Services />
       <Brands />
-      <DampAndMould />
+      {/* <DampAndMould /> */}
       <Footer />
     </div>
   );
