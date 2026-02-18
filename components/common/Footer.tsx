@@ -73,8 +73,8 @@ const Footer: React.FC<FooterProps> = ({ quickLinks = defaultQuickLinks }) => {
           </div>
 
           {/* Column 2: Quick Links */}
-          <div>
-            <h3 className="font-semibold text-[#1E293B] text-lg mb-6">
+          <div className="md:ml-30">
+            <h3 className="font-semibold text-[#DBB38E] text-lg mb-6">
               Quick Links
             </h3>
             <ul className="space-y-3">
@@ -93,7 +93,7 @@ const Footer: React.FC<FooterProps> = ({ quickLinks = defaultQuickLinks }) => {
 
           {/* Column 3: Get in Touch */}
           <div>
-            <h3 className="font-semibold text-[#1E293B] text-lg mb-6">
+            <h3 className="font-semibold text-[#DBB38E] text-lg mb-6">
               Get in Touch
             </h3>
             <ul className="space-y-4">
