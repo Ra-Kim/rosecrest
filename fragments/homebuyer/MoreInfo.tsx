@@ -4,8 +4,13 @@ import { FileText, Phone, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { sourceSans } from "@/lib/fonts";
+import { OpenBookingModal } from "@/types/homebuyer";
 
-const MoreInfo = () => {
+interface MoreInfoProps {
+  onOpenBooking: OpenBookingModal;
+}
+
+const MoreInfo = ({ onOpenBooking }: MoreInfoProps) => {
   return (
     <section className="py-16 lg:py-24 px-4">
       <div className="max-w-7xl mx-auto">
@@ -78,14 +83,13 @@ const MoreInfo = () => {
                   Ready to check availability and get a fixed price?
                 </h2>
 
-                <Link href="/check-availability">
-                  <Button
-                    size="lg"
-                    className="bg-[#DBB38E] h-12 hover:bg-[#DBB38E]/90 text-[#151515] px-8 py-6 rounded-full text-base lg:text-lg mb-12 leading-7"
-                  >
-                    Check Availability & Fixed Price
-                  </Button>
-                </Link>
+                <Button
+                  size="lg"
+                  className="bg-[#DBB38E] h-12 hover:bg-[#DBB38E]/90 text-[#151515] px-8 py-6 rounded-full text-base lg:text-lg mb-12 leading-7"
+                  onClick={() => onOpenBooking()}
+                >
+                  Check Availability & Fixed Price
+                </Button>
 
                 <p className="text-white text-sm">
                   Takes less than 60 seconds.

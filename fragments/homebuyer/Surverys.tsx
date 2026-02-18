@@ -2,8 +2,13 @@ import React from "react";
 import SurveyCard from "@/components/homebuyer/SurveyCard";
 import { CheckCircle } from "lucide-react";
 import { sourceSans } from "@/lib/fonts";
+import { OpenBookingModal } from "@/types/homebuyer";
 
-const Surveys = () => {
+interface SurveysProps {
+  onOpenBooking: OpenBookingModal;
+}
+
+const Surveys = ({ onOpenBooking }: SurveysProps) => {
   const surveys = [
     {
       level: 1,
@@ -73,7 +78,16 @@ const Surveys = () => {
         {/* Survey Cards Grid */}
         <div className="grid gap-8">
           {surveys.map((survey) => (
-            <SurveyCard key={survey.level} {...survey} />
+            <SurveyCard
+              key={survey.level}
+              onSelectSurvey={() =>
+                onOpenBooking({
+                  surveyLevel: survey.level as 1 | 2 | 3,
+                  surveyTitle: survey.title,
+                })
+              }
+              {...survey}
+            />
           ))}
         </div>
       </div>

@@ -14,6 +14,7 @@ interface SurveyCardProps {
   features: string[];
   buttonText: string;
   buttonLink: string;
+  onSelectSurvey: VoidFunction
 }
 
 const SurveyCard = ({
@@ -23,6 +24,7 @@ const SurveyCard = ({
   features,
   buttonText,
   buttonLink,
+  onSelectSurvey
 }: SurveyCardProps) => {
   const badgeColors = {
     green: "bg-green-100 text-green-700",
@@ -84,6 +86,7 @@ const SurveyCard = ({
         <Button
           className="w-full bg-[#262A6F] hover:bg-[#262A6F]/90 text-white rounded-full py-6 font-medium"
           size="lg"
+          onClick={onSelectSurvey}
         >
           {buttonText}
           <ArrowRight className="w-4 h-4 ml-2" />
