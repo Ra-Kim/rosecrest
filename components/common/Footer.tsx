@@ -65,7 +65,7 @@ const Footer: React.FC<FooterProps> = ({ quickLinks = defaultQuickLinks }) => {
             </Link>
 
             <p
-              className={`${sourceSans.className} text-[#64748B] text-sm lg:text-base leading-relaxed max-w-sm mt-2`}
+              className={`${sourceSans.className} text-[#64748B] text-sm lg:text-base leading-relaxed max-w-sm mt-6`}
             >
               Professional property inspection and reporting services across the
               UK. RICS regulated and committed to excellence.

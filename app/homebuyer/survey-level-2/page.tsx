@@ -1,6 +1,7 @@
 import Footer from "@/components/common/Footer";
 import BookingForm from "@/fragments/homebuyer/BookingForm";
-import WhatIsIncluded from "@/fragments/homebuyer/survey1/WhatsIncluded";
+import AdditionalServices from "@/fragments/homebuyer/survey2/AdditionalServices";
+import WhatIsIncluded2 from "@/fragments/homebuyer/survey2/WhatsIncluded";
 import SurveyDetails from "@/fragments/homebuyer/SurveyDetails";
 import SurveysHaeder from "@/fragments/homebuyer/SurveysHaeder";
 import { sourceSans } from "@/lib/fonts";
@@ -21,36 +22,33 @@ const Page = () => {
             {/* Title and Badge */}
             <div className="flex flex-col items-start">
               <h3 className="text-xl lg:text-[48px] leading-9 font-bold text-gray-900 mb-4">
-                RICS Level 1 Survey: Condition Report
+                RICS Level 2 Survey: Homebuyer Report
               </h3>
               <p
-                className={`px-4 py-1 rounded-full text-sm w-fit h-9 flex justify-center items-center  font-medium bg-green-100 text-green-700 ${sourceSans.className}`}
+                className={`px-4 py-1 rounded-full text-sm w-fit h-9 flex justify-center items-center  font-medium bg-blue-100 text-blue-700 ${sourceSans.className}`}
               >
-                Best for newer homes
+                Most common choice
               </p>
-              <div className="mt-8 text-lg text-[#4A5565]">
-                A straightforward overview of the property&apos;s condition
-                using a simple traffic light rating system
-              </div>
             </div>
           </div>
         </div>
       </SurveysHaeder>
-      <WhatIsIncluded />
+      <WhatIsIncluded2 />
       <SurveyDetails
-        duration="1-2 hours"
-        deliveryTime="same-day"
+        duration="2-3 hours"
+        deliveryTime="next-day"
         features={[
-          "Ideal for new builds and standardised properties built within the last 5-10 years",
-          "Perfect for obtaining a brief insight of the property condition",
+          "Ideal for modern and conventional properties built in the last 30 years",
+          "Most popular choice for standard residential properties",
           "Appropriate for unaltered and non-extended property",
           "Not suitable for older, larger or non-traditional properties",
         ]}
       />
+      <AdditionalServices />
       <div className="py-20 lg:py-24">
         <BookingForm
-          surveyLevel={1}
-          surveyTitle="Level 1 — Home Conditions Survey"
+          surveyLevel={2}
+          surveyTitle="Level 2 — Homebuyer Survey"
           basePrice={450}
         />
       </div>
