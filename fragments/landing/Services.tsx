@@ -29,7 +29,7 @@ const Services = () => {
       icon: Building,
       title: "I represent a council or organisation",
       description: "Framework-ready property inspections and consultancy",
-      href: "/council",
+      href: "/councils",
       iconBgColor: "bg-[#1E3A8A]",
     },
   ];

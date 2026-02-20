@@ -1,5 +1,8 @@
+import Footer from "@/components/common/Footer";
 import JourneyHero from "@/fragments/journeys/JourneyHero";
-import DampAndMould from "@/fragments/shared/DampMould";
+import LandlordsDesc from "@/fragments/landlord/Description";
+import LandlordMoreInfo from "@/fragments/landlord/MoreInfo";
+import LandlordsServices from "@/fragments/landlord/Services";
 
 const Page = () => {
   return (
@@ -11,7 +14,10 @@ const Page = () => {
           </p>
         </div>
       </JourneyHero>
-      <DampAndMould />
+      <LandlordsDesc />
+      <LandlordsServices />
+      <LandlordMoreInfo />
+      <Footer />
     </div>
   );
 };
