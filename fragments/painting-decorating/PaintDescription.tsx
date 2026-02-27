@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { sourceSans } from "@/lib/fonts";
 
-const StockDescription = () => {
+const PAintDescription = () => {
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
@@ -17,13 +17,11 @@ const StockDescription = () => {
           <h2
             className={`${sourceSans.className} text-base lg:text-xl text-[#4A5565] mb-6 leading-8 w-[90%]`}
           >
-            At Rosecrest Group Ltd, we recognise the importance of upholding
-            high standards in housing. Our Stock Condition Surveys are
-            specifically designed to assist local authorities and social housing
-            providers in ensuring that their properties remain safe, compliant
-            and well-maintained. By providing comprehensive assessments, we
-            enable you to make informed decisions that enhance the quality of
-            your housing portfolio.
+            At Rosecrest group ltd, we believe that every space should tell a
+            story that reflects your unique personality and taste. Our expert
+            decorating team is dedicated to transforming your interiors, guiding
+            you through every step of the process, from selecting the perfect
+            colour palette to the final brushstroke.
           </h2>
 
           {/* CTAs */}
@@ -41,7 +39,7 @@ const StockDescription = () => {
         {/* Right Column - Image */}
         <div className="relative flex justify-end">
           <Image
-            src="/assets/images/stock.png"
+            src="/assets/images/paint-decor.png"
             alt="Apartment building for landlords and property owners"
             height={548}
             width={539}
@@ -54,4 +52,4 @@ const StockDescription = () => {
   );
 };
 
-export default StockDescription;
+export default PAintDescription;

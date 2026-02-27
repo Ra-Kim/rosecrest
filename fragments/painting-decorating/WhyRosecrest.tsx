@@ -3,7 +3,7 @@ import { sourceSans } from "@/lib/fonts";
 
 export default function WhyChooseSection() {
   return (
-    <section className="py-16 lg:py-24 px-4 lg:px-8 bg-[#F9F8F4]">
+    <section className="py-16 lg:py-24 px-4 lg:px-8 bg-[#FBF7F4]">
       <div className="max-w-7xl mx-auto">
         {/* Top: heading left, body right */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 mb-12 lg:mb-16 items-start">
@@ -12,23 +12,20 @@ export default function WhyChooseSection() {
             <br />
             Rosecrest Group Ltd?
           </h2>
-          <p
+          <div
             className={`${sourceSans.className} text-[#101828] text-base lg:text-lg leading-relaxed`}
           >
-            At Rosecrest group Ltd, our expert team is dedicated to delivering
-            comprehensive and trustworthy{" "}
-            <Link
-              href="/stock-condition-assessments"
-              className="underline text-gray-900 hover:text-[#1E3A8A] transition-colors"
-            >
-              stock condition surveys
-            </Link>
-            . With a strong commitment to quality, we enable you to maintain
-            your housing stock to the highest standards, ensuring the longevity
-            and sustainability of your portfolio. Trust us to provide the
-            insights you need for informed decision-making and exceptional
-            property management.
-          </p>
+            <p>
+              At Rosecrest Group Ltd, we are passionate about creating beautiful
+              environments that resonate with your style.
+            </p>
+            <p>
+              Our decorating team combines creativity, expertise, and a
+              commitment to quality, transforming your spaces into stunning
+              reflections of you. Trust us to elevate your home—one brushstroke
+              at a time.
+            </p>
+          </div>
         </div>
 
         {/* CTA banner */}
@@ -37,14 +34,13 @@ export default function WhyChooseSection() {
           <div className="absolute -top-16 right-16 w-44 h-44 rounded-full bg-white/10 pointer-events-none" />
           <div className="absolute -bottom-16 -left-10 w-44 h-44 rounded-full bg-white/10 pointer-events-none" />
 
-          <h3 className="relative z-10 text-3xl lg:text-4xl font-bold text-white mb-4">
-            What Happens After The Survey?
+          <h3 className="relative z-10 text-3xl lg:text-4xl font-bold text-white mb-4 capitalize">
+            What is the next step?
           </h3>
           <p
             className={`${sourceSans.className} relative z-10 text-white/70 text-base mb-8 max-w-lg mx-auto leading-relaxed`}
           >
-            When your property is due for renewal work, we will inform you of
-            the planned improvements and their timeline.
+            Contact us today to start your transformation.
           </p>
           <Link
             href="/contact"

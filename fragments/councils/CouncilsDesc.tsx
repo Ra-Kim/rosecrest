@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
 import { sourceSans } from "@/lib/fonts";
 import React from "react";
+import Link from "next/link";
 
 const CouncilsDesc = () => {
   const trust = [
@@ -57,13 +58,14 @@ const CouncilsDesc = () => {
 
           {/* CTAs */}
           <div className="flex items-center gap-6 flex-wrap">
-            <Button
-              size="lg"
-              onClick={() => scrollTo("services")}
-              className="bg-[#262A6F] hover:bg-[#262A6F]/90 text-white px-8 py-6 text-base rounded-full"
-            >
-              Select Your Service
-            </Button>
+            <Link href="/contact">
+              <Button
+                size="lg"
+                className="bg-[#262A6F] hover:bg-[#262A6F]/90 text-white px-8 py-6 text-base rounded-full h-15"
+              >
+                Speak with a Consultant
+              </Button>
+            </Link>
             <button
               onClick={() => scrollTo("more-info")}
               className={`${sourceSans.className} text-[#101828] text-base font-medium flex items-center gap-1 hover:underline`}
