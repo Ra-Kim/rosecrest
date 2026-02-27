@@ -76,7 +76,7 @@ const ServiceTabs = () => {
       title: "Energy Performance Certificates",
       description:
         "Accurate energy assessments and certification to support regulatory compliance and property efficiency.",
-      href: "/services/energy-performance-certificates",
+      href: "/services/epc",
       iconBgColor: "bg-[#262A6F]",
     },
   ];
