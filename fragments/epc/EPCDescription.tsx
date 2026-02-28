@@ -2,16 +2,13 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { sourceSans } from "@/lib/fonts";
+import Link from "next/link";
 
 const EPCDescription = () => {
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
     <div className="bg-[#FBF7F4]">
       <div className="grid lg:grid-cols-2 px-2 sm:px-0 py-12 lg:py-20 gap-8 items-center max-w-7xl mx-auto">
-
         {/* Left Column - Text Content */}
         <div className="flex flex-col justify-center">
           {/* Main heading */}
@@ -25,7 +22,9 @@ const EPCDescription = () => {
           </h3>
 
           {/* Body */}
-          <p className={`${sourceSans.className} text-base lg:text-xl text-[#4A5565] leading-8 mb-8 w-[90%]`}>
+          <p
+            className={`${sourceSans.className} text-base lg:text-xl text-[#4A5565] leading-8 mb-8 w-[90%]`}
+          >
             When renting or buying a property, either commercial or domestic,
             you should receive an Energy Performance Certificate (EPC). This
             certificate is the result of an assessment by a professional,
@@ -36,13 +35,14 @@ const EPCDescription = () => {
 
           {/* CTA */}
           <div>
-            <Button
-              size="lg"
-              onClick={() => scrollTo("services")}
-              className="bg-[#262A6F] hover:bg-[#262A6F]/90 text-white px-8 py-6 text-base rounded-full"
-            >
-              Make an inquiry
-            </Button>
+            <Link href="/contact">
+              <Button
+                size="lg"
+                className="bg-[#262A6F] hover:bg-[#262A6F]/90 text-white px-8 py-6 text-base rounded-full"
+              >
+                Make an inquiry
+              </Button>
+            </Link>
           </div>
         </div>
 
