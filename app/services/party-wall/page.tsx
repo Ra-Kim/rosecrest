@@ -1,0 +1,34 @@
+import Footer from "@/components/common/Footer";
+import JourneyHero from "@/fragments/journeys/JourneyHero";
+import CreatePartyWall from "@/fragments/partywall/CreatePartyWall";
+import PartywallDesc from "@/fragments/partywall/PartyWallDesc";
+import PartyWallFAQ from "@/fragments/partywall/PartywallFAQ";
+import PartyWallIncludes from "@/fragments/partywall/PartywallIncludes";
+import SingleAppointedSurveyor from "@/fragments/partywall/SingleAppointed";
+import { sourceSans } from "@/lib/fonts";
+
+const Page = () => {
+  return (
+    <div>
+      <JourneyHero>
+        <p className="text-white text-4xl lg:text-5xl tracking-tight leading-16">
+          Party Wall and Professional Advice
+        </p>
+        <p
+          className={`${sourceSans.className} mt-10 max-w-4xl mx-auto text-white text-xl lg:text-2xl leading-relaxed`}
+        >
+          A Party Wall Surveyor performs a specialist role in resolving disputes
+          between neighbours under the Party Wall etc Act 1996.
+        </p>
+      </JourneyHero>
+      <PartywallDesc />
+      <PartyWallIncludes />
+      <SingleAppointedSurveyor />
+      <CreatePartyWall />
+      <PartyWallFAQ />
+      <Footer />
+    </div>
+  );
+};
+
+export default Page;
