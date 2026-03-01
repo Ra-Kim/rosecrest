@@ -9,7 +9,6 @@ import LegalExpertServices from "@/fragments/councils/LegalServices";
 import CouncilMoreInfo from "@/fragments/councils/MoreInfo";
 import ProfessionalStandards from "@/fragments/councils/ProfessionalStandards";
 import RecentWork from "@/fragments/councils/RecentWork";
-import WhyClientsRelyOnUs from "@/fragments/councils/WhyRely";
 import JourneyHero from "@/fragments/journeys/JourneyHero";
 
 const Page = () => {
@@ -31,7 +30,6 @@ const Page = () => {
       <ComplianceRisk />
       <AssetHousingStock />
       <LegalExpertServices />
-      <WhyClientsRelyOnUs />
       <ProfessionalStandards />
       <CouncilMoreInfo />
       <Footer />

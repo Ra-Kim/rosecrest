@@ -6,6 +6,7 @@ import LegalDesc from "@/fragments/legal/LegalDisc";
 import LegalMoreInfo from "@/fragments/legal/LegalMoreInfo";
 import ProfessionalStandardsLegal from "@/fragments/legal/LegalProfessionalStandards";
 import LegalServices from "@/fragments/legal/LegalServices";
+import MLATestimonials from "@/fragments/legal/MLATestimonials";
 import SupportingLegalProfessionals from "@/fragments/legal/SupportingLegal";
 
 const Page = () => {
@@ -24,6 +25,7 @@ const Page = () => {
       <SupportingLegalProfessionals />
       <LegalServices />
       <LegalAidInstructions />
+      <MLATestimonials />
       <ProfessionalStandardsLegal />
       <LegalMoreInfo />
       <Footer />

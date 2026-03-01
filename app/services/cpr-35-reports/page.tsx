@@ -1,6 +1,9 @@
 import Footer from "@/components/common/Footer";
 import CPRDescription from "@/fragments/cpr/CPRDescription";
+import CPRFAQ from "@/fragments/cpr/CPRFAQ";
+import DINTestimonials from "@/fragments/cpr/DINTestimonials";
 import ExpertWitness from "@/fragments/cpr/ExpertWitness";
+import CPRMoreInfo from "@/fragments/cpr/MoreInfo";
 import JourneyHero from "@/fragments/journeys/JourneyHero";
 import { sourceSans } from "@/lib/fonts";
 
@@ -21,6 +24,9 @@ const Page = () => {
       </JourneyHero>
       <CPRDescription />
       <ExpertWitness />
+      <DINTestimonials />
+      <CPRMoreInfo />
+      <CPRFAQ />
       <Footer />
     </div>
   );

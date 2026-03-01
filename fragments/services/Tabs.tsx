@@ -60,7 +60,7 @@ const ServiceTabs = () => {
       title: "RICS Building Surveys (Level 1, 2 & 3)",
       description:
         "Detailed RICS-compliant surveys providing clear insight into property condition and risks.",
-      href: "/services/rics-building-surveys",
+      href: "/homebuyer",
       iconBgColor: "bg-[#262A6F]",
     },
     {
@@ -68,7 +68,7 @@ const ServiceTabs = () => {
       title: "Housing Disrepair Claims",
       description:
         "Independent inspections and reporting to support housing disrepair claims and legal proceedings.",
-      href: "/services/housing-disrepair-claims",
+      href: "/services/housing-disrepair",
       iconBgColor: "bg-[#262A6F]",
     },
     {

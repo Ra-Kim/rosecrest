@@ -5,7 +5,7 @@ import React from "react";
 
 const ExpertWitness = () => {
   return (
-    <section className="py-16 lg:py-24 px-4 bg-[#FBF7F4]">
+    <section className="py-16 lg:py-24 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <h2 className="text-3xl lg:text-5xl max-w-4xl mx-auto font-bold text-[#101828] text-center mb-10 leading-tight">

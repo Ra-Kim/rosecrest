@@ -22,22 +22,7 @@ const testimonials = [
       avatar: "/assets/images/profile.png",
     },
   ],
-  [
-    {
-      quote:
-        "Outstanding damp and mould assessments across our entire portfolio. The reports were clear, actionable and stood up to legal scrutiny when we needed them most.",
-      org: "City Housing Trust",
-      name: "Emma Clarke, Property Director",
-      avatar: "/assets/images/profile.png",
-    },
-    {
-      quote:
-        "Their RICS-regulated surveyors delivered exactly what we needed for our HHSRS compliance programme. Reliable, professional and on time every time.",
-      org: "Borough Council",
-      name: "James Patel, Housing Standards Manager",
-      avatar: "/assets/images/profile.png",
-    },
-  ],
+
   [
     {
       quote:
@@ -54,25 +39,9 @@ const testimonials = [
       avatar: "/assets/images/profile.png",
     },
   ],
-  [
-    {
-      quote:
-        "Outstanding damp and mould assessments across our entire portfolio. The reports were clear, actionable and stood up to legal scrutiny when we needed them most.",
-      org: "City Housing Trust",
-      name: "Emma Watson, Property Director",
-      avatar: "/assets/images/profile.png",
-    },
-    {
-      quote:
-        "Their RICS-regulated surveyors delivered exactly what we needed for our HHSRS compliance programme. Reliable, professional and on time every time.",
-      org: "Borough Council",
-      name: "James Potter, Housing Standards Manager",
-      avatar: "/assets/images/profile.png",
-    },
-  ],
 ];
 
-const WhyClientsRelyOnUs = () => {
+const MLATestimonials = () => {
   const [current, setCurrent] = useState(0);
   const [animating, setAnimating] = useState(false);
   const [direction, setDirection] = useState<"left" | "right">("right");
@@ -119,13 +88,12 @@ const WhyClientsRelyOnUs = () => {
         {/* Heading */}
         <div className="text-center mb-12">
           <h2 className="text-4xl lg:text-5xl font-bold text-[#101828] mb-4">
-            Why Clients Rely on Us
+            Testimonials from MLA Solicitors
           </h2>
           <p
             className={`${sourceSans.className} text-[#4A5565] text-base lg:text-lg mx-auto`}
           >
-            Specializing in housing standards, compliance and risk management,
-            we advocate for professional and transparent service delivery.
+            Here’s what our MLA Solicitors are saying
           </p>
         </div>
 
@@ -215,4 +183,4 @@ const WhyClientsRelyOnUs = () => {
   );
 };
 
-export default WhyClientsRelyOnUs;
+export default MLATestimonials;
