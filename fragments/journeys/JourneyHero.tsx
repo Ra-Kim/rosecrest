@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const JourneyHero = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="relative w-full min-h-125">
+    <div className="relative w-full min-h-90 md:min-h-125">
       {/* Background Image */}
       <Image
         src="/assets/images/journey-hero.jpg"
@@ -21,7 +21,7 @@ const JourneyHero = ({ children }: { children: React.ReactNode }) => {
       <div className="absolute inset-0 bg-[#151515B2]" />
 
       {/* Content */}
-      <div className="relative z-10 rounded-4xl w-full pt-56 text-center px-4">
+      <div className="relative z-10 rounded-4xl w-full pt-36 md:pt-56 text-center px-4">
         {children}
       </div>
     </div>
