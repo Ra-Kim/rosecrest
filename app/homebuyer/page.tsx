@@ -35,7 +35,7 @@ const Page = () => {
           Choose the Right Survey in 60 Seconds
         </p>
         <p
-          className={`${sourceSans.className} mt-10 mx-auto text-white text-xl lg:text-2xl leading-relaxed`}
+          className={`${sourceSans.className} mt-5 sm:mt-10 mx-auto text-white text-base lg:text-2xl leading-relaxed`}
         >
           We&apos;ll help you select the most suitable survey based on the
           property you&apos;re purchasing.

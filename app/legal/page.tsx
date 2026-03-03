@@ -14,7 +14,7 @@ const Page = () => {
     <div>
       <JourneyHero>
         <div className="text-center">
-          <p className="text-white text-4xl lg:text-5xl tracking-tight leading-16 w-3/4 mx-auto mt-12">
+          <p className="text-white text-3xl lg:text-5xl tracking-tight leading-16 sm:w-3/4 mx-auto mt-12">
             Independent Property Inspection & Expert Reporting for Legal
             Instructions
           </p>

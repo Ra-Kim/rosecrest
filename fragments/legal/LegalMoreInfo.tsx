@@ -14,7 +14,7 @@ const LegalMoreInfo = () => {
           {/* Availability Check Section */}
           <div className="relative rounded-2xl lg:rounded-[24px] overflow-hidden">
             {/* Background Image */}
-            <div className="relative h-80 lg:h-134.25 flex justify-center items-center">
+            <div className="relative sm:h-80 lg:h-134.25 flex justify-center items-center">
               <Image
                 src="/assets/images/availability-bg.jpg"
                 alt="Property background"
@@ -27,7 +27,7 @@ const LegalMoreInfo = () => {
               <div className="absolute inset-0 bg-[#0000004D]" />
 
               {/* Content */}
-              <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 w-[85%] backdrop-blur-[20px] bg-[#FFFFFF26] h-99 rounded-[24px]">
+              <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 w-[85%] backdrop-blur-[20px] bg-[#FFFFFF26] py-8 sm:h-99 rounded-[24px]">
                 <h2 className="text-white text-3xl lg:text-6xl mb-4 font-medium leading-tight">
                   Discuss your requirements
                 </h2>

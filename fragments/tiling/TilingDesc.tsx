@@ -2,8 +2,10 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { sourceSans } from "@/lib/fonts";
+import { useRouter } from "next/navigation";
 
 const TilingDescription = () => {
+  const router = useRouter()
   return (
     <div className="bg-[#FBF7F4]">
       <div className="grid lg:grid-cols-2 px-2 sm:px-0 py-12 lg:py-20 gap-8 items-center max-w-7xl mx-auto">
@@ -26,6 +28,7 @@ const TilingDescription = () => {
           <div className="flex items-center gap-6 flex-wrap">
             <Button
               size="lg"
+              onClick={() => router.push("/contact")}
               className="bg-[#262A6F] hover:bg-[#262A6F]/90 text-white px-8 py-6 text-base rounded-full"
             >
               Make an inquiry

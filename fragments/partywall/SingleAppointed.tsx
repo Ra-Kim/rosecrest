@@ -9,7 +9,7 @@ const SingleAppointedSurveyor = () => {
       <div className="max-w-7xl mx-auto">
 
         {/* Heading */}
-        <h2 className="text-3xl lg:text-5xl max-w-4xl mx-auto font-bold text-[#101828] text-center mb-10 leading-tight">
+        <h2 className="text-3xl lg:text-5xl max-w-4xl mx-auto font-bold text-[#101828] text-center sm:mb-10 leading-tight">
           The Single-Appointed Party Wall Surveyor
         </h2>
 

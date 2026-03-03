@@ -89,8 +89,8 @@ const MoreInfo = ({ onOpenBooking }: MoreInfoProps) => {
                   quality={90}
                 />
                 <div className="absolute inset-0 bg-[#0000004D]" />
-                <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 w-[85%] backdrop-blur-[20px] bg-[#FFFFFF26] h-87.5 rounded-[24px]">
-                  <h2 className="text-white text-3xl lg:text-5xl mb-6 font-medium max-w-3xl leading-tight">
+                <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 w-[85%] backdrop-blur-[20px] bg-[#FFFFFF26] py-8 sm:h-87.5 rounded-[24px]">
+                  <h2 className="text-white text-xl lg:text-5xl mb-6 font-medium max-w-3xl leading-tight">
                     Ready to check availability and get a fixed price?
                   </h2>
                   <Button

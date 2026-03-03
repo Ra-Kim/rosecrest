@@ -32,7 +32,7 @@ const features = [
 const ComplianceRisk = () => {
   return (
     <section className="max-w-7xl mx-auto pt-8 pb-12 px-4">
-      <div className="bg-linear-to-b from-[#31368B] to-[#1A1D4F] rounded-[24px] px-12 py-20">
+      <div className="bg-linear-to-b from-[#31368B] to-[#1A1D4F] rounded-[24px] px-4 sm:px-12 py-20">
         {/* Heading */}
         <h2 className="text-4xl lg:text-5xl font-bold text-white text-center mb-12">
           Compliance &amp; Risk Management

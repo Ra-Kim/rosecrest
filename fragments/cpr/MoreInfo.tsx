@@ -1,9 +1,11 @@
+"use client";
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Award, CheckCircle, ChevronRight, Clock, Phone } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { sourceSans } from "@/lib/fonts";
+import { useRouter } from "next/navigation";
 
 const trust = [
   {
@@ -15,6 +17,7 @@ const trust = [
 ];
 
 const CPRMoreInfo = () => {
+  const router = useRouter();
   return (
     <section className="py-16 px-4" id="more-info">
       <div className="max-w-7xl mx-auto">
@@ -23,7 +26,7 @@ const CPRMoreInfo = () => {
           {/* Availability Check Section */}
           <div className="relative rounded-2xl lg:rounded-[24px] overflow-hidden">
             {/* Background Image */}
-            <div className="relative h-80 lg:h-134.25 flex justify-center items-center">
+            <div className="relative sm:h-80 lg:h-134.25 flex justify-center items-center">
               <Image
                 src="/assets/images/availability-bg.jpg"
                 alt="Property background"
@@ -36,7 +39,7 @@ const CPRMoreInfo = () => {
               <div className="absolute inset-0 bg-[#0000004D]" />
 
               {/* Content */}
-              <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 w-[85%] backdrop-blur-[20px] bg-[#FFFFFF26] h-99 rounded-[24px]">
+              <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 w-[85%] backdrop-blur-[20px] bg-[#FFFFFF26] py-8 sm:h-99 rounded-[24px]">
                 <h2 className="text-white text-3xl lg:text-6xl mb-4 font-medium leading-tight">
                   Need help quickly?
                 </h2>
@@ -52,18 +55,21 @@ const CPRMoreInfo = () => {
                 <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
                   <Button
                     size="lg"
+                    onClick={() => router.push("/contact")}
                     className="bg-[#DBB38E] hover:bg-[#DBB38E]/90 text-[#151515] px-8 py-6 rounded-full text-base font-medium"
                   >
                     Request a discussion
                   </Button>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="bg-transparent border border-white/40 hover:bg-white/10 text-white px-8 py-6 rounded-full text-base font-medium backdrop-blur-sm"
-                  >
-                    <Phone className="w-4 h-4 mr-2" />
-                    +44 (0) 20 1234 5678
-                  </Button>
+                  <Link href="tel:+442012345678">
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="bg-transparent border border-white/40 hover:bg-white/10 text-white px-8 py-6 rounded-full text-base font-medium backdrop-blur-sm"
+                    >
+                      <Phone className="w-4 h-4 mr-2" />
+                      +44 (0) 20 1234 5678
+                    </Button>
+                  </Link>
                 </div>
 
                 {/* Trust indicators */}

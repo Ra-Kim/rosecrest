@@ -1,8 +1,10 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { sourceSans } from "@/lib/fonts";
+import { useRouter } from "next/navigation";
 
 const HousingContact = () => {
+  const router = useRouter();
   return (
     <div className="bg-[#FBF7F4]">
       <div className="px-2 sm:px-0 py-12 lg:py-20 gap-8 items-center max-w-7xl mx-auto">
@@ -22,6 +24,7 @@ const HousingContact = () => {
           <div>
             <Button
               size="lg"
+              onClick={() => router.push("/contact")}
               className="bg-[#262A6F] hover:bg-[#262A6F]/90 text-white px-8 py-6 text-base rounded-full"
             >
               Contact us

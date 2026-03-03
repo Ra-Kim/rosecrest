@@ -2,11 +2,10 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { sourceSans } from "@/lib/fonts";
+import { useRouter } from "next/navigation";
 
 const PAintDescription = () => {
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  };
+  const router = useRouter()
 
   return (
     <div className="bg-[#FBF7F4]">
@@ -28,7 +27,7 @@ const PAintDescription = () => {
           <div className="flex items-center gap-6 flex-wrap">
             <Button
               size="lg"
-              onClick={() => scrollTo("services")}
+              onClick={() => router.push("/contact")}
               className="bg-[#262A6F] hover:bg-[#262A6F]/90 text-white px-8 py-6 text-base rounded-full"
             >
               Make an inquiry

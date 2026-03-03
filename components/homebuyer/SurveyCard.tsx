@@ -74,7 +74,7 @@ const SurveyCard = ({
         {/* Read More Link */}
         <Link
           href={buttonLink}
-          className="inline-flex items-center gap-2 text-[#262A6F] font-medium hover:gap-3 transition-all"
+          className="inline-flex items-center gap-2 text-[#262A6F] font-medium hover:gap-3 transition-all -mt-2 sm:mt-0"
         >
           Read more
           <ArrowRight className="w-4 h-4" />
@@ -84,7 +84,7 @@ const SurveyCard = ({
       {/* CTA Button */}
       <div>
         <Button
-          className="w-full bg-[#262A6F] hover:bg-[#262A6F]/90 text-white rounded-full py-6 font-medium"
+          className="w-full bg-[#262A6F] hover:bg-[#262A6F]/90 text-white rounded-full py-6 font-medium mt-4 sm:mt-0"
           size="lg"
           onClick={onSelectSurvey}
         >
