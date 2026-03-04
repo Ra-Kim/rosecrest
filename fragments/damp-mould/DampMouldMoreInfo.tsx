@@ -1,13 +1,22 @@
 "use client"
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { ChevronRight, Phone } from "lucide-react";
+import { Award, CheckCircle, ChevronRight, Clock, Phone } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { sourceSans } from "@/lib/fonts";
 import { useRouter } from "next/navigation";
 
-const LegalMoreInfo = () => {
+const trust = [
+  {
+    icon: <CheckCircle className="w-4 h-4 text-[#DBB38E]" />,
+    label: "RICS Regulated",
+  },
+  { icon: <Clock className="w-4 h-4 text-[#DBB38E]" />, label: "24h Response" },
+  { icon: <Award className="w-4 h-4 text-[#DBB38E]" />, label: "Independent" },
+];
+
+const DampMouldMoreInfo = () => {
   const router = useRouter();
   return (
     <section className="py-16 px-4" id="more-info">
@@ -32,14 +41,14 @@ const LegalMoreInfo = () => {
               {/* Content */}
               <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 w-[85%] backdrop-blur-[20px] bg-[#FFFFFF26] py-8 sm:h-99 rounded-[24px]">
                 <h2 className="text-white text-3xl lg:text-6xl mb-4 font-medium leading-tight">
-                  Discuss your requirements
+                  Need help quickly?
                 </h2>
 
                 <p
                   className={`${sourceSans.className} text-white/90 text-base lg:text-2xl mb-8 max-w-xl`}
                 >
-                  We welcome the opportunity to discuss your instruction
-                  requirements and confirm how we can support your legal matter.
+                  Speak to our expert team to discuss your requirements or book
+                  your inspection today
                 </p>
 
                 {/* Buttons */}
@@ -62,6 +71,23 @@ const LegalMoreInfo = () => {
                     </Button>
                   </Link>
                 </div>
+
+                {/* Trust indicators */}
+                <div className="flex flex-wrap items-center justify-center gap-4 text-white/80">
+                  {trust.map((item, i) => (
+                    <React.Fragment key={i}>
+                      <span className="flex items-center gap-1.5">
+                        {item.icon}
+                        <span className={sourceSans.className}>
+                          {item.label}
+                        </span>
+                      </span>
+                      {i < trust.length - 1 && (
+                        <span className="text-white/40">•</span>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -82,4 +108,4 @@ const LegalMoreInfo = () => {
   );
 };
 
-export default LegalMoreInfo;
+export default DampMouldMoreInfo;

@@ -28,8 +28,8 @@ const Navbar = () => {
     switch (pathname) {
       case "/":
         return "home";
-      case "/about":
-        return "about";
+      case "/areas-we-cover":
+        return "areas-we-cover";
       case "/services":
         return "services";
       case "/contact":
@@ -112,13 +112,13 @@ const Navbar = () => {
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuLink href="/about">
+              <NavigationMenuLink href="/areas-we-cover">
                 <p
                   className={`${sourceSans.className} bg-transparent hover:underline ${isDarkNav ? "text-[#151515]" : "text-white"} transition-all ${
-                    active === "about" ? "font-semibold" : "font-normal"
+                    active === "areas-we-cover" ? "font-semibold" : "font-normal"
                   }`}
                 >
-                  About
+                  Areas We Cover
                 </p>
               </NavigationMenuLink>
             </NavigationMenuItem>
@@ -193,15 +193,15 @@ const Navbar = () => {
                 </li>
                 <li>
                   <Link
-                    href="/about"
+                    href="/areas-we-cover"
                     className={`text-lg font-medium transition-colors ${
-                      active === "about"
+                      active === "areas-we-cover"
                         ? "text-primary"
                         : "text-foreground hover:text-primary"
                     }`}
                     onClick={() => setNavOpen(false)}
                   >
-                    About
+                    Areas We Cover
                   </Link>
                 </li>
                 <li>

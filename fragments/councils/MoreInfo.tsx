@@ -1,11 +1,13 @@
-import React from "react";
+"use client"
 import { Button } from "@/components/ui/button";
 import { ChevronRight, Phone } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { sourceSans } from "@/lib/fonts";
+import { useRouter } from "next/navigation";
 
 const CouncilMoreInfo = () => {
+  const router = useRouter()
   return (
     <section className="py-16 px-4" id="more-info">
       <div className="max-w-7xl mx-auto">
@@ -44,18 +46,21 @@ const CouncilMoreInfo = () => {
                 <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
                   <Button
                     size="lg"
+                    onClick={() => router.push("/contact")}
                     className="bg-[#DBB38E] hover:bg-[#DBB38E]/90 text-[#151515] px-8 py-6 rounded-full text-base font-medium"
                   >
                     Request a discussion
                   </Button>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="bg-transparent border border-white/40 hover:bg-white/10 text-white px-8 py-6 rounded-full text-base font-medium backdrop-blur-sm"
-                  >
-                    <Phone className="w-4 h-4 mr-2" />
-                    +44 (0) 20 1234 5678
-                  </Button>
+                  <Link href={`tel:+442012345678`}>
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="bg-transparent border border-white/40 hover:bg-white/10 text-white px-8 py-6 rounded-full text-base font-medium backdrop-blur-sm"
+                    >
+                      <Phone className="w-4 h-4 mr-2" />
+                      +44 (0) 20 1234 5678
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>

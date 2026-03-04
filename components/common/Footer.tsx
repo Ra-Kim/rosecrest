@@ -23,7 +23,7 @@ const Footer: React.FC<FooterProps> = ({ quickLinks }) => {
 
   const defaultQuickLinks: QuickLink[] = [
     { label: "Services", href: "/services" },
-    { label: "About Us", href: "/about" },
+    { label: "Areas We Cover", href: "/areas-we-cover" },
     { label: "Contact", href: "/contact" },
     {
       label: "Terms of Engagement",
