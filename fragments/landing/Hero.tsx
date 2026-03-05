@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const Hero = () => {
   return (
-    <div className="relative w-full min-h-[95vh]">
+    <div className="relative w-full min-h-[95vh] md:min-h-[70vh] lg:min-h-[95vh]">
       {/* Background Image */}
       <Image
         src="/assets/images/landing-hero.png"
@@ -19,7 +19,7 @@ const Hero = () => {
       <div className="absolute inset-0 bg-[#151515CC]" />
 
       {/* Content */}
-      <div className="relative z-10 rounded-4xl w-full pt-44 lg:pt-56 text-center px-4">
+      <div className="relative z-10 rounded-4xl w-full pt-44 lg:pt-56 text-center px-4 pb-20 md:pb-16 lg:pb-56">
         <p
           className={`${sourceSans.className} bg-[#DBB38E66] p-2.5 px-5 mb-8 rounded-4xl w-fit mx-auto font-medium text-lg text-white/90`}
         >
