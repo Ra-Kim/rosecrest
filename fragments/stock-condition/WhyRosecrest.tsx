@@ -18,7 +18,7 @@ export default function WhyChooseSection() {
             At Rosecrest group Ltd, our expert team is dedicated to delivering
             comprehensive and trustworthy{" "}
             <Link
-              href="/stock-condition-assessments"
+              href="/stock-condition"
               className="underline text-gray-900 hover:text-[#1E3A8A] transition-colors"
             >
               stock condition surveys

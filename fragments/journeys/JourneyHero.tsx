@@ -11,7 +11,6 @@ const JourneyHero = ({ children }: { children: React.ReactNode }) => {
         fill
         priority
         className="object-cover"
-        quality={90}
          style={{
           objectPosition: "center top",
         }}

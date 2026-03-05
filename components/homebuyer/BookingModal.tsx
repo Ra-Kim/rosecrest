@@ -37,12 +37,19 @@ interface BookingModalProps {
   basePrice?: number;
 }
 
-const SURVEY_DEFAULTS: Record<1 | 2 | 3, { title: string; basePrice: number }> =
-  {
-    1: { title: "Level 1 — Home Conditions Survey", basePrice: 299 },
-    2: { title: "Level 2 — Homebuyer Survey", basePrice: 450 },
-    3: { title: "Level 3 — Building Survey", basePrice: 699 },
-  };
+// ─── Static maps ─────────────────────────────────────────────────────────────
+
+const SURVEY_PRICES: Record<string, number> = {
+  "level-1": 299,
+  "level-2": 450,
+  "level-3": 699,
+};
+
+const SURVEY_LABELS: Record<string, string> = {
+  "level-1": "Level 1 — Home Conditions Survey",
+  "level-2": "Level 2 — Homebuyer Survey",
+  "level-3": "Level 3 — Building Survey",
+};
 
 // ─── Schema ──────────────────────────────────────────────────────────────────
 
@@ -62,13 +69,9 @@ const BookingModal = ({
   isOpen,
   onClose,
   surveyLevel = 2,
-  surveyTitle,
-  basePrice,
 }: BookingModalProps) => {
-  const defaults = SURVEY_DEFAULTS[surveyLevel];
-  const resolvedTitle = surveyTitle ?? defaults.title;
-  const resolvedBasePrice = basePrice ?? defaults.basePrice;
   const expressServiceCost = 150;
+  const defaultSurveyType = `level-${surveyLevel}`;
 
   const {
     register,
@@ -82,7 +85,7 @@ const BookingModal = ({
       propertyType: "",
       bedrooms: "",
       purchaseStage: "",
-      surveyType: `level-${surveyLevel}`,
+      surveyType: defaultSurveyType,
       timeline: "",
       expressService: false,
     },
@@ -94,8 +97,15 @@ const BookingModal = ({
     defaultValue: false,
   });
 
-  const totalPrice =
-    resolvedBasePrice + (expressServiceChecked ? expressServiceCost : 0);
+  const selectedSurveyType = useWatch({
+    control,
+    name: "surveyType",
+    defaultValue: defaultSurveyType,
+  });
+
+  const activeSurveyPrice = SURVEY_PRICES[selectedSurveyType] ?? SURVEY_PRICES[defaultSurveyType];
+  const activeSurveyTitle = SURVEY_LABELS[selectedSurveyType] ?? SURVEY_LABELS[defaultSurveyType];
+  const totalPrice = activeSurveyPrice + (expressServiceChecked ? expressServiceCost : 0);
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     console.log(values);
@@ -105,14 +115,12 @@ const BookingModal = ({
   if (!isOpen) return null;
 
   return (
-    /* ── Backdrop ── */
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
-      {/* ── Dialog card ── */}
       <div className="relative w-full max-w-5xl max-h-[92vh] flex flex-col bg-white rounded-4xl shadow-2xl overflow-hidden">
-        {/* ── Header ── */}
+        {/* Header */}
         <div className="flex items-center justify-between px-8 pt-7 pb-5 shrink-0">
           <h2 className="text-xl font-bold text-[#101828]">
             Check Availability & Get a Fixed Price
@@ -126,27 +134,21 @@ const BookingModal = ({
           </button>
         </div>
 
-        {/* ── Scrollable body ── */}
+        {/* Scrollable body */}
         <div className="overflow-y-auto px-8 pb-2 flex-1">
           <div className="grid lg:grid-cols-2 gap-6">
-            {/* ── LEFT: Form ── */}
+            {/* LEFT: Form */}
             <div className="space-y-5">
-              {/* Info banner */}
               <div className="bg-[#EFF6FF] rounded-xl p-3.5 flex items-start gap-3">
                 <div className="h-5 w-5 border-2 border-blue-600 rounded-full grid place-items-center shrink-0 mt-0.5">
                   <Circle className="w-2 h-2 text-blue-600 fill-blue-600" />
                 </div>
                 <p className={`text-sm text-[#364153] ${sourceSans.className}`}>
-                  {`Provide a few details and we'll instantly show your survey price and available
-                  inspection dates. Takes less than 60 seconds.`}
+                  {`Provide a few details and we'll instantly show your survey price and available inspection dates. Takes less than 60 seconds.`}
                 </p>
               </div>
 
-              <form
-                id="booking-form"
-                onSubmit={handleSubmit(onSubmit)}
-                className="space-y-4"
-              >
+              <form id="booking-form" onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 {/* Postcode */}
                 <div className="space-y-1.5">
                   <Label className="text-sm font-medium text-gray-700">
@@ -160,29 +162,20 @@ const BookingModal = ({
                       {...register("postcode")}
                     />
                   </div>
-                  {errors.postcode && (
-                    <p className="text-xs text-red-500">
-                      {errors.postcode.message}
-                    </p>
-                  )}
+                  {errors.postcode && <p className="text-xs text-red-500">{errors.postcode.message}</p>}
                 </div>
 
                 {/* Property type + Bedrooms */}
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1.5">
-                    <Label className="text-sm font-medium text-gray-700">
-                      Property type
-                    </Label>
+                    <Label className="text-sm font-medium text-gray-700">Property type</Label>
                     <div className="relative">
                       <Home className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 z-10 pointer-events-none" />
                       <Controller
                         name="propertyType"
                         control={control}
                         render={({ field }) => (
-                          <Select
-                            onValueChange={field.onChange}
-                            value={field.value}
-                          >
+                          <Select onValueChange={field.onChange} value={field.value}>
                             <SelectTrigger className="pl-9 h-11 rounded-xl border-[#E5E7EB] w-full text-sm">
                               <SelectValue placeholder="Select type" />
                             </SelectTrigger>
@@ -190,152 +183,107 @@ const BookingModal = ({
                               <SelectItem value="house">House</SelectItem>
                               <SelectItem value="flat">Flat</SelectItem>
                               <SelectItem value="bungalow">Bungalow</SelectItem>
-                              <SelectItem value="maisonette">
-                                Maisonette
-                              </SelectItem>
+                              <SelectItem value="maisonette">Maisonette</SelectItem>
                             </SelectContent>
                           </Select>
                         )}
                       />
                     </div>
-                    {errors.propertyType && (
-                      <p className="text-xs text-red-500">
-                        {errors.propertyType.message}
-                      </p>
-                    )}
+                    {errors.propertyType && <p className="text-xs text-red-500">{errors.propertyType.message}</p>}
                   </div>
 
                   <div className="space-y-1.5">
-                    <Label className="text-sm font-medium text-gray-700">
-                      Bedrooms
-                    </Label>
+                    <Label className="text-sm font-medium text-gray-700">Bedrooms</Label>
                     <div className="relative">
                       <Bed className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 z-10 pointer-events-none" />
                       <Controller
                         name="bedrooms"
                         control={control}
                         render={({ field }) => (
-                          <Select
-                            onValueChange={field.onChange}
-                            value={field.value}
-                          >
+                          <Select onValueChange={field.onChange} value={field.value}>
                             <SelectTrigger className="pl-9 h-11 rounded-xl border-[#E5E7EB] w-full text-sm">
                               <SelectValue placeholder="Select" />
                             </SelectTrigger>
                             <SelectContent>
                               {["1", "2", "3", "4", "5+"].map((n) => (
-                                <SelectItem key={n} value={n}>
-                                  {n}
-                                </SelectItem>
+                                <SelectItem key={n} value={n}>{n}</SelectItem>
                               ))}
                             </SelectContent>
                           </Select>
                         )}
                       />
                     </div>
-                    {errors.bedrooms && (
-                      <p className="text-xs text-red-500">
-                        {errors.bedrooms.message}
-                      </p>
-                    )}
+                    {errors.bedrooms && <p className="text-xs text-red-500">{errors.bedrooms.message}</p>}
                   </div>
                 </div>
 
                 {/* Purchase stage */}
                 <div className="space-y-1.5">
-                  <Label className="text-sm font-medium text-gray-700">
-                    Purchase stage
-                  </Label>
+                  <Label className="text-sm font-medium text-gray-700">Purchase stage</Label>
                   <Controller
                     name="purchaseStage"
                     control={control}
                     render={({ field }) => (
-                      <Select
-                        onValueChange={field.onChange}
-                        value={field.value}
-                      >
+                      <Select onValueChange={field.onChange} value={field.value}>
                         <SelectTrigger className="h-11 rounded-xl border-[#E5E7EB] w-full text-sm">
                           <SelectValue placeholder="Select stage" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="viewing">Just viewing</SelectItem>
                           <SelectItem value="offer-made">Offer made</SelectItem>
-                          <SelectItem value="offer-accepted">
-                            Offer accepted
-                          </SelectItem>
-                          <SelectItem value="exchange">
-                            Exchanged contracts
-                          </SelectItem>
+                          <SelectItem value="offer-accepted">Offer accepted</SelectItem>
+                          <SelectItem value="exchange">Exchanged contracts</SelectItem>
                         </SelectContent>
                       </Select>
                     )}
                   />
-                  {errors.purchaseStage && (
-                    <p className="text-xs text-red-500">
-                      {errors.purchaseStage.message}
-                    </p>
-                  )}
+                  {errors.purchaseStage && <p className="text-xs text-red-500">{errors.purchaseStage.message}</p>}
                 </div>
 
-                {/* Survey type */}
+                {/* Survey type
+                    Do NOT pass value= here — Radix ignores defaultValue when value is
+                    also present (controlled vs uncontrolled conflict). We drive the initial
+                    selection via defaultValue and updates via onValueChange only.        */}
                 <div className="space-y-1.5">
-                  <Label className="text-sm font-medium text-gray-700">
-                    Survey type
-                  </Label>
+                  <Label className="text-sm font-medium text-gray-700">Survey type</Label>
                   <Controller
                     name="surveyType"
                     control={control}
                     render={({ field }) => (
                       <Select
+                        key={defaultSurveyType}
                         onValueChange={field.onChange}
-                        value={field.value}
+                        defaultValue={defaultSurveyType}
                       >
                         <SelectTrigger className="h-11 rounded-xl border-[#E5E7EB] w-full text-sm">
-                          <SelectValue placeholder="Select type" />
+                          <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="level-1">
-                            Level 1 — Home Conditions Survey
-                          </SelectItem>
-                          <SelectItem value="level-2">
-                            Level 2 — Homebuyer Survey
-                          </SelectItem>
-                          <SelectItem value="level-3">
-                            Level 3 — Building Survey
-                          </SelectItem>
+                          <SelectItem value="level-1">Level 1 — Home Conditions Survey</SelectItem>
+                          <SelectItem value="level-2">Level 2 — Homebuyer Survey</SelectItem>
+                          <SelectItem value="level-3">Level 3 — Building Survey</SelectItem>
                         </SelectContent>
                       </Select>
                     )}
                   />
-                  {errors.surveyType && (
-                    <p className="text-xs text-red-500">
-                      {errors.surveyType.message}
-                    </p>
-                  )}
+                  {errors.surveyType && <p className="text-xs text-red-500">{errors.surveyType.message}</p>}
                 </div>
 
                 {/* Timeline */}
                 <div className="space-y-1.5">
-                  <Label className="text-sm font-medium text-gray-700">
-                    Timeline
-                  </Label>
+                  <Label className="text-sm font-medium text-gray-700">Timeline</Label>
                   <div className="relative">
                     <Clock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 z-10 pointer-events-none" />
                     <Controller
                       name="timeline"
                       control={control}
                       render={({ field }) => (
-                        <Select
-                          onValueChange={field.onChange}
-                          value={field.value}
-                        >
+                        <Select onValueChange={field.onChange} value={field.value}>
                           <SelectTrigger className="pl-9 h-11 rounded-xl border-[#E5E7EB] w-full text-sm">
                             <SelectValue placeholder="Select timeline" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="urgent">
-                              Urgent (1–2 days)
-                            </SelectItem>
+                            <SelectItem value="urgent">Urgent (1–2 days)</SelectItem>
                             <SelectItem value="week">Within a week</SelectItem>
                             <SelectItem value="flexible">Flexible</SelectItem>
                           </SelectContent>
@@ -343,11 +291,7 @@ const BookingModal = ({
                       )}
                     />
                   </div>
-                  {errors.timeline && (
-                    <p className="text-xs text-red-500">
-                      {errors.timeline.message}
-                    </p>
-                  )}
+                  {errors.timeline && <p className="text-xs text-red-500">{errors.timeline.message}</p>}
                 </div>
 
                 {/* Express service */}
@@ -363,19 +307,11 @@ const BookingModal = ({
                           onCheckedChange={field.onChange}
                           className="mt-0.5 h-4 w-4 rounded-[3px] border-[#99A1AF] data-[state=checked]:bg-amber-600 data-[state=checked]:border-amber-500"
                         />
-                        <Label
-                          htmlFor="expressService-modal"
-                          className="flex items-start gap-2 cursor-pointer"
-                        >
+                        <Label htmlFor="expressService-modal" className="flex items-start gap-2 cursor-pointer">
                           <Zap className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-                          <span
-                            className={`text-sm text-gray-800 ${sourceSans.className}`}
-                          >
-                            Express service — Priority booking with faster
-                            turnaround{" "}
-                            <span className="text-amber-600 font-medium">
-                              (+£{expressServiceCost})
-                            </span>
+                          <span className={`text-sm text-gray-800 ${sourceSans.className}`}>
+                            Express service — Priority booking with faster turnaround{" "}
+                            <span className="text-amber-600 font-medium">(+£{expressServiceCost})</span>
                           </span>
                         </Label>
                       </div>
@@ -385,25 +321,23 @@ const BookingModal = ({
               </form>
             </div>
 
-            {/* ── RIGHT: Quote preview ── */}
+            {/* RIGHT: Quote preview */}
             <div className="border border-[#E5E7EB] rounded-2xl p-5 h-fit">
               <div className="flex items-center gap-2 mb-3">
                 <div className="w-2 h-2 rounded-full bg-[#00C950]" />
-                <span
-                  className={`text-xs font-medium text-[#6A7282] ${sourceSans.className}`}
-                >
+                <span className={`text-xs font-medium text-[#6A7282] ${sourceSans.className}`}>
                   Quote preview
                 </span>
               </div>
 
               <h3 className="text-base font-bold text-[#101828] mb-5">
-                {resolvedTitle}
+                {activeSurveyTitle}
               </h3>
 
               <div className={`space-y-3 ${sourceSans.className}`}>
                 <div className="flex items-center justify-between text-sm text-[#4A5565]">
                   <span>Base survey price</span>
-                  <span className="font-medium">£{resolvedBasePrice}</span>
+                  <span className="font-medium">£{activeSurveyPrice}</span>
                 </div>
                 {expressServiceChecked && (
                   <div className="flex items-center justify-between text-sm text-[#4A5565]">
@@ -413,21 +347,14 @@ const BookingModal = ({
                 )}
                 <div className="pt-3 border-t border-gray-200">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-semibold text-[#101828]">
-                      Total (incl. VAT)
-                    </span>
-                    <span className="text-xl font-bold text-[#101828]">
-                      £{totalPrice}
-                    </span>
+                    <span className="text-sm font-semibold text-[#101828]">Total (incl. VAT)</span>
+                    <span className="text-xl font-bold text-[#101828]">£{totalPrice}</span>
                   </div>
                 </div>
               </div>
 
-              {/* What happens next */}
               <div className="bg-[#EFF6FF] rounded-xl p-4 mt-5">
-                <h4 className="text-sm font-bold text-[#101828] mb-3">
-                  What happens next
-                </h4>
+                <h4 className="text-sm font-bold text-[#101828] mb-3">What happens next</h4>
                 <ul className={`space-y-2.5 ${sourceSans.className}`}>
                   {[
                     "Confirm your booking",
@@ -452,7 +379,7 @@ const BookingModal = ({
           </div>
         </div>
 
-        {/* ── Footer ── */}
+        {/* Footer */}
         <div className="flex items-center justify-between px-8 py-5 border-t border-[#F3F4F6] shrink-0 bg-white">
           <button
             type="button"

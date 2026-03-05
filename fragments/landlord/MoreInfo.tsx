@@ -32,7 +32,6 @@ const LandlordMoreInfo = () => {
                 alt="Property background"
                 fill
                 className="object-cover"
-                quality={90}
               />
 
               {/* Overlay */}
