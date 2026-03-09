@@ -1,6 +1,7 @@
 import React from "react";
 import { Award, Scale, Shield, CheckCircle } from "lucide-react";
 import { sourceSans } from "@/lib/fonts";
+import { Reveal, Stagger } from "@/components/common/Reveal";
 
 const standards = [
   {
@@ -28,25 +29,31 @@ const standards = [
 const ProfessionalStandardsLegal = () => {
   return (
     <section className="max-w-7xl mx-auto py-16 lg:py-24 px-4">
+
       {/* Heading */}
-      <div className="text-center mb-14">
-        <h2 className="text-4xl lg:text-5xl font-bold text-[#101828] mb-4">
-          Professional Standards
-        </h2>
-        <p className={`${sourceSans.className} text-[#6A7282] text-base lg:text-lg`}>
-          Independence and professional integrity in all instructions
-        </p>
-      </div>
+      <Reveal animation="fade-up" duration={600}>
+        <div className="text-center mb-14">
+          <h2 className="text-4xl lg:text-5xl font-bold text-[#101828] mb-4">
+            Professional Standards
+          </h2>
+          <p className={`${sourceSans.className} text-[#6A7282] text-base lg:text-lg`}>
+            Independence and professional integrity in all instructions
+          </p>
+        </div>
+      </Reveal>
 
       {/* Icons row */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+      <Stagger
+        animation="fade-up"
+        staggerMs={120}
+        duration={500}
+        className="grid grid-cols-2 lg:grid-cols-4 gap-8"
+      >
         {standards.map((item, index) => (
           <div key={index} className="flex flex-col items-center text-center gap-4">
-            {/* Circle icon */}
             <div className="w-16 h-16 rounded-full bg-[#262A6F1A] flex items-center justify-center">
               {item.icon}
             </div>
-            {/* Labels */}
             <div>
               <p className="font-bold text-[#101828] text-base mb-1">
                 {item.title}
@@ -57,7 +64,8 @@ const ProfessionalStandardsLegal = () => {
             </div>
           </div>
         ))}
-      </div>
+      </Stagger>
+
     </section>
   );
 };

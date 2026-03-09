@@ -1,6 +1,7 @@
 import React from "react";
 import { Award, Scale, Shield, CheckCircle } from "lucide-react";
 import { sourceSans } from "@/lib/fonts";
+import { Reveal, Stagger } from "@/components/common/Reveal";
 
 const standards = [
   {
@@ -33,20 +34,24 @@ const standards = [
 const ProfessionalStandards = () => {
   return (
     <section className="max-w-7xl mx-auto py-16 lg:py-24 px-4">
-      {/* Heading */}
-      <h2 className="text-4xl lg:text-5xl font-bold text-[#101828] text-center mb-14">
-        Professional Standards &amp; Governance
-      </h2>
 
-      {/* Icons Row */}
-      <div className="flex flex-wrap justify-between gap-10 lg:gap-16 px-20">
+      <Reveal animation="fade-up" duration={600}>
+        <h2 className="text-4xl lg:text-5xl font-bold text-[#101828] text-center mb-14">
+          Professional Standards &amp; Governance
+        </h2>
+      </Reveal>
+
+      <Stagger
+        animation="fade-up"
+        staggerMs={100}
+        duration={500}
+        className="flex flex-wrap justify-between gap-10 lg:gap-16 px-20"
+      >
         {standards.map((item, index) => (
           <div key={index} className="flex flex-col items-center gap-3">
-            {/* Icon box */}
             <div className="w-20 h-20 bg-[#262A6F] rounded-2xl flex items-center justify-center">
               {item.icon}
             </div>
-            {/* Labels */}
             <div className="text-center">
               <p className={`${sourceSans.className} text-[#101828] font-medium`}>
                 {item.title}
@@ -57,7 +62,8 @@ const ProfessionalStandards = () => {
             </div>
           </div>
         ))}
-      </div>
+      </Stagger>
+
     </section>
   );
 };

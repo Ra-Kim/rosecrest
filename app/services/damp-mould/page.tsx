@@ -1,7 +1,10 @@
 import Footer from "@/components/common/Footer";
 import DampMouldDescription from "@/fragments/damp-mould/DampMouldDesc";
+import DampMouldFAQ from "@/fragments/damp-mould/DampMouldFAQs";
 import DampMouldMoreInfo from "@/fragments/damp-mould/DampMouldMoreInfo";
+import DampMouldSurveySection from "@/fragments/damp-mould/DampMouldSection";
 import DampMouldServices from "@/fragments/damp-mould/DampMouldServices";
+import MouldTreatmentSection from "@/fragments/damp-mould/MouldTreatmentSection";
 
 import JourneyHero from "@/fragments/journeys/JourneyHero";
 import React from "react";
@@ -19,7 +22,10 @@ const Page = () => {
       </JourneyHero>
       <DampMouldDescription />
       <DampMouldServices />
+      <DampMouldSurveySection />
+      <MouldTreatmentSection/>
       <DampMouldMoreInfo />
+      <DampMouldFAQ />
       <Footer />
     </div>
   );

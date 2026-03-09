@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import { sourceSans } from "@/lib/fonts";
 import Link from "next/link";
+import { Reveal, Stagger } from "@/components/common/Reveal";
 
 const services = [
   {
@@ -28,7 +29,7 @@ const services = [
       "Compliance reporting",
       "Housing Health & Safety Rating System",
     ],
-    link: "/services/hhsrs",
+    link: "/services/cpr-35-reports",
     cta: "Book HHSRS Assessment",
   },
   {
@@ -41,7 +42,7 @@ const services = [
       "Scope of works reporting",
       "Evidence for dispute resolution",
     ],
-    link: "/services/disrepair-condition",
+    link: "/services/housing-disrepair",
     cta: "Book Disrepair & Condition Surveys",
   },
   {
@@ -63,24 +64,30 @@ const LandlordsServices = () => {
   return (
     <section id="services" className="max-w-7xl mx-auto py-16 px-4">
       {/* Header */}
-      <div className="text-center mb-12">
-        <h2 className="text-4xl lg:text-5xl font-bold text-[#101828] mb-4">
-          Our Services for Landlords
-        </h2>
-        <p
-          className={`${sourceSans.className} text-[#6A7282] text-base lg:text-lg max-w-xl mx-auto`}
-        >
-          Professional inspections and compliance reporting to help you manage
-          your property portfolio
-        </p>
-      </div>
+      <Reveal animation="fade-up" duration={600}>
+        <div className="text-center mb-12">
+          <h2 className="text-4xl lg:text-5xl font-bold text-[#101828] mb-4">
+            Our Services for Landlords
+          </h2>
+          <p className={`${sourceSans.className} text-[#6A7282] text-base lg:text-lg max-w-xl mx-auto`}>
+            Professional inspections and compliance reporting to help you manage
+            your property portfolio
+          </p>
+        </div>
+      </Reveal>
 
       {/* Services Grid */}
-      <div className="grid lg:grid-cols-2 gap-6">
+      <Stagger
+        animation="fade-up"
+        staggerMs={130}
+        duration={550}
+        className="grid lg:grid-cols-2 gap-6"
+        itemClassName="flex"
+      >
         {services.map((service, index) => (
           <div
             key={index}
-            className="relative bg-white border border-gray-200 rounded-4xl p-8 flex flex-col"
+            className="relative bg-white border border-gray-200 rounded-4xl p-8 flex flex-col w-full"
           >
             {/* Badge */}
             {service.badge && (
@@ -97,9 +104,7 @@ const LandlordsServices = () => {
             </h3>
 
             {/* Description */}
-            <p
-              className={`${sourceSans.className} text-[#4A5565] text-xl mb-6 leading-relaxed`}
-            >
+            <p className={`${sourceSans.className} text-[#4A5565] text-xl mb-6 leading-relaxed`}>
               {service.description}
             </p>
 
@@ -108,9 +113,7 @@ const LandlordsServices = () => {
               {service.features.map((feature, i) => (
                 <li key={i} className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-[#DBB38E] shrink-0" />
-                  <span
-                    className={`${sourceSans.className} text-[#364153] text-base`}
-                  >
+                  <span className={`${sourceSans.className} text-[#364153] text-base`}>
                     {feature}
                   </span>
                 </li>
@@ -129,7 +132,7 @@ const LandlordsServices = () => {
             </Link>
           </div>
         ))}
-      </div>
+      </Stagger>
     </section>
   );
 };
