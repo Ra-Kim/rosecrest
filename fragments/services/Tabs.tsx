@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
+import { Reveal } from "@/components/common/Reveal";
 
 type Tab = "survey" | "trade";
 
@@ -160,7 +161,6 @@ const ServiceTabs = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Read tab from URL, default to "survey"
   const rawTab = searchParams.get("tab");
   const activeTab: Tab =
     rawTab === "survey" || rawTab === "trade" ? rawTab : "survey";
@@ -169,7 +169,6 @@ const ServiceTabs = () => {
     (tab: Tab) => {
       const params = new URLSearchParams(searchParams.toString());
       params.set("tab", tab);
-      // Use replace so the back button doesn't cycle through tab switches
       router.replace(`?${params.toString()}`, { scroll: false });
     },
     [router, searchParams]
@@ -179,28 +178,33 @@ const ServiceTabs = () => {
     activeTab === "survey" ? surveyServices : tradeServices;
 
   return (
-    <section className="relative -mt-64 lg:-mt-58 px-4 lg:px-8 pb-16 lg:pb-24">
+    <section className="relative -mt-64 lg:-mt-64 px-4 lg:px-8 pb-16 lg:pb-24">
       <div className="max-w-7xl mx-auto bg-white rounded-4xl p-8 overflow-hidden">
-        {/* Tab selector */}
-        <div className="flex gap-6 lg:gap-8 mb-10 items-center justify-center">
-          {(["survey", "trade"] as Tab[]).map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setTab(tab)}
-              className="flex flex-col items-center gap-2 cursor-pointer"
-            >
-              <span className="text-xl font-semibold text-[#151515] transition-colors duration-200">
-                {tab === "survey" ? "Survey Services" : "Trade Services"}
-              </span>
-              <span
-                className={`block w-full h-1.5 rounded-t-lg transition-colors duration-200 ${
-                  activeTab === tab ? "bg-[#262A6F]" : "bg-gray-200"
-                }`}
-              />
-            </button>
-          ))}
-        </div>
 
+        {/* Tab selector */}
+        <Reveal animation="fade-up" duration={500}>
+          <div className="flex gap-6 lg:gap-8 mb-10 items-center justify-center">
+            {(["survey", "trade"] as Tab[]).map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setTab(tab)}
+                className="flex flex-col items-center gap-2 cursor-pointer"
+              >
+                <span className="text-xl font-semibold text-[#151515] transition-colors duration-200">
+                  {tab === "survey" ? "Survey Services" : "Trade Services"}
+                </span>
+                <span
+                  className={`block w-full h-1.5 rounded-t-lg transition-colors duration-200 ${
+                    activeTab === tab ? "bg-[#262A6F]" : "bg-gray-200"
+                  }`}
+                />
+              </button>
+            ))}
+          </div>
+        </Reveal>
+
+        {/* Cards grid wrapped in Reveal — no Stagger so col-span centering works */}
+        <Reveal animation="fade-up" duration={600} delay={100} threshold={0.05}>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-10">
           {activeServices.map((service, index) => {
             const isLastOdd =
@@ -209,9 +213,7 @@ const ServiceTabs = () => {
             return (
               <div
                 key={index}
-                className={
-                  isLastOdd ? "sm:col-span-2 sm:max-w-[50%] sm:mx-auto" : ""
-                }
+                className={isLastOdd ? "sm:col-span-2 sm:w-1/2 sm:mx-auto" : ""}
               >
                 <ServiceCard
                   icon={service.icon}
@@ -224,6 +226,8 @@ const ServiceTabs = () => {
             );
           })}
         </div>
+        </Reveal>
+
       </div>
     </section>
   );
