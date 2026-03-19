@@ -17,26 +17,26 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { usePathname } from "next/navigation";
-import { Menu } from "lucide-react";
+import { Menu, Phone } from "lucide-react";
 import { sourceSans } from "@/lib/fonts";
+
+const NAV_LINKS = [
+  { href: "/services", label: "Services", key: "services" },
+  { href: "/areas-we-cover", label: "Areas we cover", key: "areas-we-cover" },
+  { href: "/about", label: "About Rosecrest", key: "about" },
+];
+
+const PHONE = "020 4576 5317";
+const PHONE_HREF = "tel:02045765317";
 
 const Navbar = () => {
   const pathname = usePathname();
   const [navOpen, setNavOpen] = useState(false);
 
   const active = useMemo(() => {
-    switch (pathname) {
-      case "/":
-        return "home";
-      case "/areas-we-cover":
-        return "areas-we-cover";
-      case "/services":
-        return "services";
-      case "/contact":
-        return "contact";
-      default:
-        return "home";
-    }
+    if (pathname === "/") return "home";
+    const match = NAV_LINKS.find((l) => pathname.startsWith(l.href));
+    return match?.key ?? "home";
   }, [pathname]);
 
   const isHomePage = pathname === "/";
@@ -46,20 +46,18 @@ const Navbar = () => {
     return darkPaths.some((val) => pathname.includes(val));
   }, [pathname]);
 
-  // Homepage: Simple centered logo only
+  // Homepage: centered logo only
   if (isHomePage) {
     return (
       <nav
-        className={`${sourceSans.className} absolute z-50 left-0 right-0 mx-auto top-4 lg:top-20 h-16 lg:h-20 max-w-[90%] lg:max-w-[90%] w-full flex items-center justify-center px-4 lg:px-8`}
+        className={`${sourceSans.className} absolute z-50 left-0 right-0 mx-auto top-4 lg:top-20 h-16 lg:h-20 max-w-[90%] w-full flex items-center justify-center px-4 lg:px-8`}
       >
-        {/* Logo - Centered */}
-        <Link href="/" className="flex items-center">
+        <Link href="/">
           <Image
-            src={`/assets/svgs/logo.svg`}
+            src="/assets/svgs/logo.svg"
             alt="Rosecrest Group Ltd logo"
             width={252}
             height={38}
-            className=""
             priority
           />
         </Link>
@@ -67,17 +65,17 @@ const Navbar = () => {
     );
   }
 
-  // Other pages: Full navigation
+  const textColor = isDarkNav ? "text-[#151515]" : "text-white";
+  const logoSrc = isDarkNav ? "/assets/svgs/logo-blue.svg" : "/assets/svgs/logo.svg";
+
   return (
     <nav
-      className={`${sourceSans.className} absolute z-50 left-0 right-0 mx-auto top-4 lg:top-8 h-16 lg:h-20 max-w-[90%] lg:max-w-[90%] w-full grid grid-cols-3 items-center lg:flex lg:items-center lg:justify-between px-4 lg:px-8 bg-white/10 backdrop-blur-[30px] rounded-full border border-white/50 shadow-[0_8px_32px_0_rgba(31,38,135,0.15)]`}
+      className={`${sourceSans.className} absolute z-50 left-0 right-0 mx-auto top-4 lg:top-8 h-16 lg:h-20 max-w-[90%] w-full flex items-center justify-between px-4 lg:px-8 bg-white/10 backdrop-blur-[30px] rounded-full border border-white/50 shadow-[0_8px_32px_0_rgba(31,38,135,0.15)]`}
     >
       {/* Logo */}
-      <Link href="/" className="flex items-center">
+      <Link href="/" className="flex items-center shrink-0">
         <Image
-          src={
-            isDarkNav ? `/assets/svgs/logo-blue.svg` : `/assets/svgs/logo.svg`
-          }
+          src={logoSrc}
           alt="Rosecrest Group Ltd logo"
           width={252}
           height={38}
@@ -85,9 +83,7 @@ const Navbar = () => {
           priority
         />
         <Image
-          src={
-            isDarkNav ? `/assets/svgs/logo-blue.svg` : `/assets/svgs/logo.svg`
-          }
+          src={logoSrc}
           alt="Rosecrest Group Ltd logo"
           width={120}
           height={29}
@@ -96,70 +92,60 @@ const Navbar = () => {
         />
       </Link>
 
-      {/* Desktop Navigation */}
+      {/* Desktop — Nav links */}
       <div className="hidden lg:block">
         <NavigationMenu>
-          <NavigationMenuList className="gap-16">
-            <NavigationMenuItem>
-              <NavigationMenuLink href="/services">
-                <p
-                  className={`${sourceSans.className} bg-transparent hover:underline transition-all ${
-                    active === "services" ? "font-semibold" : "font-normal"
-                  } ${isDarkNav ? "text-[#151515]" : "text-white"}`}
-                >
-                  Services
-                </p>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink href="/areas-we-cover">
-                <p
-                  className={`${sourceSans.className} bg-transparent hover:underline ${isDarkNav ? "text-[#151515]" : "text-white"} transition-all ${
-                    active === "areas-we-cover" ? "font-semibold" : "font-normal"
-                  }`}
-                >
-                  Areas We Cover
-                </p>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink href="/contact">
-                <p
-                  className={`${sourceSans.className} bg-transparent hover:underline ${isDarkNav ? "text-[#151515]" : "text-white"} transition-all ${
-                    active === "contact" ? "font-semibold" : "font-normal"
-                  }`}
-                >
-                  Contact
-                </p>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
+          <NavigationMenuList className="gap-10 xl:gap-14">
+            {NAV_LINKS.map((link) => (
+              <NavigationMenuItem key={link.key}>
+                <NavigationMenuLink href={link.href}>
+                  <p
+                    className={`${sourceSans.className} bg-transparent hover:underline transition-all ${textColor} ${
+                      active === link.key ? "font-semibold" : "font-normal"
+                    }`}
+                  >
+                    {link.label}
+                  </p>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            ))}
           </NavigationMenuList>
         </NavigationMenu>
       </div>
 
-      {/* CTA Button - Desktop */}
-      <div className="hidden lg:block">
-        <Link href="/contact">
+      {/* Desktop — Phone + CTA */}
+      <div className="hidden lg:flex items-center gap-8">
+        <Link
+          href={PHONE_HREF}
+          className={`${sourceSans.className} flex items-center gap-2 ${textColor} hover:opacity-80 transition-opacity text-base font-medium`}
+        >
+          <Phone className="w-5 h-5 shrink-0" />
+          {PHONE}
+        </Link>
+
+        <Link href="/request-inspection">
           <Button
-            className={`${isDarkNav ? "bg-[#262A6F] text-white" : "bg-white text-[#1E293B]"}  hover:bg-white/90 font-medium px-6 py-2.5 rounded-full transition-all shadow-md hover:shadow-lg min-h-12`}
+            className={`${
+              isDarkNav ? "bg-[#262A6F] text-white" : "bg-white text-[#1E293B]"
+            } hover:bg-white/90 font-medium px-6 py-2.5 rounded-full transition-all shadow-md hover:shadow-lg min-h-12`}
             size="lg"
           >
-            Book a discussion
+            Request an Inspection
           </Button>
         </Link>
       </div>
 
-      {/* Mobile - Current Page Indicator */}
+      {/* Mobile — Current page label */}
       <div className="lg:hidden text-center">
         <p className="capitalize text-gray-900 text-sm font-medium tracking-wide">
-          {active === "home" ? "" : active}
+          {active === "home" ? "" : active.replace(/-/g, " ")}
         </p>
       </div>
 
-      {/* Mobile Menu Button */}
+      {/* Mobile — Hamburger */}
       <div className="lg:hidden flex justify-end items-center">
         <Sheet open={navOpen} onOpenChange={setNavOpen}>
-          <SheetTrigger className="lg:hidden text-gray-900">
+          <SheetTrigger className="text-gray-900">
             <Menu className="w-7 h-7" />
             <span className="sr-only">Open menu</span>
           </SheetTrigger>
@@ -167,7 +153,7 @@ const Navbar = () => {
             <SheetTitle className="mb-8">
               <Link href="/" onClick={() => setNavOpen(false)}>
                 <Image
-                  src={`/assets/svgs/logo.svg`}
+                  src="/assets/svgs/logo.svg"
                   alt="Rosecrest Group Ltd logo"
                   width={120}
                   height={29}
@@ -175,56 +161,42 @@ const Navbar = () => {
               </Link>
             </SheetTitle>
 
-            {/* Mobile Navigation */}
             <nav className="mt-8">
               <ul className="flex flex-col gap-6">
-                <li>
-                  <Link
-                    href="/services"
-                    className={`text-lg font-medium transition-colors ${
-                      active === "services"
-                        ? "text-primary"
-                        : "text-foreground hover:text-primary"
-                    }`}
-                    onClick={() => setNavOpen(false)}
-                  >
-                    Services
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/areas-we-cover"
-                    className={`text-lg font-medium transition-colors ${
-                      active === "areas-we-cover"
-                        ? "text-primary"
-                        : "text-foreground hover:text-primary"
-                    }`}
-                    onClick={() => setNavOpen(false)}
-                  >
-                    Areas We Cover
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/contact"
-                    className={`text-lg font-medium transition-colors ${
-                      active === "contact"
-                        ? "text-primary"
-                        : "text-foreground hover:text-primary"
-                    }`}
-                    onClick={() => setNavOpen(false)}
-                  >
-                    Contact
-                  </Link>
-                </li>
+                {NAV_LINKS.map((link) => (
+                  <li key={link.key}>
+                    <Link
+                      href={link.href}
+                      className={`text-lg font-medium transition-colors ${
+                        active === link.key
+                          ? "text-[#262A6F]"
+                          : "text-foreground hover:text-[#262A6F]"
+                      }`}
+                      onClick={() => setNavOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </nav>
 
-            {/* Mobile CTA */}
-            <div className="mt-12 pt-8 border-t">
+            {/* Mobile phone */}
+            <div className="mt-8">
+              <Link
+                href={PHONE_HREF}
+                className="flex items-center gap-2 text-[#262A6F] font-medium text-base"
+                onClick={() => setNavOpen(false)}
+              >
+                <Phone className="w-4 h-4" />
+                {PHONE}
+              </Link>
+            </div>
+
+            <div className="mt-8 pt-8 border-t">
               <Link href="/contact" onClick={() => setNavOpen(false)}>
-                <Button className="w-full" size="lg">
-                  Book a discussion
+                <Button className="w-full bg-[#262A6F] text-white rounded-full" size="lg">
+                  Request an Inspection
                 </Button>
               </Link>
             </div>

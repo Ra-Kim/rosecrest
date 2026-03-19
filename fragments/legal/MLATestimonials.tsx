@@ -136,10 +136,10 @@ const MLATestimonials = () => {
         <Reveal animation="fade-up" duration={600} delay={100}>
           <div className="text-center mb-12">
             <h2 className="text-4xl lg:text-5xl font-bold text-[#101828] mb-4">
-              Testimonials from MLA Solicitors
+              Trusted by Solicitors
             </h2>
             <p className={`${sourceSans.className} text-[#4A5565] text-base lg:text-lg mx-auto`}>
-              Here&apos;s what our MLA Solicitors are saying
+              Hear from legal professionals who regularly instruct Rosecrest for independent inspections and expert reporting.
             </p>
           </div>
         </Reveal>

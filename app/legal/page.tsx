@@ -7,26 +7,32 @@ import LegalMoreInfo from "@/fragments/legal/LegalMoreInfo";
 import ProfessionalStandardsLegal from "@/fragments/legal/LegalProfessionalStandards";
 import LegalServices from "@/fragments/legal/LegalServices";
 import MLATestimonials from "@/fragments/legal/MLATestimonials";
-import SupportingLegalProfessionals from "@/fragments/legal/SupportingLegal";
+import { sourceSans } from "@/lib/fonts";
 
 const Page = () => {
   return (
     <div>
       <JourneyHero>
         <div className="text-center">
-          <p className="text-white text-3xl lg:text-5xl tracking-tight leading-16 sm:w-3/4 mx-auto mt-12">
-            Independent Property Inspection & Expert Reporting for Legal
-            Instructions
+          <p className="text-white text-3xl lg:text-5xl tracking-tight leading-16 sm:w-3/5 mx-auto mt-4">
+            Independent Property Inspection and Expert Reporting for Legal
+            Matters
+          </p>
+          <p
+            className={`${sourceSans.className} mt-4 mx-auto text-white text-base lg:text-xl leading-relaxed max-w-5xl`}
+          >
+            Independent inspections and professional reports prepared to support
+            legal claims, housing disputes and formal proceedings with clear,
+            evidence-based findings.
           </p>
         </div>
       </JourneyHero>
       <LegalDesc />
-      <InstructionProcess />
-      <SupportingLegalProfessionals />
       <LegalServices />
+      <ProfessionalStandardsLegal />
+      <InstructionProcess />
       <LegalAidInstructions />
       <MLATestimonials />
-      <ProfessionalStandardsLegal />
       <LegalMoreInfo />
       <Footer />
     </div>

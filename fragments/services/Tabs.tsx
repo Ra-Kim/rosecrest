@@ -183,18 +183,18 @@ const ServiceTabs = () => {
 
         {/* Tab selector */}
         <Reveal animation="fade-up" duration={500}>
-          <div className="flex gap-6 lg:gap-8 mb-10 items-center justify-center">
+          <div className="flex gap-6 lg:gap-12 mb-10 items-center justify-center">
             {(["survey", "trade"] as Tab[]).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setTab(tab)}
                 className="flex flex-col items-center gap-2 cursor-pointer"
               >
-                <span className="text-xl font-semibold text-[#151515] transition-colors duration-200">
+                <span className="text-xl md:text-3xl font-semibold text-[#151515] transition-colors duration-200">
                   {tab === "survey" ? "Survey Services" : "Trade Services"}
                 </span>
                 <span
-                  className={`block w-full h-1.5 rounded-t-lg transition-colors duration-200 ${
+                  className={`block w-[110%] h-1.5 rounded-t-lg transition-colors duration-200 ${
                     activeTab === tab ? "bg-[#262A6F]" : "bg-gray-200"
                   }`}
                 />

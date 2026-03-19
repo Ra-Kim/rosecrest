@@ -5,17 +5,17 @@ const services = [
   {
     title: "Portfolio inspections",
     description:
-      "Coordinated inspection programmes across multiple properties with consistent methodology and reporting standards.",
+      "Coordinated inspection programmes across multiple properties using consistent methodology and reporting standards.",
   },
   {
     title: "Stock condition surveys",
     description:
-      "Systematic assessment of housing stock condition to inform investment planning and maintenance programmes.",
+      "Systematic assessment of housing stock condition to inform maintenance and investment planning.",
   },
   {
     title: "Programme support",
     description:
-      "Consultancy and technical support for housing improvement programmes and capital works planning.",
+      "Technical consultancy supporting housing improvement programmes and capital works planning.",
   },
 ];
 
@@ -24,9 +24,15 @@ const AssetHousingStock = () => {
     <section className="py-16 lg:py-20 px-4 md:px-25 bg-[#F9FAFB]">
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
-        <h2 className="text-4xl lg:text-5xl font-bold text-[#101828] text-center mb-10">
-          Asset &amp; Housing Stock Services
+        <h2 className="text-4xl lg:text-5xl font-bold text-[#101828] text-center mb-4">
+          Housing Stock and Asset Support
         </h2>
+        <p
+          className={`${sourceSans.className} text-base lg:text-xl text-[#4A5565] text-center max-w-4xl mx-auto mb-12`}
+        >
+          Examples of inspection, reporting and consultancy work delivered for
+          our councils, housing organisations and public sector clients
+        </p>
 
         {/* Services Card */}
         <div className="border border-[#E5E7EB] bg-white rounded-4xl overflow-hidden">

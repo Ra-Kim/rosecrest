@@ -1,9 +1,9 @@
 import React from "react";
 import Image from "next/image";
 
-const JourneyHero = ({ children }: { children: React.ReactNode }) => {
+const JourneyHero = ({ children, height }: { children: React.ReactNode, height?: string }) => {
   return (
-    <div className="relative w-full min-h-90 md:min-h-125">
+    <div className={`relative w-full min-h-90 md:min-h-125 ${height || ""}`}>
       {/* Background Image */}
       <Image
         src="/assets/images/journey-hero.jpg"

@@ -9,36 +9,42 @@ import { Reveal } from "@/components/common/Reveal";
 
 const CouncilsDesc = () => {
   const trust = [
-    { icon: <CheckCircle className="w-4 h-4 text-[#DBB38E]" />, label: "RICS Regulated" },
-    { icon: <CheckCircle className="w-4 h-4 text-[#DBB38E]" />, label: "Professional Indemnity" },
-    { icon: <CheckCircle className="w-4 h-4 text-[#DBB38E]" />, label: "Governance aligned" },
+    {
+      icon: <CheckCircle className="w-4 h-4 text-[#DBB38E]" />,
+      label: "RICS Regulated",
+    },
+    {
+      icon: <CheckCircle className="w-4 h-4 text-[#DBB38E]" />,
+      label: "Professional Indemnity Insured",
+    },
+    {
+      icon: <CheckCircle className="w-4 h-4 text-[#DBB38E]" />,
+      label: "Procurement & Governance Aligned",
+    },
   ];
-
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
     <div className="bg-[#FBF7F4]">
       <div className="grid lg:grid-cols-2 px-2 sm:px-0 py-12 lg:py-20 gap-8 items-center max-w-7xl mx-auto">
-
         {/* Left Column */}
         <div className="flex flex-col justify-center">
           <Reveal animation="fade-right" duration={600}>
-            <h2 className={`${sourceSans.className} text-base lg:text-2xl text-[#364153] mb-6 leading-[29.25px] w-[90%]`}>
-              Rosecrest provides independent property inspection, compliance and
-              consultancy services to councils, housing associations and public
-              sector organisations. Services are delivered in line with
-              procurement requirements, professional standards and governance
-              frameworks.
+            <h2
+              className={`${sourceSans.className} text-base lg:text-2xl text-[#364153] mb-6 leading-[29.25px] w-[90%]`}
+            >
+              Rosecrest supports councils, housing associations and other public
+              bodies with building inspections, condition reporting and
+              specialist consultancy. Our work assists with tenant complaints,
+              regulatory obligations and asset management within established
+              procurement and governance frameworks.
             </h2>
           </Reveal>
 
           <Reveal animation="fade-up" duration={500} delay={150}>
-            <div className="flex flex-wrap items-center gap-4 text-[#4A5565] mb-8">
+            <div className="flex items-center gap-2 text-[#4A5565] mb-8">
               {trust.map((item, i) => (
                 <React.Fragment key={i}>
-                  <span className="flex items-center gap-1.5">
+                  <span className="flex items-center gap-1.5 md:whitespace-nowrap">
                     {item.icon}
                     <span className={sourceSans.className}>{item.label}</span>
                   </span>
@@ -53,23 +59,21 @@ const CouncilsDesc = () => {
           <Reveal animation="fade-up" duration={500} delay={280}>
             <div className="flex items-center gap-6 flex-wrap">
               <Link href="/contact">
-                <Button size="lg" className="bg-[#262A6F] hover:bg-[#262A6F]/90 text-white px-8 py-6 text-base rounded-full h-15">
-                  Speak with a Consultant
+                <Button
+                  size="lg"
+                  className="bg-[#262A6F] hover:bg-[#262A6F]/90 text-white px-8 py-6 text-base rounded-full h-15"
+                >
+                  Discuss your requirements
                 </Button>
               </Link>
-              <button
-                onClick={() => scrollTo("more-info")}
-                className={`${sourceSans.className} text-[#101828] text-base font-medium flex items-center gap-1 hover:underline`}
-              >
-                Need advice? Request a discussion →
-              </button>
+              
             </div>
           </Reveal>
         </div>
 
         {/* Right Column - Image */}
         <Reveal animation="fade-left" duration={700} delay={150}>
-          <div className="relative flex justify-end">
+          <div className="relative flex justify-end ">
             <Image
               src="/assets/images/storey.png"
               alt="Apartment building for landlords and property owners"
@@ -80,7 +84,6 @@ const CouncilsDesc = () => {
             />
           </div>
         </Reveal>
-
       </div>
     </div>
   );

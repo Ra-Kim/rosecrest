@@ -27,7 +27,7 @@ const standards = [
   {
     icon: <CheckCircle className="w-7 h-7 text-white" />,
     title: "Professional",
-    subtitle: "Indemnity",
+    subtitle: "Indemnity Insured",
   },
 ];
 
@@ -37,7 +37,7 @@ const ProfessionalStandards = () => {
 
       <Reveal animation="fade-up" duration={600}>
         <h2 className="text-4xl lg:text-5xl font-bold text-[#101828] text-center mb-14">
-          Professional Standards &amp; Governance
+          Professional Standards and Governance
         </h2>
       </Reveal>
 
@@ -45,7 +45,7 @@ const ProfessionalStandards = () => {
         animation="fade-up"
         staggerMs={100}
         duration={500}
-        className="flex flex-wrap justify-between gap-10 lg:gap-16 px-20"
+        className="grid grid-cols-2 sm:flex flex-wrap justify-center lg:justify-between gap-10 lg:gap-16 px-20"
       >
         {standards.map((item, index) => (
           <div key={index} className="flex flex-col items-center gap-3">

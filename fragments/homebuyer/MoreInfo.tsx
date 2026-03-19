@@ -8,7 +8,8 @@ import Image from "next/image";
 import { sourceSans } from "@/lib/fonts";
 import { OpenBookingModal } from "@/types/homebuyer";
 import TermsModal from "@/components/common/TermsModal";
-import { Reveal, Stagger } from "@/components/common/Reveal";
+import SampleReportsModal from "@/components/common/SampleReportsModal";
+import { Reveal } from "@/components/common/Reveal";
 
 interface MoreInfoProps {
   onOpenBooking: OpenBookingModal;
@@ -16,6 +17,7 @@ interface MoreInfoProps {
 
 const MoreInfo = ({ onOpenBooking }: MoreInfoProps) => {
   const [termsOpen, setTermsOpen] = useState(false);
+  const [samplesOpen, setSamplesOpen] = useState(false);
 
   return (
     <>
@@ -23,6 +25,7 @@ const MoreInfo = ({ onOpenBooking }: MoreInfoProps) => {
         <div className="max-w-7xl mx-auto">
           <Reveal animation="fade-up" duration={600}>
             <div className="bg-linear-to-b from-[#31368B] to-[#1A1D4F] rounded-[24px] lg:rounded-[3rem] p-8 lg:p-12">
+
               {/* Need more information section */}
               <div className="mb-12">
                 <Reveal animation="fade-up" duration={500} delay={100}>
@@ -32,9 +35,9 @@ const MoreInfo = ({ onOpenBooking }: MoreInfoProps) => {
                 </Reveal>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mx-auto mb-12">
-                  <Link
-                    key="sample"
-                    href="/"
+                  {/* Sample Report — opens modal */}
+                  <button
+                    onClick={() => setSamplesOpen(true)}
                     className="bg-white rounded-3xl p-8 flex flex-col items-center text-center hover:shadow-lg transition-shadow group border border-[#E5E7EB]"
                   >
                     <div className="bg-linear-to-b from-[#262A6F] to-[#1A1D4F] rounded-xl p-4 mb-4 group-hover:scale-110 transition-transform">
@@ -43,14 +46,13 @@ const MoreInfo = ({ onOpenBooking }: MoreInfoProps) => {
                     <h3 className="text-[#101828] leading-7 text-xl font-bold mb-2">
                       Sample Report Preview
                     </h3>
-                    <p
-                      className={`${sourceSans.className} text-[#4A5565] text-sm lg:text-base`}
-                    >
+                    <p className={`${sourceSans.className} text-[#4A5565] text-sm lg:text-base`}>
                       View examples of our survey reports
                     </p>
-                  </Link>
+                  </button>
+
+                  {/* Terms of Engagement — opens modal */}
                   <button
-                    key="terms"
                     onClick={() => setTermsOpen(true)}
                     className="bg-white rounded-3xl p-8 flex flex-col items-center text-center hover:shadow-lg transition-shadow group border border-[#E5E7EB]"
                   >
@@ -60,14 +62,13 @@ const MoreInfo = ({ onOpenBooking }: MoreInfoProps) => {
                     <h3 className="text-[#101828] leading-7 text-xl font-bold mb-2">
                       Terms Of Engagement
                     </h3>
-                    <p
-                      className={`${sourceSans.className} text-[#4A5565] text-sm lg:text-base`}
-                    >
+                    <p className={`${sourceSans.className} text-[#4A5565] text-sm lg:text-base`}>
                       View our terms of engagements
                     </p>
                   </button>
+
+                  {/* Speak with team */}
                   <Link
-                    key="call"
                     href="/contact"
                     className="bg-white rounded-3xl p-8 flex flex-col items-center text-center hover:shadow-lg transition-shadow group border border-[#E5E7EB]"
                   >
@@ -75,12 +76,10 @@ const MoreInfo = ({ onOpenBooking }: MoreInfoProps) => {
                       <Phone className="w-8 h-8 text-white" />
                     </div>
                     <h3 className="text-[#101828] leading-7 text-xl font-bold mb-2">
-                      Give us a call
+                      Speak with our team
                     </h3>
-                    <p
-                      className={`${sourceSans.className} text-[#4A5565] text-sm lg:text-base`}
-                    >
-                      Speak to our expert team
+                    <p className={`${sourceSans.className} text-[#4A5565] text-sm lg:text-base`}>
+                      For more information
                     </p>
                   </Link>
                 </div>
@@ -116,9 +115,7 @@ const MoreInfo = ({ onOpenBooking }: MoreInfoProps) => {
                       </Reveal>
 
                       <Reveal animation="fade" duration={400} delay={520}>
-                        <p className="text-white text-sm">
-                          Takes less than 60 seconds.
-                        </p>
+                        <p className="text-white text-sm">Takes less than 60 seconds.</p>
                       </Reveal>
                     </div>
                   </div>
@@ -137,12 +134,14 @@ const MoreInfo = ({ onOpenBooking }: MoreInfoProps) => {
                   </Link>
                 </div>
               </Reveal>
+
             </div>
           </Reveal>
         </div>
       </section>
 
       <TermsModal isOpen={termsOpen} onClose={() => setTermsOpen(false)} />
+      <SampleReportsModal isOpen={samplesOpen} onClose={() => setSamplesOpen(false)} />
     </>
   );
 };

@@ -22,7 +22,7 @@ const TERMS_DOCUMENTS = [
     description:
       "This document covers general maintenance, plumbing, decorating, cleaning, repairs, and related services. It sets out the contractual terms upon which Rosecrest Group Ltd agrees to provide trades services to the Client.",
     pdfUrl: "/assets/documents/terms-trades.pdf",
-    viewUrl: "/terms/trades",
+    viewUrl: "/assets/documents/terms-trades.pdf",
   },
   {
     id: "surveying",
@@ -30,8 +30,8 @@ const TERMS_DOCUMENTS = [
     title: "Terms of Engagement for Surveying Services",
     description:
       "This document covers surveyor services and written reports advising on the visible condition and state of repair of the property. Services are undertaken by a suitably qualified and accredited building surveyor exercising reasonable professional diligence.",
-    pdfUrl: "/assets/documents/terms-surveying.pdf",
-    viewUrl: "/terms/surveying",
+    pdfUrl: "/assets/documents/terms-survey.pdf",
+    viewUrl: "/assets/documents/terms-survey.pdf",
   },
 ];
 

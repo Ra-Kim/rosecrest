@@ -18,6 +18,17 @@ const Brands = () => {
       icon: Shield,
       text: "SafeContractor Accredited",
     },
+    {
+      image: (
+        <Image
+          src={"/assets/svgs/shield-shade.svg"}
+          alt="Shield Shade"
+          height={24}
+          width={24}
+        />
+      ),
+      text: "Professional Indemnity Insured",
+    },
   ];
 
   // Partner logos - using placeholder for now
@@ -59,14 +70,16 @@ const Brands = () => {
         </div>
 
         {/* Trust Badges Banner */}
-        <div className="bg-[#262A6F] rounded-2xl lg:rounded-4xl px-6 lg:px-20 py-6 lg:py-8 mt-8 lg:mt-12">
+        <div className="bg-[#262A6F] rounded-2xl lg:rounded-4xl px-6 lg:px-16 py-6 lg:py-8 mt-8 lg:mt-12">
           <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-6 md:gap-8">
             {trustBadges.map((badge, index) => (
               <React.Fragment key={index}>
                 <div className="flex items-center gap-3 text-white">
-                  <badge.icon className="w-5 h-5 lg:w-6 lg:h-6" />
+                  {badge.image || (
+                    <badge.icon className="w-5 h-5 lg:w-6 lg:h-6 shrink-0" />
+                  )}
                   <span
-                    className={`${sourceSans.className} lg:text-2xl font-medium`}
+                    className={`${sourceSans.className} lg:text-xl font-medium whitespace-nowrap`}
                   >
                     {badge.text}
                   </span>

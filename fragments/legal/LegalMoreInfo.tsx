@@ -16,7 +16,6 @@ const LegalMoreInfo = () => {
       <div className="max-w-7xl mx-auto">
         <Reveal animation="fade-up" duration={600}>
           <div className="bg-linear-to-b from-[#31368B] to-[#1A1D4F] rounded-[24px] lg:rounded-[3rem] p-8 lg:p-12">
-
             {/* Availability Check Section */}
             <Reveal animation="zoom-in" duration={600} delay={150}>
               <div className="relative rounded-2xl lg:rounded-[24px] overflow-hidden">
@@ -32,14 +31,16 @@ const LegalMoreInfo = () => {
                   <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 w-[85%] backdrop-blur-[20px] bg-[#FFFFFF26] py-8 sm:h-99 rounded-[24px]">
                     <Reveal animation="fade-up" duration={500} delay={300}>
                       <h2 className="text-white text-3xl lg:text-6xl mb-4 font-medium leading-tight">
-                        Discuss your requirements
+                        How To Instruct Rosecrest
                       </h2>
                     </Reveal>
 
                     <Reveal animation="fade-up" duration={500} delay={400}>
-                      <p className={`${sourceSans.className} text-white/90 text-base lg:text-2xl mb-8 max-w-xl`}>
-                        We welcome the opportunity to discuss your instruction
-                        requirements and confirm how we can support your legal matter.
+                      <p
+                        className={`${sourceSans.className} text-white/90 text-base lg:text-2xl mb-8 max-w-xl`}
+                      >
+                        For new instructions or enquiries please contact our
+                        team and we will be happy to assist.
                       </p>
                     </Reveal>
 
@@ -47,19 +48,19 @@ const LegalMoreInfo = () => {
                       <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
                         <Button
                           size="lg"
-                          onClick={() => router.push("/contact")}
+                          onClick={() => router.push("/request-inspection")}
                           className="bg-[#DBB38E] hover:bg-[#DBB38E]/90 text-[#151515] px-8 py-6 rounded-full text-base font-medium"
                         >
-                          Request a discussion
+                          Instruct an Inspection
                         </Button>
-                        <Link href="tel:+442012345678">
+                        <Link href="tel:+442045765317">
                           <Button
                             size="lg"
                             variant="outline"
                             className="bg-transparent border border-white/40 hover:bg-white/10 text-white px-8 py-6 rounded-full text-base font-medium backdrop-blur-sm"
                           >
                             <Phone className="w-4 h-4 mr-2" />
-                            +44 (0) 20 1234 5678
+                            +44 (0) 20 4576 5317
                           </Button>
                         </Link>
                       </div>
@@ -81,7 +82,6 @@ const LegalMoreInfo = () => {
                 </Link>
               </div>
             </Reveal>
-
           </div>
         </Reveal>
       </div>

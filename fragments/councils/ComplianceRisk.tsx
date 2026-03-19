@@ -7,7 +7,8 @@ const features = [
   {
     icon: <ClipboardList className="w-5 h-5 text-white/70" />,
     title: "Governance aligned reporting",
-    description: "Reports structured to support audit trails and governance requirements",
+    description:
+      "Reports structured to support audit trails and governance requirements",
   },
   {
     icon: <Shield className="w-5 h-5 text-white/70" />,
@@ -17,12 +18,14 @@ const features = [
   {
     icon: <FileText className="w-5 h-5 text-white/70" />,
     title: "Risk-aware documentation",
-    description: "Reporting that supports risk registers and management frameworks",
+    description:
+      "Reporting that supports risk registers and management frameworks",
   },
   {
     icon: <Briefcase className="w-5 h-5 text-white/70" />,
     title: "Clear scope definition",
-    description: "Transparent service specifications aligned with procurement processes",
+    description:
+      "Transparent service specifications aligned with procurement processes",
   },
 ];
 
@@ -31,11 +34,15 @@ const ComplianceRisk = () => {
     <section className="max-w-7xl mx-auto pt-8 pb-12 px-4">
       <Reveal animation="fade-up" duration={600}>
         <div className="bg-linear-to-b from-[#31368B] to-[#1A1D4F] rounded-[24px] px-4 sm:px-12 py-20">
-
           <Reveal animation="fade-up" duration={500} delay={100}>
-            <h2 className="text-4xl lg:text-5xl font-bold text-white text-center mb-12">
-              Compliance &amp; Risk Management
+            <h2 className="text-4xl lg:text-5xl font-bold text-white text-center mb-4">
+              Supporting Compliance And Risk Management
             </h2>
+            <p className={`${sourceSans.className} text-sm lg:text-base mb-12 text-[#E0E0E0] text-center max-w-2xl mx-auto`}>
+              Our reporting and inspection services help organisations
+              demonstrate due diligence, maintain governance standards and
+              manage housing risks effectively
+            </p>
           </Reveal>
 
           <Stagger
@@ -53,14 +60,10 @@ const ComplianceRisk = () => {
                   <p className="text-white font-semibold text-base md:text-lg mb-1">
                     {feature.title}
                   </p>
-                  <p className={`${sourceSans.className} text-white text-sm md:text-base leading-relaxed w-[90%]`}>
-                    {feature.description}
-                  </p>
                 </div>
               </div>
             ))}
           </Stagger>
-
         </div>
       </Reveal>
     </section>

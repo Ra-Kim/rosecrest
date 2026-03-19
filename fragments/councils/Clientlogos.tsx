@@ -20,7 +20,8 @@ const ClientLogos = () => {
       <p
         className={`${sourceSans.className} text-center text-[#4A5565] text-base lg:text-2xl mb-10`}
       >
-        Experience supporting councils, housing associations and public sector organisations
+        Trusted by councils, housing associations and public sector
+        organisations
       </p>
 
       {/* Logo Grid */}

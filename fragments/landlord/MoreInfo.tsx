@@ -10,8 +10,8 @@ import { Reveal } from "@/components/common/Reveal";
 
 const trust = [
   { icon: <CheckCircle className="w-4 h-4 text-[#DBB38E]" />, label: "RICS Regulated" },
-  { icon: <Clock className="w-4 h-4 text-[#DBB38E]" />, label: "24h Response" },
-  { icon: <Award className="w-4 h-4 text-[#DBB38E]" />, label: "Independent" },
+  { icon: <Award className="w-4 h-4 text-[#DBB38E]" />, label: "Independent Reporting" },
+  { icon: <Clock className="w-4 h-4 text-[#DBB38E]" />, label: "Fast Response" },
 ];
 
 const LandlordMoreInfo = () => {
@@ -39,14 +39,13 @@ const LandlordMoreInfo = () => {
 
                   <Reveal animation="fade-up" duration={600} delay={200}>
                     <h2 className="text-white text-3xl lg:text-6xl mb-4 font-medium leading-tight">
-                      Need help quickly?
+                     Need Advice or an Inspection?
                     </h2>
                   </Reveal>
 
                   <Reveal animation="fade-up" duration={600} delay={320}>
                     <p className={`${sourceSans.className} text-white/90 text-base lg:text-2xl mb-8 max-w-xl`}>
-                      Speak to our expert team to discuss your requirements or book
-                      your inspection today
+                      Discuss a tenant complaint, compliance concern or building condition issue with our team.
                     </p>
                   </Reveal>
 
@@ -59,14 +58,14 @@ const LandlordMoreInfo = () => {
                       >
                         Request a discussion
                       </Button>
-                      <Link href="tel:+442012345678">
+                      <Link href="tel:+442045765317">
                         <Button
                           size="lg"
                           variant="outline"
                           className="bg-transparent border border-white/40 hover:bg-white/10 text-white px-8 py-6 rounded-full text-base font-medium backdrop-blur-sm"
                         >
                           <Phone className="w-4 h-4 mr-2" />
-                          +44 (0) 20 1234 5678
+                        (0) 20 4576 5317
                         </Button>
                       </Link>
                     </div>

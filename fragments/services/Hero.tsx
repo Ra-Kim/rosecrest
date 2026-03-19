@@ -22,9 +22,10 @@ const ServicesHero = () => {
         <div className="text-white text-4xl lg:text-7xl tracking-tight leading-[100%]">
           Our Comprehensive Services
         </div>
-        <p className="mt-10 lg:w-[45%] mx-auto text-[#E5E7EB] text-xl lg:text-3xl leading-relaxed">
-          Select the option that best describes you and we&apos;ll guide you to
-          the right service.
+        <p className="mt-10 lg:w-[50%] mx-auto text-[#E5E7EB] text-base lg:text-xl leading-relaxed">
+          Explore our professional surveying and specialist trade services,
+          designed to give you clarity and confidence in your property
+          decisions.
         </p>
       </div>
     </div>

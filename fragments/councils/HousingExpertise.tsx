@@ -23,7 +23,7 @@ const features = [
   {
     title: "Tenant complaint support",
     description:
-      "Independent investigation and reporting for dispute resolution",
+      "Independent reporting supporting complaint resolution and dispute management.",
   },
 ];
 
@@ -31,14 +31,20 @@ const HousingExpertise = () => {
   return (
     <div className="bg-[#FBF7F4]">
       <div className="grid lg:grid-cols-2 px-2 sm:px-4 py-12 lg:py-20 gap-8 items-center max-w-7xl mx-auto">
-
         {/* Left — Text Content */}
         <div className="flex flex-col">
           <Reveal animation="fade-right" duration={600}>
-            <h2 className="text-4xl lg:text-[40px] font-bold text-[#101828] mb-10 leading-tight">
+            <h2 className="text-4xl lg:text-[40px] font-bold text-[#101828] mb-3 leading-tight">
               Housing Standards & Damp / <br className="hidden lg:block" />
               Mould Expertise
             </h2>
+            <p
+              className={`${sourceSans.className} text-sm lg:text-base text-[#4A5565] max-w-4xl mx-auto mb-10`}
+            >
+              We support councils and housing providers investigating damp,
+              mould and housing condition issues through independent inspections
+              and structured reporting.
+            </p>
           </Reveal>
 
           <Stagger
@@ -54,7 +60,9 @@ const HousingExpertise = () => {
                   <p className="font-bold text-[#101828] text-base md:text-lg mb-1">
                     {feature.title}
                   </p>
-                  <p className={`${sourceSans.className} text-[#4A5565] text-sm md:text-base leading-relaxed`}>
+                  <p
+                    className={`${sourceSans.className} text-[#4A5565] text-sm md:text-base leading-relaxed`}
+                  >
                     {feature.description}
                   </p>
                 </div>
@@ -85,7 +93,6 @@ const HousingExpertise = () => {
             />
           </div>
         </Reveal>
-
       </div>
     </div>
   );

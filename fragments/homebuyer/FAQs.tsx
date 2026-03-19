@@ -3,24 +3,24 @@ import FAQ, { FAQItem } from "@/components/common/FAQ";
 
 const questions: FAQItem[] = [
   {
-    question: "What is a RICS Level 1 Survey?",
+    question: "What is the difference between a Level 2 and a Level 3 survey?",
     answer:
-      "A RICS Level 1 Survey (formerly known as a Condition Report) is a basic property survey that provides an overview of the property's condition. It's ideal for newer homes and conventional properties in good condition, typically built within the last 5-10 years.",
+      "A Level 2 (HomeBuyer Report) is suitable for conventional properties in good condition. A Level 3 (Building Survey) provides an in-depth analysis suitable for older, extended, or non-standard properties.",
   },
   {
-    question: "How does the traffic light system work?",
+    question: "How long does a survey take?",
     answer:
-      "The traffic light system uses three color-coded ratings: Green indicates no issues or defects, Amber shows defects that need attention but are not serious, and Red highlights serious defects requiring urgent attention. This makes it easy to understand the property's condition at a glance.",
+      "A Level 2 survey typically takes 2–3 hours on site; a Level 3 can take half a day or more depending on the size and complexity of the property.",
   },
   {
-    question: "Is a Level 1 Survey suitable for my property?",
+    question: "Will I receive photographs in my report?",
     answer:
-      "A Level 1 Survey is best suited for newer properties (built within the last 5-10 years), conventional construction, properties in good condition, and straightforward purchases. It's not recommended for older properties, those requiring renovation, or non-standard construction.",
+      "Yes. All reports include clear photographs of defects and RICS condition ratings (1–3).",
   },
   {
-    question: "How long does it take to receive my report?",
+    question: "Can you survey vacant or tenanted properties?",
     answer:
-      "Typically, you'll receive your comprehensive survey report within 3-5 working days after the property inspection. In urgent cases, we can often provide an expedited service - please contact us to discuss your timeline requirements.",
+      "Yes. We can inspect occupied, vacant, or tenanted homes as long as access is arranged in advance.",
   },
 ];
 
