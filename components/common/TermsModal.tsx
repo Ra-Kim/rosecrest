@@ -1,18 +1,13 @@
 "use client";
 
 import React from "react";
-import { X, Wrench, FileText } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { X, Wrench, FileText, Download, ExternalLink } from "lucide-react";
 import { sourceSans } from "@/lib/fonts";
-
-// ─── Types ───────────────────────────────────────────────────────────────────
 
 interface TermsModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
-// ─── Data ────────────────────────────────────────────────────────────────────
 
 const TERMS_DOCUMENTS = [
   {
@@ -20,50 +15,49 @@ const TERMS_DOCUMENTS = [
     icon: Wrench,
     title: "Terms of Engagement for Trades Services",
     description:
-      "This document covers general maintenance, plumbing, decorating, cleaning, repairs, and related services. It sets out the contractual terms upon which Rosecrest Group Ltd agrees to provide trades services to the Client.",
+      "Covers general maintenance, plumbing, decorating, cleaning, repairs, and related services.",
     pdfUrl: "/assets/documents/terms-trades.pdf",
-    viewUrl: "/assets/documents/terms-trades.pdf",
   },
   {
     id: "surveying",
     icon: FileText,
     title: "Terms of Engagement for Surveying Services",
     description:
-      "This document covers surveyor services and written reports advising on the visible condition and state of repair of the property. Services are undertaken by a suitably qualified and accredited building surveyor exercising reasonable professional diligence.",
+      "Covers surveyor services and written reports on the visible condition and state of repair of the property.",
     pdfUrl: "/assets/documents/terms-survey.pdf",
-    viewUrl: "/assets/documents/terms-survey.pdf",
   },
 ];
-
-// ─── Component ───────────────────────────────────────────────────────────────
 
 const TermsModal = ({ isOpen, onClose }: TermsModalProps) => {
   if (!isOpen) return null;
 
   return (
-    /* ── Backdrop ── */
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 backdrop-blur-sm"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
-      {/* ── Dialog card ── */}
-      <div className="relative w-full max-w-4xl bg-white rounded-3xl shadow-2xl overflow-hidden">
-        {/* ── Header ── */}
-        <div className="px-8 pt-7 pb-5">
+      {/* Sheet — slides up on mobile, centered card on desktop */}
+      <div className="relative w-full sm:max-w-2xl bg-white sm:rounded-3xl rounded-t-3xl shadow-2xl overflow-hidden max-h-[92vh] flex flex-col">
+
+        {/* Drag handle — mobile only */}
+        <div className="sm:hidden flex justify-center pt-3 pb-1 shrink-0">
+          <div className="w-10 h-1 rounded-full bg-gray-200" />
+        </div>
+
+        {/* Header */}
+        <div className="px-6 pt-4 pb-4 sm:px-8 sm:pt-7 shrink-0">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <h2 className="text-lg md:text-3xl font-bold text-[#101828]">
+              <h2 className="text-xl sm:text-2xl font-bold text-[#101828]">
                 Terms of Engagement
               </h2>
-              <p
-                className={`text-sm text-[#4A5565] mt-1 ${sourceSans.className}`}
-              >
+              <p className={`text-sm text-[#4A5565] mt-1 ${sourceSans.className}`}>
                 Select the document that applies to your service
               </p>
             </div>
             <button
               onClick={onClose}
-              className="p-1.5 rounded-full hover:bg-gray-100 transition-colors shrink-0 mt-0.5"
+              className="p-2 rounded-full hover:bg-gray-100 transition-colors shrink-0"
               aria-label="Close"
             >
               <X className="w-5 h-5 text-gray-500" />
@@ -71,69 +65,57 @@ const TermsModal = ({ isOpen, onClose }: TermsModalProps) => {
           </div>
         </div>
 
-        {/* ── Divider ── */}
-        <div className="h-px bg-[#F3F4F6]" />
+        <div className="h-px bg-[#F3F4F6] shrink-0" />
 
-        {/* ── Document cards ── */}
-        <div className="px-8 py-6 space-y-4">
+        {/* Scrollable content */}
+        <div className="overflow-y-auto flex-1 px-6 py-5 sm:px-8 sm:py-6 space-y-4">
           {TERMS_DOCUMENTS.map((doc) => (
             <div
               key={doc.id}
-              className="border border-[#EDEEF0] rounded-[14px] p-6"
+              className="border border-[#EDEEF0] rounded-2xl p-5"
             >
-              <div className="flex gap-4 items-start">
-                <div className="bg-[#262A6F] rounded-xl p-3 shrink-0 h-10 w-10 flex items-center justify-center">
-                  <doc.icon className="w-5 h-5 text-white" />
+              {/* Icon + title row */}
+              <div className="flex items-start gap-3 mb-3">
+                <div className="bg-[#262A6F] rounded-xl p-2.5 shrink-0 flex items-center justify-center">
+                  <doc.icon className="w-4 h-4 text-white" />
                 </div>
-                {/* Icon + title */}
-                <div className="mb-4 flex flex-col gap-4 px-2">
-                  <h3 className="text-base md:text-xl font-bold text-[#101828] leading-snug">
-                    {doc.title}
-                  </h3>
-                  {/* Description */}
-                  <p
-                    className={`text-sm md:text-base text-[#4A5565] mb-5 leading-relaxed ${sourceSans.className}`}
-                  >
-                    {doc.description}
-                  </p>
+                <h3 className={`${sourceSans.className} text-sm sm:text-base font-bold text-[#101828] leading-snug pt-0.5`}>
+                  {doc.title}
+                </h3>
+              </div>
 
-                  {/* Actions */}
-                  <div className="flex items-center gap-3">
-                    <Button
-                      asChild
-                      size={"lg"}
-                      className="bg-[#262A6F] hover:bg-[#262A6F]/90 text-white rounded-full h-11 px-5 text-sm font-semibold"
-                    >
-                      <a href={doc.pdfUrl} download>
-                        Download PDF
-                      </a>
-                    </Button>
-                    <Button
-                      asChild
-                      size={"lg"}
-                      variant="outline"
-                      className="rounded-full h-11 px-5 text-sm font-semibold border-[#262A6F] text-[#262A6F] hover:bg-[#262A6F]/5"
-                    >
-                      <a
-                        href={doc.viewUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        View in Browser
-                      </a>
-                    </Button>
-                  </div>
-                </div>
+              {/* Description */}
+              <p className={`${sourceSans.className} text-sm text-[#4A5565] leading-relaxed mb-4`}>
+                {doc.description}
+              </p>
+
+              {/* Actions — stack on mobile, row on desktop */}
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+                <a
+                  href={doc.pdfUrl}
+                  download
+                  className="flex items-center justify-center gap-2 bg-[#262A6F] hover:bg-[#262A6F]/90 text-white rounded-full h-11 px-5 text-sm font-semibold transition-colors"
+                >
+                  <Download className="w-4 h-4" />
+                  Download PDF
+                </a>
+                <a
+                  href={doc.pdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 border border-[#262A6F] text-[#262A6F] hover:bg-[#262A6F]/5 rounded-full h-11 px-5 text-sm font-semibold transition-colors"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  View in Browser
+                </a>
               </div>
             </div>
           ))}
         </div>
 
-        {/* ── Footer ── */}
-        <div
-          className={`px-8 py-4 border-t border-[#F3F4F6] text-center text-sm text-[#6A7282] ${sourceSans.className}`}
-        >
-          Need assistance? Contact us at{" "}
+        {/* Footer */}
+        <div className={`px-6 sm:px-8 py-4 border-t border-[#F3F4F6] text-center text-xs sm:text-sm text-[#6A7282] shrink-0 ${sourceSans.className}`}>
+          Need assistance?{" "}
           <a
             href="mailto:info@rosecrest.co.uk"
             className="text-[#262A6F] hover:underline font-medium"
@@ -141,6 +123,7 @@ const TermsModal = ({ isOpen, onClose }: TermsModalProps) => {
             info@rosecrest.co.uk
           </a>
         </div>
+
       </div>
     </div>
   );
