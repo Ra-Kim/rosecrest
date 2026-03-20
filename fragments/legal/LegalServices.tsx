@@ -51,7 +51,7 @@ const services = [
 
 const LegalServices = () => {
   return (
-    <section className="py-16 lg:py-20 px-4 md:px-25 bg-[#F9FAFB]">
+    <section className="py-16 lg:py-20 px-4 lg:px-25 bg-[#F9FAFB]">
       <div className="max-w-7xl mx-auto">
         <Reveal animation="fade-up" duration={600}>
           <h2 className="text-4xl lg:text-5xl font-bold text-[#101828] text-center mb-4">

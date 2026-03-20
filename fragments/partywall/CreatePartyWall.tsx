@@ -39,7 +39,7 @@ export default function CreatePartyWall() {
             construction journey.
           </p>
           <Link
-            href="/contact"
+            href="/services/party-wall/notice-generator"
             className="relative z-10 inline-flex items-center justify-center px-8 py-3 bg-[#DBB38E] text-gray-900 font-semibold rounded-full hover:bg-[#c9a07d] transition-colors duration-200"
           >
             Free Party Wall Tool

@@ -8,9 +8,9 @@ import { Reveal } from "@/components/common/Reveal";
 
 const LegalDesc = () => {
   const trust = [
-    { label: "Independent" },
-    { label: "Procedural" },
-    { label: "Professional standards" },
+    { label: "Independent Expert Reports" },
+    { label: "Evidence Based Assesments" },
+    { label: "Legal Ready Reports" },
   ];
 
   const scrollTo = (id: string) => {
@@ -19,17 +19,20 @@ const LegalDesc = () => {
 
   return (
     <div className="bg-[#FBF7F4]">
-      <div className="grid lg:grid-cols-2 px-2 sm:px-0 py-12 lg:py-20 gap-8 items-center max-w-7xl mx-auto">
-
+      <div className="grid lg:grid-cols-2 px-2 lg:px-0 py-12 lg:py-20 gap-8 items-center max-w-7xl mx-auto">
         {/* Left Column */}
         <div className="flex flex-col justify-center">
           <Reveal animation="fade-right" duration={600}>
-            <h2 className={`${sourceSans.className} text-base lg:text-2xl text-[#364153] mb-8 leading-[29.25px] w-[90%]`}>
+            <h2
+              className={`${sourceSans.className} text-base md:text-lg text-[#364153] mb-8 leading-[29.25px] w-[90%]`}
+            >
               Legal instructions require independence, clarity and reporting
-              prepared in accordance with relevant professional standards.
-              Rosecrest provides property inspections and independent reporting to
-              support solicitors and legal professionals across disputes, claims
-              and formal proceedings.
+              prepared in accordance with relevant professional standards. Our
+              inspections assess issues such as damp, mould, structural defects,
+              water ingress and general property condition, supported by
+              photographic evidence and professional analysis. Reports provide
+              clear findings, identify defects and their likely causes, and set
+              out an impartial professional opinion suitable for legal review.
             </h2>
           </Reveal>
 
@@ -46,7 +49,7 @@ const LegalDesc = () => {
           </Reveal>
 
           <Reveal animation="fade-up" duration={500} delay={280}>
-            <div className="flex flex-wrap items-center gap-4 text-[#4A5565] my-8">
+            <div className="flex flex-wrap items-center gap-2 text-[#4A5565] my-8 w-[105%]">
               {trust.map((item, i) => (
                 <React.Fragment key={i}>
                   <span className="flex items-center gap-1.5">
@@ -66,7 +69,7 @@ const LegalDesc = () => {
         <Reveal animation="fade-left" duration={700} delay={150}>
           <div className="relative flex justify-end">
             <Image
-              src="/assets/images/cottage.png"
+              src="/assets/images/legal-disc.png"
               alt="Apartment building for landlords and property owners"
               height={451}
               width={579}
@@ -75,7 +78,6 @@ const LegalDesc = () => {
             />
           </div>
         </Reveal>
-
       </div>
     </div>
   );

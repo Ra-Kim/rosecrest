@@ -136,7 +136,7 @@ const Navbar = () => {
       </div>
 
       {/* Mobile — Current page label */}
-      <div className="lg:hidden text-center">
+      <div className="hidden text-center">
         <p className="capitalize text-gray-900 text-sm font-medium tracking-wide">
           {active === "home" ? "" : active.replace(/-/g, " ")}
         </p>
@@ -146,17 +146,17 @@ const Navbar = () => {
       <div className="lg:hidden flex justify-end items-center">
         <Sheet open={navOpen} onOpenChange={setNavOpen}>
           <SheetTrigger className="text-gray-900">
-            <Menu className="w-7 h-7" />
+            <Menu className="w-7 h-7 text-white" />
             <span className="sr-only">Open menu</span>
           </SheetTrigger>
           <SheetContent side="right" className="px-6 w-[85vw] sm:w-100">
             <SheetTitle className="mb-8">
               <Link href="/" onClick={() => setNavOpen(false)}>
                 <Image
-                  src="/assets/svgs/logo.svg"
+                  src="/assets/svgs/logo-blue.svg"
                   alt="Rosecrest Group Ltd logo"
-                  width={120}
-                  height={29}
+                  width={150}
+                  height={49}
                 />
               </Link>
             </SheetTitle>
@@ -193,8 +193,8 @@ const Navbar = () => {
               </Link>
             </div>
 
-            <div className="mt-8 pt-8 border-t">
-              <Link href="/contact" onClick={() => setNavOpen(false)}>
+            <div className="h-36  mt-95 pt-8 border-t">
+              <Link href="/request-inspection" onClick={() => setNavOpen(false)}>
                 <Button className="w-full bg-[#262A6F] text-white rounded-full" size="lg">
                   Request an Inspection
                 </Button>
