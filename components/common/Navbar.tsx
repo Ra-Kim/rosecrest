@@ -193,7 +193,7 @@ const Navbar = () => {
               </Link>
             </div>
 
-            <div className="h-36  mt-95 pt-8 border-t">
+            <div className="h-36  mt-80 pt-8 border-t">
               <Link href="/request-inspection" onClick={() => setNavOpen(false)}>
                 <Button className="w-full bg-[#262A6F] text-white rounded-full" size="lg">
                   Request an Inspection

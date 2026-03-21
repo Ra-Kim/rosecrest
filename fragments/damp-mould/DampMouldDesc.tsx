@@ -39,7 +39,7 @@ const DampMouldDescription = () => {
           <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-6">
             {badges.map((badge, index) => (
               <>
-                <div key={badge} className={`flex items-center gap-1.5 text-[#4A5565] ${sourceSans.className}`}>
+                <div key={index} className={`flex items-center gap-1.5 text-[#4A5565] ${sourceSans.className}`}>
                   <CheckCircle className="w-4 h-4 text-[#DBB38E]" strokeWidth={1.5} />
                   <span className="text-sm">{badge}</span>
                 </div>
@@ -57,7 +57,7 @@ const DampMouldDescription = () => {
               onClick={() => router.push("/contact")}
               className="bg-[#262A6F] hover:bg-[#262A6F]/90 text-white px-8 py-6 text-base rounded-full"
             >
-              Book service
+              Book Damp and Mould Survey
             </Button>
           </div>
         </div>

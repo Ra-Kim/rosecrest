@@ -140,7 +140,7 @@ const MouldTreatmentSection = () => {
               onClick={() => router.push("/contact")}
               className="bg-[#262A6F] hover:bg-[#262A6F]/90 text-white rounded-full px-8 py-6 text-base font-semibold inline-flex items-center gap-2"
             >
-              Book a Discussion
+              Book Damp and Mould Survey
               <ArrowRight className="w-4 h-4" />
             </Button>
           </div>

@@ -58,7 +58,7 @@ const CouncilMoreInfo = () => {
                             className="bg-transparent border border-white/40 hover:bg-white/10 text-white px-8 py-6 rounded-full text-base font-medium backdrop-blur-sm"
                           >
                             <Phone className="w-4 h-4 mr-2" />
-                            (0) 20 4576 5317
+                            020 4576 5317
                           </Button>
                         </Link>
                       </div>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/common/Navbar";
 import { manrope } from "@/lib/fonts";
+import EnquiryModal from "@/components/common/EnquiryModal";
 
 
 
@@ -23,6 +24,7 @@ export default function RootLayout({
         <>
           <Navbar />
           <div className="grow">{children}</div>
+          <EnquiryModal />
         </>
       </body>
     </html>

@@ -45,6 +45,12 @@ interface ContactFormProps {
   title?: string;
   subtitle?: string;
   submitLabel?: string;
+  /** Pre-fill the "What do you need help with?" field — e.g. from modal context */
+  prefillHelpWith?: string;
+  /** Called after successful submission — useful for closing a modal */
+  onSuccess?: () => void;
+  /** When true, removes the outer white card padding (for use inside a modal) */
+  compact?: boolean;
 }
 
 // ─── Component ───────────────────────────────────────────────────────────────
@@ -52,23 +58,26 @@ interface ContactFormProps {
 const ContactForm = ({
   title = "Request a Call Back",
   subtitle = "Tell us a little about your situation and we'll direct your enquiry to the appropriate team member.",
-  submitLabel = "Request Call Back",
+  submitLabel = "Submit Enquiry",
+  prefillHelpWith,
+  onSuccess,
+  compact = false,
 }: ContactFormProps) => {
   const {
     register,
     handleSubmit,
     setValue,
     control,
-    formState: { errors },
+    formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<FormValues>({
-    mode:"onTouched",
+    mode: "onTouched",
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       role: "",
       email: "",
       phone: "",
-      helpWith: "",
+      helpWith: prefillHelpWith ?? "",
       description: "",
       contactMethod: [],
     },
@@ -88,12 +97,16 @@ const ContactForm = ({
     setValue("contactMethod", updated, { shouldValidate: true });
   };
 
-  const onSubmit = (values: FormValues) => {
-    console.log(values);
+  const onSubmit = async (values: FormValues) => {
+    // TODO: wire to Gravity Forms API or email handler
+    console.log("Form submitted:", values);
+    // Simulate network delay
+    await new Promise((r) => setTimeout(r, 600));
+    onSuccess?.();
   };
 
-  return (
-    <div className="bg-white rounded-4xl p-8 lg:p-10">
+  const inner = (
+    <>
       {/* Header */}
       <h2 className="text-xl lg:text-2xl font-bold text-[#101828] mb-1">
         {title}
@@ -102,139 +115,149 @@ const ContactForm = ({
         {subtitle}
       </p>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        {/* Name */}
-        <div className="space-y-1.5">
-          <Label className="text-sm font-medium text-[#101828]">
-            Your Name <span className="text-red-500">*</span>
-          </Label>
-          <Input
-            placeholder="Enter your full name"
-            className="h-11 rounded-xl border-[#E5E7EB] text-sm"
-            {...register("name")}
-          />
-          {errors.name && (
-            <p className="text-xs text-red-500">{errors.name.message}</p>
-          )}
-        </div>
-
-        {/* Role */}
-        <div className="space-y-1.5">
-          <Label className="text-sm font-medium text-[#101828]">
-            Your Role <span className="text-red-500">*</span>
-          </Label>
-          <Input
-            className="h-11 rounded-xl border-[#E5E7EB] text-sm"
-            {...register("role")}
-          />
-          {errors.role && (
-            <p className="text-xs text-red-500">{errors.role.message}</p>
-          )}
-        </div>
-
-        {/* Email */}
-        <div className="space-y-1.5">
-          <Label className="text-sm font-medium text-[#101828]">
-            Your Email <span className="text-red-500">*</span>
-          </Label>
-          <Input
-            type="email"
-            className="h-11 rounded-xl border-[#E5E7EB] text-sm"
-            {...register("email")}
-          />
-          {errors.email && (
-            <p className="text-xs text-red-500">{errors.email.message}</p>
-          )}
-        </div>
-
-        {/* Phone */}
-        <div className="space-y-1.5">
-          <Label className="text-sm font-medium text-[#101828]">
-            Your Phone number <span className="text-red-500">*</span>
-          </Label>
-          <Input
-            type="tel"
-            className="h-11 rounded-xl border-[#E5E7EB] text-sm"
-            {...register("phone")}
-          />
-          {errors.phone && (
-            <p className="text-xs text-red-500">{errors.phone.message}</p>
-          )}
-        </div>
-
-        {/* Help with */}
-        <div className="space-y-1.5">
-          <Label className="text-sm font-medium text-[#101828]">
-            What do you need help with? <span className="text-red-500">*</span>
-          </Label>
-          <Input
-            className="h-11 rounded-xl border-[#E5E7EB] text-sm"
-            {...register("helpWith")}
-          />
-          {errors.helpWith && (
-            <p className="text-xs text-red-500">{errors.helpWith.message}</p>
-          )}
-        </div>
-
-        {/* Description */}
-        <div className="space-y-1.5">
-          <Label className="text-sm font-medium text-[#101828]">
-            Brief Description <span className="text-red-500">*</span>
-          </Label>
-          <Textarea
-            placeholder="Please provide a short summary of your situation."
-            className="min-h-28 rounded-xl border-[#E5E7EB] text-sm resize-none"
-            {...register("description")}
-          />
-          {errors.description && (
-            <p className="text-xs text-red-500">{errors.description.message}</p>
-          )}
-        </div>
-
-        {/* Preferred contact method */}
-        <div className="space-y-2">
-          <Label className="text-sm font-medium text-[#101828]">
-            Preferred Contact Method <span className="text-red-500">*</span>
-          </Label>
-          <div className="flex flex-col gap-2">
-            {["Phone", "Email"].map((method) => (
-              <div key={method} className="flex items-center gap-2">
-                <Checkbox
-                  id={`method-${method}`}
-                  checked={selectedMethods?.includes(method)}
-                  onCheckedChange={() => toggleMethod(method)}
-                  className="h-4 w-4 rounded-[3px] border-[#99A1AF] data-[state=checked]:bg-[#262A6F] data-[state=checked]:border-[#262A6F]"
-                />
-                <Label
-                  htmlFor={`method-${method}`}
-                  className={`text-sm text-[#4A5565] cursor-pointer ${sourceSans.className}`}
-                >
-                  {method}
-                </Label>
-              </div>
-            ))}
+      {isSubmitSuccessful ? (
+        /* ── Success state ── */
+        <div className="flex flex-col items-center text-center py-8 gap-4">
+          <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center">
+            <svg className="w-8 h-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
           </div>
-          {errors.contactMethod && (
-            <p className="text-xs text-red-500">
-              {errors.contactMethod.message}
-            </p>
-          )}
+          <h3 className="text-xl font-bold text-[#101828]">Enquiry Received</h3>
+          <p className={`${sourceSans.className} text-[#4A5565] text-sm max-w-xs`}>
+            Thank you. A member of our team will be in touch within one working day.
+          </p>
         </div>
+      ) : (
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
-        {/* Submit */}
-        <Button
-          type="submit"
-          className="w-full h-12 bg-[#262A6F] hover:bg-[#262A6F]/90 text-white rounded-full text-base font-semibold mt-2"
-        >
-          {submitLabel}
-        </Button>
+          {/* Name */}
+          <div className="space-y-1.5">
+            <Label className="text-sm font-medium text-[#101828]">
+              Your Name <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              placeholder="Enter your full name"
+              className="h-11 rounded-xl border-[#E5E7EB] text-sm"
+              {...register("name")}
+            />
+            {errors.name && <p className="text-xs text-red-500">{errors.name.message}</p>}
+          </div>
 
-        <p
-          className={`${sourceSans.className} text-xs text-[#6A7282] text-center`}
-        >
-          We aim to respond within one working day.
-        </p>
-      </form>
+          {/* Role */}
+          <div className="space-y-1.5">
+            <Label className="text-sm font-medium text-[#101828]">
+              Your Role <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              className="h-11 rounded-xl border-[#E5E7EB] text-sm"
+              {...register("role")}
+            />
+            {errors.role && <p className="text-xs text-red-500">{errors.role.message}</p>}
+          </div>
+
+          {/* Email */}
+          <div className="space-y-1.5">
+            <Label className="text-sm font-medium text-[#101828]">
+              Your Email <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              type="email"
+              className="h-11 rounded-xl border-[#E5E7EB] text-sm"
+              {...register("email")}
+            />
+            {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
+          </div>
+
+          {/* Phone */}
+          <div className="space-y-1.5">
+            <Label className="text-sm font-medium text-[#101828]">
+              Your Phone number <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              type="tel"
+              className="h-11 rounded-xl border-[#E5E7EB] text-sm"
+              {...register("phone")}
+            />
+            {errors.phone && <p className="text-xs text-red-500">{errors.phone.message}</p>}
+          </div>
+
+          {/* Help with — pre-filled from modal context */}
+          <div className="space-y-1.5">
+            <Label className="text-sm font-medium text-[#101828]">
+              What do you need help with? <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              className="h-11 rounded-xl border-[#E5E7EB] text-sm"
+              {...register("helpWith")}
+            />
+            {errors.helpWith && <p className="text-xs text-red-500">{errors.helpWith.message}</p>}
+          </div>
+
+          {/* Description */}
+          <div className="space-y-1.5">
+            <Label className="text-sm font-medium text-[#101828]">
+              Brief Description <span className="text-red-500">*</span>
+            </Label>
+            <Textarea
+              placeholder="Please provide a short summary of your situation."
+              className="min-h-28 rounded-xl border-[#E5E7EB] text-sm resize-none"
+              {...register("description")}
+            />
+            {errors.description && <p className="text-xs text-red-500">{errors.description.message}</p>}
+          </div>
+
+          {/* Preferred contact method */}
+          <div className="space-y-2">
+            <Label className="text-sm font-medium text-[#101828]">
+              Preferred Contact Method <span className="text-red-500">*</span>
+            </Label>
+            <div className="flex flex-col gap-2">
+              {["Phone", "Email"].map((method) => (
+                <div key={method} className="flex items-center gap-2">
+                  <Checkbox
+                    id={`method-${method}`}
+                    checked={selectedMethods?.includes(method)}
+                    onCheckedChange={() => toggleMethod(method)}
+                    className="h-4 w-4 rounded-[3px] border-[#99A1AF] data-[state=checked]:bg-[#262A6F] data-[state=checked]:border-[#262A6F]"
+                  />
+                  <Label
+                    htmlFor={`method-${method}`}
+                    className={`text-sm text-[#4A5565] cursor-pointer ${sourceSans.className}`}
+                  >
+                    {method}
+                  </Label>
+                </div>
+              ))}
+            </div>
+            {errors.contactMethod && (
+              <p className="text-xs text-red-500">{errors.contactMethod.message}</p>
+            )}
+          </div>
+
+          {/* Submit */}
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full h-12 bg-[#262A6F] hover:bg-[#262A6F]/90 text-white rounded-full text-base font-semibold mt-2 disabled:opacity-60"
+          >
+            {isSubmitting ? "Sending..." : submitLabel}
+          </Button>
+
+          <p className={`${sourceSans.className} text-xs text-[#6A7282] text-center`}>
+            We aim to respond within one working day.
+          </p>
+        </form>
+      )}
+    </>
+  );
+
+  // Compact mode — no card wrapper (used inside modal)
+  if (compact) return <div>{inner}</div>;
+
+  return (
+    <div className="bg-white rounded-4xl p-8 lg:p-10">
+      {inner}
     </div>
   );
 };

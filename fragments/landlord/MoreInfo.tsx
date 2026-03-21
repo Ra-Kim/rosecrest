@@ -9,9 +9,18 @@ import { useRouter } from "next/navigation";
 import { Reveal } from "@/components/common/Reveal";
 
 const trust = [
-  { icon: <CheckCircle className="w-4 h-4 text-[#DBB38E]" />, label: "RICS Regulated" },
-  { icon: <Award className="w-4 h-4 text-[#DBB38E]" />, label: "Independent Reporting" },
-  { icon: <Clock className="w-4 h-4 text-[#DBB38E]" />, label: "Fast Response" },
+  {
+    icon: <CheckCircle className="w-4 h-4 text-[#DBB38E]" />,
+    label: "RICS Regulated",
+  },
+  {
+    icon: <Award className="w-4 h-4 text-[#DBB38E]" />,
+    label: "Independent Reporting",
+  },
+  {
+    icon: <Clock className="w-4 h-4 text-[#DBB38E]" />,
+    label: "Fast Response",
+  },
 ];
 
 const LandlordMoreInfo = () => {
@@ -22,7 +31,6 @@ const LandlordMoreInfo = () => {
       <div className="max-w-7xl mx-auto">
         <Reveal animation="fade-up" duration={600}>
           <div className="bg-linear-to-b from-[#31368B] to-[#1A1D4F] rounded-[24px] lg:rounded-[3rem] p-8 lg:p-12">
-
             {/* Availability Check Section */}
             <div className="relative rounded-2xl lg:rounded-[24px] overflow-hidden">
               <div className="relative sm:h-80 lg:h-134.25 flex justify-center items-center">
@@ -36,16 +44,18 @@ const LandlordMoreInfo = () => {
 
                 {/* Content */}
                 <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 w-[85%] backdrop-blur-[20px] bg-[#FFFFFF26] py-8 sm:h-99 rounded-[24px]">
-
                   <Reveal animation="fade-up" duration={600} delay={200}>
                     <h2 className="text-white text-3xl lg:text-6xl mb-4 font-medium leading-tight">
-                     Need Advice or an Inspection?
+                      Need Advice or an Inspection?
                     </h2>
                   </Reveal>
 
                   <Reveal animation="fade-up" duration={600} delay={320}>
-                    <p className={`${sourceSans.className} text-white/90 text-base lg:text-2xl mb-8 max-w-xl`}>
-                      Discuss a tenant complaint, compliance concern or building condition issue with our team.
+                    <p
+                      className={`${sourceSans.className} text-white/90 text-base lg:text-2xl mb-8 max-w-xl`}
+                    >
+                      Discuss a tenant complaint, compliance concern or building
+                      condition issue with our team.
                     </p>
                   </Reveal>
 
@@ -65,7 +75,7 @@ const LandlordMoreInfo = () => {
                           className="bg-transparent border border-white/40 hover:bg-white/10 text-white px-8 py-6 rounded-full text-base font-medium backdrop-blur-sm"
                         >
                           <Phone className="w-4 h-4 mr-2" />
-                        (0) 20 4576 5317
+                          020 4576 5317
                         </Button>
                       </Link>
                     </div>
@@ -77,14 +87,17 @@ const LandlordMoreInfo = () => {
                         <React.Fragment key={i}>
                           <span className="flex items-center gap-1.5">
                             {item.icon}
-                            <span className={sourceSans.className}>{item.label}</span>
+                            <span className={sourceSans.className}>
+                              {item.label}
+                            </span>
                           </span>
-                          {i < trust.length - 1 && <span className="text-white/40">•</span>}
+                          {i < trust.length - 1 && (
+                            <span className="text-white/40">•</span>
+                          )}
                         </React.Fragment>
                       ))}
                     </div>
                   </Reveal>
-
                 </div>
               </div>
             </div>
@@ -101,7 +114,6 @@ const LandlordMoreInfo = () => {
                 </Link>
               </div>
             </Reveal>
-
           </div>
         </Reveal>
       </div>
