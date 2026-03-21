@@ -1,6 +1,6 @@
 import Footer from "@/components/common/Footer";
 import JourneyHero from "@/fragments/journeys/JourneyHero";
-import PAintDescription from "@/fragments/painting-decorating/PaintDescription";
+import PaintDescription from "@/fragments/painting-decorating/PaintDescription";
 import PaintingServices from "@/fragments/painting-decorating/PaintingServices";
 import WhyChooseSection from "@/fragments/painting-decorating/WhyRosecrest";
 import React from "react";
@@ -15,7 +15,7 @@ const Page = () => {
           </p>
         </div>
       </JourneyHero>
-      <PAintDescription />
+      <PaintDescription />
       <PaintingServices />
       <WhyChooseSection />
       <Footer />

@@ -1,11 +1,24 @@
+"use client";
+
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import { sourceSans } from "@/lib/fonts";
 import Link from "next/link";
 import { Reveal } from "@/components/common/Reveal";
+import { useEnquiryStore } from "@/store/enquiry-store";
 
-const services = [
+interface Service {
+  badge: string | null;
+  title: string;
+  description: string;
+  features: string[];
+  link?: string;       // if set, navigates to a service page
+  enquiry?: string;    // if set, opens modal with this context
+  cta: string;
+}
+
+const services: Service[] = [
   {
     badge: "Fixed price service",
     title: "Damp, Mould & Condensation",
@@ -29,7 +42,7 @@ const services = [
       "Compliance reporting",
       "Housing Health & Safety Rating System",
     ],
-    link: "/contact",
+    enquiry: "HHSRS Assessment",
     cta: "Request a discussion",
   },
   {
@@ -42,7 +55,7 @@ const services = [
       "Scope of works reporting",
       "Evidence for dispute resolution",
     ],
-    link: "/contact",
+    enquiry: "Disrepair & Condition Survey",
     cta: "Request a discussion",
   },
   {
@@ -55,7 +68,7 @@ const services = [
       "Valid for 10 years",
       "Fast turnaround available",
     ],
-    link: "/contact",
+    enquiry: "Energy Performance Certificate (EPC)",
     cta: "Request a discussion",
   },
 ];
@@ -71,6 +84,8 @@ const remedialCard = {
 };
 
 const LandlordsServices = () => {
+  const { openEnquiry } = useEnquiryStore();
+
   return (
     <section id="services" className="max-w-7xl mx-auto py-16 px-4">
       {/* Header */}
@@ -87,7 +102,7 @@ const LandlordsServices = () => {
         </div>
       </Reveal>
 
-      {/* Services Grid — 2 cols, last odd card centred */}
+      {/* Services Grid */}
       <Reveal animation="fade-up" duration={600} delay={100}>
         <div className="grid lg:grid-cols-2 gap-6">
           {services.map((service, index) => (
@@ -122,31 +137,41 @@ const LandlordsServices = () => {
                 ))}
               </ul>
 
-              <Link href={service.link}>
+              {/* Link navigates to service page; enquiry opens modal */}
+              {service.link ? (
+                <Link href={service.link}>
+                  <Button
+                    size="lg"
+                    className="bg-[#262A6F] hover:bg-[#262A6F]/90 text-white px-5 h-14 py-6 text-base rounded-full flex items-center gap-2 justify-center w-full"
+                  >
+                    {service.cta}
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </Link>
+              ) : (
                 <Button
                   size="lg"
+                  onClick={() => openEnquiry(service.enquiry)}
                   className="bg-[#262A6F] hover:bg-[#262A6F]/90 text-white px-5 h-14 py-6 text-base rounded-full flex items-center gap-2 justify-center"
                 >
                   {service.cta}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
-              </Link>
+              )}
             </div>
           ))}
 
-          {/* Remedial card — centred as 5th (odd) item */}
+          {/* Remedial card — centred as 5th odd item */}
           <div className="lg:col-span-2 lg:w-1/2 lg:mx-auto bg-white border border-gray-200 rounded-4xl p-8 flex flex-col w-full">
             <h3 className="text-3xl font-bold text-[#101828] mb-3 mt-2">
               {remedialCard.title}
             </h3>
-
             <p className={`${sourceSans.className} text-[#4A5565] text-xl mb-4 leading-relaxed`}>
               {remedialCard.description1}
             </p>
             <p className={`${sourceSans.className} text-[#4A5565] text-base mb-8 leading-relaxed flex-1`}>
               {remedialCard.description2}
             </p>
-
             <Link href={remedialCard.link}>
               <Button
                 size="lg"

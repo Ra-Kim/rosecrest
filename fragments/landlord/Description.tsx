@@ -4,26 +4,16 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Award, CheckCircle, Shield, ShieldHalf } from "lucide-react";
 import { sourceSans } from "@/lib/fonts";
-import Link from "next/link";
 import { Reveal } from "@/components/common/Reveal";
+import { useEnquiryStore } from "@/store/enquiry-store";
 
 const partnerLogos = [
   { name: "IPWS", src: "/assets/brands/ipws.svg", height: 22, width: 66 },
   { name: "CABE", src: "/assets/brands/cabe.svg", height: 36, width: 66 },
   { name: "RPSA", src: "/assets/brands/rpsa.svg", height: 37, width: 66 },
   { name: "RICS", src: "/assets/brands/rics.svg", height: 23, width: 58 },
-  {
-    name: "Constructionline",
-    src: "/assets/brands/constructionline.svg",
-    height: 29,
-    width: 55,
-  },
-  {
-    name: "SafeContractor",
-    src: "/assets/brands/safecontractor.svg",
-    height: 21,
-    width: 133,
-  },
+  { name: "Constructionline", src: "/assets/brands/constructionline.svg", height: 29, width: 55 },
+  { name: "SafeContractor", src: "/assets/brands/safecontractor.svg", height: 21, width: 133 },
 ];
 
 const trustBadges = [
@@ -34,16 +24,16 @@ const trustBadges = [
 ];
 
 const LandlordsDesc = () => {
+  const { openEnquiry } = useEnquiryStore();
 
   return (
     <div className="bg-[#FBF7F4]">
       <div className="grid lg:grid-cols-2 px-2 sm:px-0 py-12 lg:py-20 gap-8 items-center max-w-7xl mx-auto">
-        {/* ── Left Column ── */}
+
+        {/* Left Column */}
         <div className="flex flex-col justify-center">
           <Reveal animation="fade-right" duration={600} delay={100}>
-            <h2
-              className={`${sourceSans.className} text-base lg:text-2xl text-[#4A5565] mb-8 leading-tight w-[87%]`}
-            >
+            <h2 className={`${sourceSans.className} text-base lg:text-2xl text-[#4A5565] mb-8 leading-tight w-[87%]`}>
               We help landlords understand property condition issues quickly and
               objectively through independent inspections and professional
               reports. Whether responding to a tenant claim, preparing for a
@@ -73,9 +63,7 @@ const LandlordsDesc = () => {
             <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-8">
               {trustBadges.map((badge, index) => (
                 <React.Fragment key={index}>
-                  <div
-                    className={`flex items-center gap-1.5 text-[#4A5565] ${sourceSans.className}`}
-                  >
+                  <div className={`flex items-center gap-1.5 text-[#4A5565] ${sourceSans.className}`}>
                     <badge.icon className="w-6 h-6 text-[#4A5565]" />
                     <span>{badge.text}</span>
                   </div>
@@ -89,19 +77,18 @@ const LandlordsDesc = () => {
 
           <Reveal animation="fade-up" duration={500} delay={400}>
             <div className="flex items-center gap-6 flex-wrap mt-1">
-              <Link href="/contact">
-                <Button
-                  size="lg"
-                  className="bg-[#262A6F] hover:bg-[#262A6F]/90 text-white px-8 py-6 text-base rounded-full h-15"
-                >
-                  Discuss a Property Issue
-                </Button>
-              </Link>
+              <Button
+                size="lg"
+                onClick={() => openEnquiry("Landlord Property Inspection")}
+                className="bg-[#262A6F] hover:bg-[#262A6F]/90 text-white px-8 py-6 text-base rounded-full h-15"
+              >
+                Discuss a Property Issue
+              </Button>
             </div>
           </Reveal>
         </div>
 
-        {/* ── Right Column — Image ── */}
+        {/* Right Column - Image */}
         <Reveal animation="fade-left" duration={700} delay={150}>
           <div className="relative flex justify-end">
             <Image
@@ -114,6 +101,7 @@ const LandlordsDesc = () => {
             />
           </div>
         </Reveal>
+
       </div>
     </div>
   );

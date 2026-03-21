@@ -5,33 +5,25 @@ import { Award, CheckCircle, ChevronRight, Clock, Phone } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { sourceSans } from "@/lib/fonts";
-import { useRouter } from "next/navigation";
 import { Reveal } from "@/components/common/Reveal";
+import { useEnquiryStore } from "@/store/enquiry-store";
+import { PHONE, PHONE_HREF } from "@/lib/constants";
 
 const trust = [
-  {
-    icon: <CheckCircle className="w-4 h-4 text-[#DBB38E]" />,
-    label: "RICS Regulated",
-  },
-  {
-    icon: <Award className="w-4 h-4 text-[#DBB38E]" />,
-    label: "Independent Reporting",
-  },
-  {
-    icon: <Clock className="w-4 h-4 text-[#DBB38E]" />,
-    label: "Fast Response",
-  },
+  { icon: <CheckCircle className="w-4 h-4 text-[#DBB38E]" />, label: "RICS Regulated" },
+  { icon: <Award className="w-4 h-4 text-[#DBB38E]" />, label: "Independent Reporting" },
+  { icon: <Clock className="w-4 h-4 text-[#DBB38E]" />, label: "Fast Response" },
 ];
 
 const LandlordMoreInfo = () => {
-  const router = useRouter();
+  const { openEnquiry } = useEnquiryStore();
 
   return (
     <section className="py-16 px-4" id="more-info">
       <div className="max-w-7xl mx-auto">
         <Reveal animation="fade-up" duration={600}>
           <div className="bg-linear-to-b from-[#31368B] to-[#1A1D4F] rounded-[24px] lg:rounded-[3rem] p-8 lg:p-12">
-            {/* Availability Check Section */}
+
             <div className="relative rounded-2xl lg:rounded-[24px] overflow-hidden">
               <div className="relative sm:h-80 lg:h-134.25 flex justify-center items-center">
                 <Image
@@ -42,7 +34,6 @@ const LandlordMoreInfo = () => {
                 />
                 <div className="absolute inset-0 bg-[#0000004D]" />
 
-                {/* Content */}
                 <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 w-[85%] backdrop-blur-[20px] bg-[#FFFFFF26] py-8 sm:h-99 rounded-[24px]">
                   <Reveal animation="fade-up" duration={600} delay={200}>
                     <h2 className="text-white text-3xl lg:text-6xl mb-4 font-medium leading-tight">
@@ -51,9 +42,7 @@ const LandlordMoreInfo = () => {
                   </Reveal>
 
                   <Reveal animation="fade-up" duration={600} delay={320}>
-                    <p
-                      className={`${sourceSans.className} text-white/90 text-base lg:text-2xl mb-8 max-w-xl`}
-                    >
+                    <p className={`${sourceSans.className} text-white/90 text-base lg:text-2xl mb-8 max-w-xl`}>
                       Discuss a tenant complaint, compliance concern or building
                       condition issue with our team.
                     </p>
@@ -63,19 +52,19 @@ const LandlordMoreInfo = () => {
                     <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
                       <Button
                         size="lg"
-                        onClick={() => router.push("/contact")}
+                        onClick={() => openEnquiry("Landlord Property Inspection")}
                         className="bg-[#DBB38E] hover:bg-[#DBB38E]/90 text-[#151515] px-8 py-6 rounded-full text-base font-medium"
                       >
                         Request a discussion
                       </Button>
-                      <Link href="tel:+442045765317">
+                      <Link href={PHONE_HREF}>
                         <Button
                           size="lg"
                           variant="outline"
                           className="bg-transparent border border-white/40 hover:bg-white/10 text-white px-8 py-6 rounded-full text-base font-medium backdrop-blur-sm"
                         >
                           <Phone className="w-4 h-4 mr-2" />
-                          020 4576 5317
+                          {PHONE}
                         </Button>
                       </Link>
                     </div>
@@ -87,13 +76,9 @@ const LandlordMoreInfo = () => {
                         <React.Fragment key={i}>
                           <span className="flex items-center gap-1.5">
                             {item.icon}
-                            <span className={sourceSans.className}>
-                              {item.label}
-                            </span>
+                            <span className={sourceSans.className}>{item.label}</span>
                           </span>
-                          {i < trust.length - 1 && (
-                            <span className="text-white/40">•</span>
-                          )}
+                          {i < trust.length - 1 && <span className="text-white/40">•</span>}
                         </React.Fragment>
                       ))}
                     </div>
@@ -102,7 +87,6 @@ const LandlordMoreInfo = () => {
               </div>
             </div>
 
-            {/* Footer Link */}
             <Reveal animation="fade-up" duration={500} delay={100}>
               <div className="mt-8 text-center">
                 <Link
@@ -114,6 +98,7 @@ const LandlordMoreInfo = () => {
                 </Link>
               </div>
             </Reveal>
+
           </div>
         </Reveal>
       </div>

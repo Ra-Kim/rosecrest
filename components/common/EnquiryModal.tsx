@@ -21,7 +21,7 @@ const EnquiryModal = () => {
       className="fixed inset-0 z-100 flex items-end sm:items-center justify-center bg-black/50 backdrop-blur-sm"
       onClick={(e) => e.target === e.currentTarget && closeEnquiry()}
     >
-      <div className="relative w-full sm:max-w-lg bg-white sm:rounded-3xl rounded-t-3xl shadow-2xl overflow-hidden max-h-[94vh] flex flex-col">
+      <div className="relative w-full sm:max-w-2xl bg-white sm:rounded-3xl rounded-t-3xl shadow-2xl overflow-hidden max-h-[94vh] flex flex-col">
 
         {/* Drag handle — mobile only */}
         <div className="sm:hidden flex justify-center pt-3 pb-1 shrink-0">
@@ -40,7 +40,7 @@ const EnquiryModal = () => {
         </div>
 
         {/* Scrollable form */}
-        <div className="overflow-y-auto flex-1 px-6 py-6 sm:px-8">
+        <div className="overflow-y-auto flex-1 px-6 py-6 sm:px-8 scrollbar-hide">
           <ContactForm
             compact
             title="Request an Inspection"

@@ -6,6 +6,7 @@ import { sourceSans } from "@/lib/fonts";
 import React from "react";
 import Link from "next/link";
 import { Reveal } from "@/components/common/Reveal";
+import { useEnquiry } from "@/hooks/useEnquiry";
 
 const CouncilsDesc = () => {
   const trust = [
@@ -22,6 +23,7 @@ const CouncilsDesc = () => {
       label: "Procurement & Governance Aligned",
     },
   ];
+  const { openEnquiry } = useEnquiry();
 
   return (
     <div className="bg-[#FBF7F4]">
@@ -58,15 +60,13 @@ const CouncilsDesc = () => {
 
           <Reveal animation="fade-up" duration={500} delay={280}>
             <div className="flex items-center gap-6 flex-wrap">
-              <Link href="/contact">
-                <Button
-                  size="lg"
-                  className="bg-[#262A6F] hover:bg-[#262A6F]/90 text-white px-8 py-6 text-base rounded-full h-15"
-                >
-                  Discuss your requirements
-                </Button>
-              </Link>
-              
+              <Button
+                size="lg"
+                className="bg-[#262A6F] hover:bg-[#262A6F]/90 text-white px-8 py-6 text-base rounded-full h-15"
+                onClick={() => openEnquiry()}
+              >
+                Discuss your requirements
+              </Button>
             </div>
           </Reveal>
         </div>
