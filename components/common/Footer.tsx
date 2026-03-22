@@ -71,8 +71,8 @@ const Footer: React.FC<FooterProps> = ({ quickLinks }) => {
 
   const defaultQuickLinksCol2: QuickLink[] = [
     { label: "Terms of Engagement", href: "#", onClick: () => setTermsOpen(true) },
-    { label: "Complaints Procedure", href: "/complaints" },
-    { label: "Privacy Policy", href: "/privacy-policy" },
+    { label: "Complaints Procedure", href: "#" },
+    { label: "Privacy Policy", href: "#" },
   ];
 
   const col1 = quickLinks ?? defaultQuickLinksCol1;

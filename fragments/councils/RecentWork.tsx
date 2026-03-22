@@ -21,7 +21,7 @@ const cases: ProjectCase[] = [
     properties: "Multiple occupied residential dwellings",
     services: "Damp & mould investigation, kitchen/bathroom replacement, ventilation upgrades",
     outcome: "Resolution of disrepair complaints and 99.9% tenant satisfaction",
-    href: "/recent-projects/damp-mould-remediation",
+    href: "#",
   },
   {
     title: "Independent Stock Condition Survey Supporting 30-Year Asset Management Strategy",
@@ -29,7 +29,7 @@ const cases: ProjectCase[] = [
     properties: "1,200 council-owned residential properties",
     services: "Comprehensive stock condition surveys, energy efficiency assessments, costed repair schedules",
     outcome: "Evidence-based 30-year investment plan aligned with Decent Homes Standards and net-zero targets",
-    href: "/recent-projects/stock-condition-survey",
+    href: "#",
   },
   {
     title: "Fire Safety & Building Compliance Review Across High-Rise Portfolio",
@@ -37,7 +37,7 @@ const cases: ProjectCase[] = [
     properties: "28 high-rise residential blocks",
     services: "Fire risk assessments, building safety evaluations, remediation prioritisation",
     outcome: "Full compliance with updated regulatory guidance and clear action plan for resident safety",
-    href: "/recent-projects/fire-safety-review",
+    href: "#",
   },
 ];
 
