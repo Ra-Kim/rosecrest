@@ -3,12 +3,12 @@ import "./globals.css";
 import Navbar from "@/components/common/Navbar";
 import { manrope } from "@/lib/fonts";
 import EnquiryModal from "@/components/common/EnquiryModal";
-
-
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Expert Property Surveys and Building Consultancy | Rosecrest",
-  description: "Professional property inspection and surveying services across London and the M25",
+  description:
+    "Professional property inspection and surveying services across London and the M25",
 };
 
 export default function RootLayout({
@@ -18,14 +18,30 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${manrope.className} relative no-scrollbar scroll-smooth`}
-      >
-        <>
-          <Navbar />
-          <div className="grow">{children}</div>
-          <EnquiryModal />
-        </>
+      <head>
+        {/* Google Tag Manager */}
+        <Script id="gtm-head" strategy="afterInteractive">
+          {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KWX4BX6S');`}
+        </Script>
+      </head>
+      <body className={`${manrope.className} relative no-scrollbar scroll-smooth`}>
+        {/* Google Tag Manager noscript */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-KWX4BX6S"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
+
+        <Navbar />
+        <div className="grow">{children}</div>
+        <EnquiryModal />
       </body>
     </html>
   );
