@@ -47,6 +47,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/environmental-reports",
+        destination: "/services/environmental-reports",
+        permanent: true,
+      },
+      {
         source: "/service/commercial-energy-performance-certificate-epc",
         destination: "/services/epc",
         permanent: true,

@@ -8,6 +8,7 @@ import {
   FileText,
   Search,
   Zap,
+  Leaf,
   Wrench,
   Hammer,
   Sparkles,
@@ -78,6 +79,14 @@ const surveyServices = [
     description:
       "Accurate energy assessments and certification to support regulatory compliance and property efficiency.",
     href: "/services/epc",
+    iconBgColor: "bg-[#262A6F]",
+  },
+  {
+    icon: Leaf,
+    title: "Environmental Reports",
+    description:
+      "Professional environmental risk assessments covering flood risk, contaminated land, radon, ground stability and more.",
+    href: "/services/environmental-reports",
     iconBgColor: "bg-[#262A6F]",
   },
 ];
@@ -203,29 +212,29 @@ const ServiceTabs = () => {
           </div>
         </Reveal>
 
-        {/* Cards grid wrapped in Reveal — no Stagger so col-span centering works */}
+        {/* Cards grid */}
         <Reveal animation="fade-up" duration={600} delay={100} threshold={0.05}>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-10">
-          {activeServices.map((service, index) => {
-            const isLastOdd =
-              activeServices.length % 2 !== 0 &&
-              index === activeServices.length - 1;
-            return (
-              <div
-                key={index}
-                className={isLastOdd ? "sm:col-span-2 sm:w-1/2 sm:mx-auto" : ""}
-              >
-                <ServiceCard
-                  icon={service.icon}
-                  title={service.title}
-                  description={service.description}
-                  href={service.href}
-                  iconBgColor={service.iconBgColor}
-                />
-              </div>
-            );
-          })}
-        </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-10">
+            {activeServices.map((service, index) => {
+              const isLastOdd =
+                activeServices.length % 2 !== 0 &&
+                index === activeServices.length - 1;
+              return (
+                <div
+                  key={index}
+                  className={isLastOdd ? "sm:col-span-2 sm:w-1/2 sm:mx-auto" : ""}
+                >
+                  <ServiceCard
+                    icon={service.icon}
+                    title={service.title}
+                    description={service.description}
+                    href={service.href}
+                    iconBgColor={service.iconBgColor}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </Reveal>
 
       </div>

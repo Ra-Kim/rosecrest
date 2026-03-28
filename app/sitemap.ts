@@ -11,6 +11,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/faqs`, lastModified: new Date() },
     { url: `${baseUrl}/areas-we-cover`, lastModified: new Date() },
     { url: `${baseUrl}/request-inspection`, lastModified: new Date() },
+    { url: `${baseUrl}/privacy-policy`, lastModified: new Date() },
+    { url: `${baseUrl}/cookie-policy`, lastModified: new Date() },
 
     // Sectors
     { url: `${baseUrl}/homebuyer`, lastModified: new Date() },
@@ -27,6 +29,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Survey services
     { url: `${baseUrl}/services/damp-mould`, lastModified: new Date() },
     { url: `${baseUrl}/services/epc`, lastModified: new Date() },
+    {
+      url: `${baseUrl}/services/environmental-reports`,
+      lastModified: new Date(),
+    },
     { url: `${baseUrl}/services/party-wall`, lastModified: new Date() },
     {
       url: `${baseUrl}/services/party-wall/notice-generator`,
