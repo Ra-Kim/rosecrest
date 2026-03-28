@@ -2,17 +2,21 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "rosecrestgroupltd.co.uk",
+        pathname: "/wp-content/uploads/**",
+      },
+    ],
+  },
   async redirects() {
     return [
       // Pages
       { source: "/about-us", destination: "/about", permanent: true },
       { source: "/faq", destination: "/faqs", permanent: true },
       { source: "/contact-us", destination: "/contact", permanent: true },
-      {
-        source: "/areas-we-cover",
-        destination: "/areas-we-cover",
-        permanent: true,
-      },
       {
         source: "/party-wall-notice-generator",
         destination: "/services/party-wall/notice-generator",

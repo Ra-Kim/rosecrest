@@ -66,9 +66,11 @@ const ContactForm = ({
   });
 
   const onSubmit = async (values: FormValues) => {
-    // TODO: wire to CRM webhook
-    console.log("Form submitted:", values);
-    await new Promise((r) => setTimeout(r, 600));
+    await fetch("/api/enquiry", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    });
     onSuccess?.();
   };
 
@@ -103,7 +105,7 @@ const ContactForm = ({
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
           {/* First Name + Last Name — side by side */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
               <Label className="text-sm font-medium text-[#101828]">
                 First Name <span className="text-red-500">*</span>
@@ -131,7 +133,7 @@ const ContactForm = ({
           </div>
 
           {/* Email + Phone — side by side */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
               <Label className="text-sm font-medium text-[#101828]">
                 Email <span className="text-red-500">*</span>
@@ -188,7 +190,7 @@ const ContactForm = ({
   if (compact) return <div>{inner}</div>;
 
   return (
-    <div className="bg-white rounded-4xl p-8 lg:p-10">
+    <div className="bg-white rounded-4xl p-2 md:p-8 lg:p-10">
       {inner}
     </div>
   );

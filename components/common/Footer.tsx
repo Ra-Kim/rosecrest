@@ -29,7 +29,13 @@ interface FooterProps {
 const SocialIcon = ({ label }: { label: string }) => {
   if (label === "Instagram")
     return (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-5 h-5">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.8}
+        className="w-5 h-5"
+      >
         <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
         <circle cx="12" cy="12" r="4" />
         <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none" />
@@ -65,12 +71,17 @@ const Footer: React.FC<FooterProps> = ({ quickLinks }) => {
     { label: "Services", href: "/services" },
     { label: "About Rosecrest", href: "/about" },
     { label: "Areas we cover", href: "/areas-we-cover" },
+    { label: "Blog", href: "/blog" },
     { label: "Contact", href: "/contact" },
     { label: "FAQs", href: "/faqs" },
   ];
 
   const defaultQuickLinksCol2: QuickLink[] = [
-    { label: "Terms of Engagement", href: "#", onClick: () => setTermsOpen(true) },
+    {
+      label: "Terms of Engagement",
+      href: "#",
+      onClick: () => setTermsOpen(true),
+    },
     { label: "Complaints Procedure", href: "#" },
     { label: "Privacy Policy", href: "/privacy-policy" },
   ];
@@ -102,7 +113,6 @@ const Footer: React.FC<FooterProps> = ({ quickLinks }) => {
       <footer className="w-full bg-white border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-12 lg:py-16">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-16">
-
             {/* Column 1: Logo & Description */}
             <div className="space-y-6">
               <Link href="/">
@@ -114,23 +124,33 @@ const Footer: React.FC<FooterProps> = ({ quickLinks }) => {
                   className="-ml-1.5"
                 />
               </Link>
-              <p className={`${sourceSans.className} text-[#64748B] text-sm lg:text-base leading-relaxed max-w-sm`}>
-                Rosecrest Group Ltd delivers trusted building, maintenance, and property care solutions across London up to the M25.
+              <p
+                className={`${sourceSans.className} text-[#64748B] text-sm lg:text-base leading-relaxed max-w-sm`}
+              >
+                Rosecrest Group Ltd delivers trusted building, maintenance, and
+                property care solutions across London up to the M25.
               </p>
             </div>
 
             {/* Column 2: Quick Links */}
             <div className="md:ml-28">
-              <h3 className="font-semibold text-[#DBB38E] text-lg mb-6">Quick Links</h3>
+              <h3 className="font-semibold text-[#DBB38E] text-lg mb-6">
+                Quick Links
+              </h3>
               <ul className="space-y-3">
                 {col1.map((link, i) => (
                   <li key={i}>
                     {link.onClick ? (
-                      <button onClick={link.onClick} className={`${linkClass} text-left`}>
+                      <button
+                        onClick={link.onClick}
+                        className={`${linkClass} text-left`}
+                      >
                         {link.label}
                       </button>
                     ) : (
-                      <Link href={link.href} className={linkClass}>{link.label}</Link>
+                      <Link href={link.href} className={linkClass}>
+                        {link.label}
+                      </Link>
                     )}
                   </li>
                 ))}
@@ -140,16 +160,23 @@ const Footer: React.FC<FooterProps> = ({ quickLinks }) => {
             {/* Column 3: Legal */}
             {col2.length > 0 && (
               <div className="md:ml-12">
-                <h3 className="font-semibold text-[#DBB38E] text-lg mb-6">Legal</h3>
+                <h3 className="font-semibold text-[#DBB38E] text-lg mb-6">
+                  Legal
+                </h3>
                 <ul className="space-y-3">
                   {col2.map((link, i) => (
                     <li key={i}>
                       {link.onClick ? (
-                        <button onClick={link.onClick} className={`${linkClass} text-left`}>
+                        <button
+                          onClick={link.onClick}
+                          className={`${linkClass} text-left`}
+                        >
                           {link.label}
                         </button>
                       ) : (
-                        <Link href={link.href} className={linkClass}>{link.label}</Link>
+                        <Link href={link.href} className={linkClass}>
+                          {link.label}
+                        </Link>
                       )}
                     </li>
                   ))}
@@ -159,7 +186,9 @@ const Footer: React.FC<FooterProps> = ({ quickLinks }) => {
 
             {/* Column 4: Get in Touch + Socials */}
             <div>
-              <h3 className="font-semibold text-[#DBB38E] text-lg mb-6">Get in Touch</h3>
+              <h3 className="font-semibold text-[#DBB38E] text-lg mb-6">
+                Get in Touch
+              </h3>
               <ul className="space-y-4 mb-8">
                 {contactInfo.map((item, i) => (
                   <li key={i}>
@@ -195,14 +224,22 @@ const Footer: React.FC<FooterProps> = ({ quickLinks }) => {
           {/* Bottom bar */}
           <div className="mt-12 pt-8 border-t border-gray-200">
             <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-              <p className={`${sourceSans.className} text-[#64748B] text-sm text-center md:text-left`}>
+              <p
+                className={`${sourceSans.className} text-[#64748B] text-sm text-center md:text-left`}
+              >
                 © {currentYear} Rosecrest Group Ltd. All rights reserved.
               </p>
               <div className="flex flex-wrap items-center justify-center md:justify-end gap-3 lg:gap-5">
                 {accreditations.map((a, i) => (
                   <React.Fragment key={i}>
-                    <span className={`${sourceSans.className} text-[#64748B] text-xs lg:text-sm`}>{a}</span>
-                    {i < accreditations.length - 1 && <span className="text-[#CBD5E1]">•</span>}
+                    <span
+                      className={`${sourceSans.className} text-[#64748B] text-xs lg:text-sm`}
+                    >
+                      {a}
+                    </span>
+                    {i < accreditations.length - 1 && (
+                      <span className="text-[#CBD5E1]">•</span>
+                    )}
                   </React.Fragment>
                 ))}
               </div>
