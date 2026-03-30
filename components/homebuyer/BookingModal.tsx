@@ -35,20 +35,16 @@ const SURVEY_LABELS: Record<string, string> = {
 };
 
 const formSchema = z.object({
-  // Contact
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().min(1, "Last name is required"),
   email: z.string().email("Please enter a valid email"),
   phone: z.string().min(1, "Phone is required"),
-  // Property location — maps to Job Address, Job Town, Job Postcode
   jobAddress: z.string().min(1, "Address is required"),
   jobTown: z.string().min(1, "Town is required"),
   jobPostcode: z.string().min(1, "Postcode is required"),
-  // Property details
   propertyType: z.string().min(1, "Please select a property type"),
   propertyValue: z.string().min(1, "Please enter property value"),
   bedrooms: z.string().min(1, "Please select number of bedrooms"),
-  // Survey
   surveyType: z.string().min(1, "Please select survey type"),
   purchaseStage: z.string().min(1, "Please select purchase stage"),
   timeline: z.string().min(1, "Please select a timeline"),
@@ -137,7 +133,7 @@ const BookingModal = ({ isOpen, onClose, surveyLevel = 2 }: BookingModalProps) =
 
                 <form id="booking-form" onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
-                  {/* ── Contact details ── */}
+                  {/* Contact */}
                   <p className="text-xs font-semibold text-[#6A7282] uppercase tracking-wide">Your Details</p>
 
                   <div className="grid grid-cols-2 gap-3">
@@ -166,7 +162,7 @@ const BookingModal = ({ isOpen, onClose, surveyLevel = 2 }: BookingModalProps) =
                     </div>
                   </div>
 
-                  {/* ── Property location ── */}
+                  {/* Property Location */}
                   <p className="text-xs font-semibold text-[#6A7282] uppercase tracking-wide pt-2">Property Location</p>
 
                   <div className="space-y-1.5">
@@ -191,7 +187,7 @@ const BookingModal = ({ isOpen, onClose, surveyLevel = 2 }: BookingModalProps) =
                     </div>
                   </div>
 
-                  {/* ── Property details ── */}
+                  {/* Property Details */}
                   <p className="text-xs font-semibold text-[#6A7282] uppercase tracking-wide pt-2">Property Details</p>
 
                   <div className="grid grid-cols-2 gap-3">
@@ -225,9 +221,11 @@ const BookingModal = ({ isOpen, onClose, surveyLevel = 2 }: BookingModalProps) =
                               <SelectValue placeholder="Select" />
                             </SelectTrigger>
                             <SelectContent>
-                              {["1", "2", "3", "4", "5+"].map((n) => (
-                                <SelectItem key={n} value={n}>{n}</SelectItem>
-                              ))}
+                              <SelectItem value="1 Bedroom">1</SelectItem>
+                              <SelectItem value="2 Bedroom">2</SelectItem>
+                              <SelectItem value="3 Bedroom">3</SelectItem>
+                              <SelectItem value="4 Bedroom">4</SelectItem>
+                              <SelectItem value="5+ Bedroom">5+</SelectItem>
                             </SelectContent>
                           </Select>
                         )} />
@@ -236,7 +234,6 @@ const BookingModal = ({ isOpen, onClose, surveyLevel = 2 }: BookingModalProps) =
                     </div>
                   </div>
 
-                  {/* Property value */}
                   <div className="space-y-1.5">
                     <Label className="text-sm font-medium text-gray-700">Approximate Property Value</Label>
                     <div className="relative">
@@ -246,7 +243,7 @@ const BookingModal = ({ isOpen, onClose, surveyLevel = 2 }: BookingModalProps) =
                     {errors.propertyValue && <p className="text-xs text-red-500">{errors.propertyValue.message}</p>}
                   </div>
 
-                  {/* ── Survey details ── */}
+                  {/* Survey Details */}
                   <p className="text-xs font-semibold text-[#6A7282] uppercase tracking-wide pt-2">Survey Details</p>
 
                   <div className="space-y-1.5">
@@ -295,7 +292,7 @@ const BookingModal = ({ isOpen, onClose, surveyLevel = 2 }: BookingModalProps) =
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="Urgent (1-2 days)">Urgent (1–2 days)</SelectItem>
-                            <SelectItem value="Within a week">Within a week</SelectItem>
+                            <SelectItem value="Within 1 week">Within a week</SelectItem>
                             <SelectItem value="Flexible">Flexible</SelectItem>
                           </SelectContent>
                         </Select>
@@ -304,10 +301,15 @@ const BookingModal = ({ isOpen, onClose, surveyLevel = 2 }: BookingModalProps) =
                     {errors.timeline && <p className="text-xs text-red-500">{errors.timeline.message}</p>}
                   </div>
 
-                  {/* How can we help */}
                   <div className="space-y-1.5">
-                    <Label className="text-sm font-medium text-gray-700">Anything else we should know? <span className="text-[#9CA3AF]">(optional)</span></Label>
-                    <Input className="h-11 rounded-xl border-[#E5E7EB] text-sm" {...register("helpWith")} />
+                    <Label className="text-sm font-medium text-gray-700">
+                      Survey requirements <span className="text-[#9CA3AF]">(optional)</span>
+                    </Label>
+                    <Input
+                      placeholder="e.g. Structural survey to evaluate property condition"
+                      className="h-11 rounded-xl border-[#E5E7EB] text-sm"
+                      {...register("helpWith")}
+                    />
                   </div>
 
                   {/* Express service */}

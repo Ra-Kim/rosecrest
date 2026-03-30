@@ -72,7 +72,7 @@ const Page = () => {
       <WhyLevel3 />
       <div className="py-20 lg:py-24">
         <BookingForm
-          surveyLevel={2}
+          surveyLevel={3}
           surveyTitle="Level 3 — Building Survey"
           basePrice={450}
         />

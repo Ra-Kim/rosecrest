@@ -13,28 +13,41 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    await fetch(BOOKING_WEBHOOK, {
+    const payload = {
+      firstName: body.firstName,
+      lastName: body.lastName,
+      email: body.email,
+      phone: body.phone,
+      altPhone: body.phone,
+      postCode: body.jobPostcode,
+      addressLine1: body.jobAddress,
+      addressLine2: "",
+      city: body.jobTown,
+      state: "",
+      country: "",
+      propertyValue: body.propertyValue,
+      propertyType: body.propertyType,
+      numberBedrooms: body.bedrooms,
+      surveyRequirements: body.helpWith || body.surveyType,
+      timeScale: body.timeline,
+      yearConstructed: "",
+      leadType: LEAD_TYPE[body.surveyType] ?? 90,
+    };
+
+    console.log("📋 Booking payload:", JSON.stringify(payload, null, 2));
+
+    const res = await fetch(BOOKING_WEBHOOK, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        "Property Type": body.propertyType,
-        "Property Value": body.propertyValue,
-        "Property Bedrooms": body.bedrooms,
-        "Phone": body.phone,
-        "Email": body.email,
-        "Job Address": body.jobAddress,
-        "Job Town": body.jobTown,
-        "Job Postcode": body.jobPostcode,
-        "First Name": body.firstName,
-        "Last Name": body.lastName,
-        "How can we help you": body.helpWith || body.surveyType,
-        "Lead Type": LEAD_TYPE[body.surveyType] ?? 90,
-      }),
+      body: JSON.stringify(payload),
     });
+
+    const responseText = await res.text();
+    console.log("📬 Booking webhook response:", res.status, responseText);
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Booking webhook error:", error);
+    console.error("❌ Booking webhook error:", error);
     return NextResponse.json({ success: false }, { status: 500 });
   }
 }

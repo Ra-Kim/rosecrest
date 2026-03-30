@@ -126,8 +126,8 @@ const Navbar = () => {
         <Link href="/request-inspection">
           <Button
             className={`${
-              isDarkNav ? "bg-[#262A6F] text-white" : "bg-white text-[#1E293B]"
-            } hover:bg-white/90 font-medium px-6 py-2.5 rounded-full transition-all shadow-md hover:shadow-lg min-h-12`}
+              isDarkNav ? "bg-[#262A6F] text-white" : "bg-white hover:bg-white/90 text-[#1E293B]"
+            }  font-medium px-6 py-2.5 rounded-full transition-all shadow-md hover:shadow-lg min-h-12`}
             size="lg"
           >
             Request an Inspection
