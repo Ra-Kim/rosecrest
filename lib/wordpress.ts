@@ -1,8 +1,7 @@
+import { config } from "@/config/api";
 import { GraphQLClient } from "graphql-request";
 
-const client = new GraphQLClient(
-  "https://rosecrestgroupltd.co.uk/graphql"
-);
+const client = new GraphQLClient(config.wordpressGraphQL || "");
 
 export async function getAllPosts() {
   const query = `

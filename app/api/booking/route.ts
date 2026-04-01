@@ -1,7 +1,7 @@
+import { config } from "@/config/api";
 import { NextResponse } from "next/server";
 
-const BOOKING_WEBHOOK =
-  "https://services.leadconnectorhq.com/hooks/wlvSa3am4efzf84AIALL/webhook-trigger/dgPKQOjDUCRNWzNxXzVN";
+const BOOKING_WEBHOOK = config.bookingWebhook || ""
 
 const LEAD_TYPE: Record<string, number> = {
   "level-1": 90,

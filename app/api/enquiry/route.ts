@@ -1,7 +1,7 @@
+import { config } from "@/config/api";
 import { NextResponse } from "next/server";
 
-const ENQUIRY_WEBHOOK =
-  "https://services.leadconnectorhq.com/hooks/wlvSa3am4efzf84AIALL/webhook-trigger/5361c8b8-fd64-4049-a436-60ec8512ea1c";
+const ENQUIRY_WEBHOOK = config.enquiryWebhook || ""
 
 export async function POST(req: Request) {
   try {

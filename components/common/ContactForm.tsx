@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -65,13 +65,20 @@ const ContactForm = ({
     },
   });
 
+  const [submitError, setSubmitError] = useState(false);
   const onSubmit = async (values: FormValues) => {
-    await fetch("/api/enquiry", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    });
-    onSuccess?.();
+    setSubmitError(false);
+    try {
+      const res = await fetch("/api/enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+      if (!res.ok) throw new Error("Failed");
+      onSuccess?.();
+    } catch {
+      setSubmitError(true);
+    }
   };
 
   const inner = (
@@ -92,18 +99,30 @@ const ContactForm = ({
         /* ── Success state ── */
         <div className="flex flex-col items-center text-center py-8 gap-4">
           <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center">
-            <svg className="w-8 h-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+            <svg
+              className="w-8 h-8 text-green-500"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M5 13l4 4L19 7"
+              />
             </svg>
           </div>
           <h3 className="text-xl font-bold text-[#101828]">Enquiry Received</h3>
-          <p className={`${sourceSans.className} text-[#4A5565] text-sm max-w-xs`}>
-            Thank you. A member of our team will be in touch within one working day.
+          <p
+            className={`${sourceSans.className} text-[#4A5565] text-sm max-w-xs`}
+          >
+            Thank you. A member of our team will be in touch within one working
+            day.
           </p>
         </div>
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-
           {/* First Name + Last Name — side by side */}
           <div className="grid sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
@@ -115,7 +134,9 @@ const ContactForm = ({
                 {...register("firstName")}
               />
               {errors.firstName && (
-                <p className="text-xs text-red-500">{errors.firstName.message}</p>
+                <p className="text-xs text-red-500">
+                  {errors.firstName.message}
+                </p>
               )}
             </div>
             <div className="space-y-1.5">
@@ -127,7 +148,9 @@ const ContactForm = ({
                 {...register("lastName")}
               />
               {errors.lastName && (
-                <p className="text-xs text-red-500">{errors.lastName.message}</p>
+                <p className="text-xs text-red-500">
+                  {errors.lastName.message}
+                </p>
               )}
             </div>
           </div>
@@ -172,7 +195,11 @@ const ContactForm = ({
               <p className="text-xs text-red-500">{errors.message.message}</p>
             )}
           </div>
-
+          {submitError && (
+            <div className="bg-red-50 border border-red-200 rounded-xl p-3 text-sm text-red-600">
+              Something went wrong. Please try again or call us directly.
+            </div>
+          )}
           {/* Submit */}
           <Button
             type="submit"
@@ -181,7 +208,6 @@ const ContactForm = ({
           >
             {isSubmitting ? "Sending..." : submitLabel}
           </Button>
-
         </form>
       )}
     </>
@@ -189,11 +215,7 @@ const ContactForm = ({
 
   if (compact) return <div>{inner}</div>;
 
-  return (
-    <div className="bg-white rounded-4xl p-2 md:p-8 lg:p-10">
-      {inner}
-    </div>
-  );
+  return <div className="bg-white rounded-4xl p-2 md:p-8 lg:p-10">{inner}</div>;
 };
 
 export default ContactForm;
