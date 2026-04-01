@@ -1,12 +1,6 @@
-// lib/wordpress.ts
-import { config } from "@/config/api";
 import { GraphQLClient } from "graphql-request";
 
-function getClient() {
-  const url = config.wordpressGraphQL;
-  if (!url) throw new Error("WORDPRESS_GRAPHQL_URL is not set");
-  return new GraphQLClient(url);
-}
+const client = new GraphQLClient("https://cms.rosecrestgroupltd.co.uk/graphql");
 
 export async function getAllPosts() {
   const query = `
@@ -28,7 +22,7 @@ export async function getAllPosts() {
     }
   `;
 
-  const data = await getClient().request(query);
+  const data = await client.request(query);
   return data?.posts?.nodes ?? [];
 }
 
@@ -49,6 +43,6 @@ export async function getPostBySlug(slug: string) {
     }
   `;
 
-  const data = await getClient().request(query, { slug });
+  const data = await client.request(query, { slug });
   return data?.postBy ?? null;
 }
