@@ -6,62 +6,60 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { sourceSans } from "@/lib/fonts";
 import { Reveal } from "@/components/common/Reveal";
 
-// Flatten all testimonials into a single list for mobile single-card view
+// ─── Testimonial data ─────────────────────────────────────────────────────────
+// TODO: Replace avatar paths with real logos once received.
+// Purdy logo:    https://www.purdycontracts.co.uk  → save to /assets/images/logos/purdy.png
+// Din Solicitors: https://www.dinsolicitors.co.uk  → save to /assets/images/logos/din-solicitors.png
+
 const testimonials = [
   {
     quote:
-      "Rosecrest provided clear, professional reporting that aligned with our governance requirements. Their understanding of public sector procurement processes made the engagement straightforward.",
-    org: "Regional Housing Association",
-    name: "Sarah Mitchell, Asset Management Lead",
+      "We instructed Rosecrest Group Ltd to provide independent oversight, monitoring, and reporting in relation to plumbing separation works at one of our sites. The service was delivered in a professional and structured manner, with clear communication throughout. Their oversight and reporting provided a transparent view of the works as they progressed, allowing us to monitor key stages and address any issues efficiently. The final reporting was clear, well presented, and supported our internal processes and decision-making. Overall, we found the service reliable and would be happy to work with Rosecrest Group Ltd again on future projects.",
+    org: "Purdy — Part of Sureserve",
+    name: "Purdy Contracts",
+    // Swap to /assets/images/logos/purdy.png once downloaded
     avatar: "/assets/images/profile.png",
+    isLogo: true,
   },
   {
     quote:
-      "The technical quality of their inspections gave us confidence in our decision-making. Fast response times and fixed pricing made budgeting straightforward.",
-    org: "Metropolitan Council",
-    name: "David Thompson, Head of Compliance",
+      "We have consistently found Rosecrest Group Ltd's expert reports to be professional, detailed, and highly reliable. In particular, their CPR Part 35-compliant reports and damp and mould investigations are thorough and clearly presented, making them well-suited for litigation purposes. The staff have been consistently helpful, professional, and responsive throughout our dealings, which has made the instruction process straightforward and efficient. Their reports have greatly assisted our clients in pursuing claims against their landlords by clearly identifying defects, causation, and the extent of disrepair. The findings have been instrumental in evidencing issues such as damp, mould, and structural defects, as well as ensuring that appropriate remedial work is recommended.",
+    org: "Din Solicitors",
+    name: "Trusted Solicitors for Claims",
+    // Swap to /assets/images/logos/din-solicitors.png once downloaded
     avatar: "/assets/images/profile.png",
-  },
-  {
-    quote:
-      "Rosecrest provided clear, professional reporting that aligned with our governance requirements. Their understanding of public sector procurement processes made the engagement straightforward.",
-    org: "Regional Housing Association",
-    name: "Sarah Ann, Asset Management Lead",
-    avatar: "/assets/images/profile.png",
-  },
-  {
-    quote:
-      "The technical quality of their inspections gave us confidence in our decision-making. Fast response times and fixed pricing made budgeting straightforward.",
-    org: "Metropolitan Council",
-    name: "David Mark, Head of Compliance",
-    avatar: "/assets/images/profile.png",
+    isLogo: true,
   },
 ];
 
-// On desktop we show pairs; on mobile one at a time
-const desktopSlides = [
-  [testimonials[0], testimonials[1]],
-  [testimonials[2], testimonials[3]],
-];
+// On desktop we show pairs; if there's only one pair show it twice (or add more testimonials later)
+const desktopSlides: (typeof testimonials)[] = [];
+for (let i = 0; i < testimonials.length; i += 2) {
+  desktopSlides.push(testimonials.slice(i, i + 2));
+}
+// If odd number, last slide shows the last item alone
+// (currently 2 testimonials → 1 desktop slide)
 
 const AUTO_ADVANCE_MS = 20_000;
 
+// ─── Card ─────────────────────────────────────────────────────────────────────
+
 const TestimonialCard = ({ t }: { t: (typeof testimonials)[0] }) => (
-  <div className="bg-white border border-gray-200 rounded-4xl p-8 flex flex-col gap-6 min-h-83 h-full">
+  <div className="bg-white border border-gray-200 rounded-4xl p-8 flex flex-col gap-6 h-full">
     <Image src="/assets/svgs/brown-quote.svg" alt="" width={32} height={32} />
     <p
-      className={`${sourceSans.className} text-[#101828] font-light text-base md:text-lg leading-relaxed flex-1 w-3/4`}
+      className={`${sourceSans.className} text-[#101828] font-light text-base md:text-lg leading-relaxed flex-1`}
     >
       {t.quote}
     </p>
     <div className="flex items-center gap-3">
-      <div className="w-12 h-12 rounded-full overflow-hidden bg-[#1E3A8A] shrink-0">
+      <div className="w-12 h-12 rounded-full overflow-hidden bg-white border border-gray-200 shrink-0 flex items-center justify-center">
         <Image
           src={t.avatar}
-          alt={t.name}
+          alt={t.org}
           width={48}
           height={48}
-          className="object-cover w-full h-full"
+          className="object-contain w-full h-full"
         />
       </div>
       <div>
@@ -74,9 +72,9 @@ const TestimonialCard = ({ t }: { t: (typeof testimonials)[0] }) => (
   </div>
 );
 
+// ─── Component ────────────────────────────────────────────────────────────────
+
 const ClientTestimonials = () => {
-  // mobile: index into testimonials (0..3)
-  // desktop: index into desktopSlides (0..1)
   const [mobileIdx, setMobileIdx] = useState(0);
   const [desktopIdx, setDesktopIdx] = useState(0);
   const [animating, setAnimating] = useState(false);
@@ -99,10 +97,7 @@ const ClientTestimonials = () => {
   );
 
   const prevMobile = useCallback(() => {
-    animate(
-      () => setMobileIdx((i) => (i - 1 + mobileTotal) % mobileTotal),
-      "left",
-    );
+    animate(() => setMobileIdx((i) => (i - 1 + mobileTotal) % mobileTotal), "left");
   }, [animate, mobileTotal]);
 
   const nextMobile = useCallback(() => {
@@ -110,18 +105,15 @@ const ClientTestimonials = () => {
   }, [animate, mobileTotal]);
 
   const prevDesktop = useCallback(() => {
-    animate(
-      () => setDesktopIdx((i) => (i - 1 + desktopTotal) % desktopTotal),
-      "left",
-    );
+    animate(() => setDesktopIdx((i) => (i - 1 + desktopTotal) % desktopTotal), "left");
   }, [animate, desktopTotal]);
 
   const nextDesktop = useCallback(() => {
     animate(() => setDesktopIdx((i) => (i + 1) % desktopTotal), "right");
   }, [animate, desktopTotal]);
 
-  // Auto-advance
   useEffect(() => {
+    if (mobileTotal <= 1 && desktopTotal <= 1) return; // nothing to auto-advance
     const timer = setInterval(() => {
       animate(() => {
         setMobileIdx((i) => (i + 1) % mobileTotal);
@@ -142,27 +134,17 @@ const ClientTestimonials = () => {
   return (
     <section className="py-16 lg:py-24 px-4 md:px-25 bg-[#F9FAFB]">
       <div className="max-w-7xl px-4 mx-auto">
-        {/* Quote icon */}
         <Reveal animation="fade" duration={500}>
-          <Image
-            src="/assets/svgs/white-quote.svg"
-            alt=""
-            width={48}
-            height={48}
-          />
+          <Image src="/assets/svgs/white-quote.svg" alt="" width={48} height={48} />
         </Reveal>
 
-        {/* Heading */}
         <Reveal animation="fade-up" duration={600} delay={100}>
           <div className="text-center mb-12">
             <h2 className="text-4xl lg:text-5xl font-bold text-[#101828] mb-4">
               Client Testimonials
             </h2>
-            <p
-              className={`${sourceSans.className} text-[#4A5565] text-base lg:text-lg mx-auto`}
-            >
-              Feedback from clients on their experience working with
-              Rosecrest.
+            <p className={`${sourceSans.className} text-[#4A5565] text-base lg:text-lg mx-auto`}>
+              Feedback from clients on their experience working with Rosecrest.
             </p>
           </div>
         </Reveal>
@@ -173,45 +155,40 @@ const ClientTestimonials = () => {
             <TestimonialCard t={testimonials[mobileIdx]} />
           </div>
 
-          <div className="flex items-center justify-between">
-            {/* Dots */}
-            <div className="flex items-center gap-2">
-              {testimonials.map((_, i) => (
+          {mobileTotal > 1 && (
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                {testimonials.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => animate(() => setMobileIdx(i), i > mobileIdx ? "right" : "left")}
+                    aria-label={`Go to slide ${i + 1}`}
+                    className="h-1 rounded-full transition-all duration-500 ease-in-out"
+                    style={{
+                      width: i === mobileIdx ? "48px" : "20px",
+                      backgroundColor: i === mobileIdx ? "#DBB38E" : "#D1D5DB",
+                    }}
+                  />
+                ))}
+              </div>
+              <div className="flex gap-2">
                 <button
-                  key={i}
-                  onClick={() =>
-                    animate(
-                      () => setMobileIdx(i),
-                      i > mobileIdx ? "right" : "left",
-                    )
-                  }
-                  aria-label={`Go to slide ${i + 1}`}
-                  className="h-1 rounded-full transition-all duration-500 ease-in-out"
-                  style={{
-                    width: i === mobileIdx ? "48px" : "20px",
-                    backgroundColor: i === mobileIdx ? "#DBB38E" : "#D1D5DB",
-                  }}
-                />
-              ))}
+                  onClick={prevMobile}
+                  className="w-10 h-10 rounded-[6px] bg-[#262A6F] hover:bg-[#262A6F]/80 text-white flex items-center justify-center transition-colors"
+                  aria-label="Previous"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={nextMobile}
+                  className="w-10 h-10 rounded-[6px] bg-[#262A6F] hover:bg-[#262A6F]/80 text-white flex items-center justify-center transition-colors"
+                  aria-label="Next"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
             </div>
-            {/* Arrows */}
-            <div className="flex gap-2">
-              <button
-                onClick={prevMobile}
-                className="w-10 h-10 rounded-[6px] bg-[#262A6F] hover:bg-[#262A6F]/80 text-white flex items-center justify-center transition-colors"
-                aria-label="Previous"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button
-                onClick={nextMobile}
-                className="w-10 h-10 rounded-[6px] bg-[#262A6F] hover:bg-[#262A6F]/80 text-white flex items-center justify-center transition-colors"
-                aria-label="Next"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
+          )}
         </div>
 
         {/* ── Desktop: two cards per slide ── */}
@@ -222,45 +199,40 @@ const ClientTestimonials = () => {
             ))}
           </div>
 
-          <div className="flex items-center justify-between">
-            {/* Dots */}
-            <div className="flex items-center gap-2">
-              {desktopSlides.map((_, i) => (
+          {desktopTotal > 1 && (
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                {desktopSlides.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => animate(() => setDesktopIdx(i), i > desktopIdx ? "right" : "left")}
+                    aria-label={`Go to slide ${i + 1}`}
+                    className="h-1 rounded-full transition-all duration-500 ease-in-out"
+                    style={{
+                      width: i === desktopIdx ? "80px" : "32px",
+                      backgroundColor: i === desktopIdx ? "#DBB38E" : "#D1D5DB",
+                    }}
+                  />
+                ))}
+              </div>
+              <div className="flex gap-2">
                 <button
-                  key={i}
-                  onClick={() =>
-                    animate(
-                      () => setDesktopIdx(i),
-                      i > desktopIdx ? "right" : "left",
-                    )
-                  }
-                  aria-label={`Go to slide ${i + 1}`}
-                  className="h-1 rounded-full transition-all duration-500 ease-in-out"
-                  style={{
-                    width: i === desktopIdx ? "80px" : "32px",
-                    backgroundColor: i === desktopIdx ? "#DBB38E" : "#D1D5DB",
-                  }}
-                />
-              ))}
+                  onClick={prevDesktop}
+                  className="w-10 h-10 rounded-[6px] bg-[#262A6F] hover:bg-[#262A6F]/80 text-white flex items-center justify-center transition-colors"
+                  aria-label="Previous"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={nextDesktop}
+                  className="w-10 h-10 rounded-[6px] bg-[#262A6F] hover:bg-[#262A6F]/80 text-white flex items-center justify-center transition-colors"
+                  aria-label="Next"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
             </div>
-            {/* Arrows */}
-            <div className="flex gap-2">
-              <button
-                onClick={prevDesktop}
-                className="w-10 h-10 rounded-[6px] bg-[#262A6F] hover:bg-[#262A6F]/80 text-white flex items-center justify-center transition-colors"
-                aria-label="Previous"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button
-                onClick={nextDesktop}
-                className="w-10 h-10 rounded-[6px] bg-[#262A6F] hover:bg-[#262A6F]/80 text-white flex items-center justify-center transition-colors"
-                aria-label="Next"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </section>
