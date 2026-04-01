@@ -6,7 +6,7 @@ import { Reveal } from "@/components/common/Reveal";
 
 // ─── Update this URL once WordPress is on its subdomain ──────────────────────
 const GENERATOR_URL =
-  "https://rosecrestgroupltd.co.uk/party-wall-notice-generator/?embedded=1";
+  "https://cms.rosecrestgroupltd.co.uk/party-wall-notice-generator/?embedded=1";
 
 // const features = [
 //   {

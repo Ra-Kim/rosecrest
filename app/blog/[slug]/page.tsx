@@ -9,17 +9,17 @@ import BlogHero from "@/fragments/blog/BlogHero";
 
 export const revalidate = 3600;
 
-export async function generateStaticParams() {
-  const posts = await getAllPosts();
 interface StaticParam {
-    slug: string;
+  slug: string;
 }
 
 interface Post {
-    slug: string;
+  slug: string;
 }
-
-return posts.map((post: Post): StaticParam => ({ slug: post.slug }));
+export async function generateStaticParams() {
+  if (!process.env.WORDPRESS_GRAPHQL_URL) return [];
+  const posts = await getAllPosts();
+  return posts.map((post: Post): StaticParam => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
