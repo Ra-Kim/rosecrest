@@ -10,6 +10,7 @@ import { OpenBookingModal } from "@/types/homebuyer";
 import TermsModal from "@/components/common/TermsModal";
 import SampleReportsModal from "@/components/common/SampleReportsModal";
 import { Reveal } from "@/components/common/Reveal";
+import { useRouter } from "next/navigation";
 
 interface MoreInfoProps {
   onOpenBooking: OpenBookingModal;
@@ -18,14 +19,14 @@ interface MoreInfoProps {
 const MoreInfo = ({ onOpenBooking }: MoreInfoProps) => {
   const [termsOpen, setTermsOpen] = useState(false);
   const [samplesOpen, setSamplesOpen] = useState(false);
-
+  const router = useRouter();
+  
   return (
     <>
       <section className="py-16 lg:py-24 px-4">
         <div className="max-w-7xl mx-auto">
           <Reveal animation="fade-up" duration={600}>
             <div className="bg-linear-to-b from-[#31368B] to-[#1A1D4F] rounded-[24px] lg:rounded-[3rem] p-8 lg:p-12">
-
               {/* Need more information section */}
               <div className="mb-12">
                 <Reveal animation="fade-up" duration={500} delay={100}>
@@ -46,7 +47,9 @@ const MoreInfo = ({ onOpenBooking }: MoreInfoProps) => {
                     <h3 className="text-[#101828] leading-7 text-xl font-bold mb-2">
                       Sample Report Preview
                     </h3>
-                    <p className={`${sourceSans.className} text-[#4A5565] text-sm lg:text-base`}>
+                    <p
+                      className={`${sourceSans.className} text-[#4A5565] text-sm lg:text-base`}
+                    >
                       View examples of our survey reports
                     </p>
                   </button>
@@ -62,7 +65,9 @@ const MoreInfo = ({ onOpenBooking }: MoreInfoProps) => {
                     <h3 className="text-[#101828] leading-7 text-xl font-bold mb-2">
                       Terms Of Engagement
                     </h3>
-                    <p className={`${sourceSans.className} text-[#4A5565] text-sm lg:text-base`}>
+                    <p
+                      className={`${sourceSans.className} text-[#4A5565] text-sm lg:text-base`}
+                    >
                       View our terms of engagements
                     </p>
                   </button>
@@ -78,7 +83,9 @@ const MoreInfo = ({ onOpenBooking }: MoreInfoProps) => {
                     <h3 className="text-[#101828] leading-7 text-xl font-bold mb-2">
                       Speak with our team
                     </h3>
-                    <p className={`${sourceSans.className} text-[#4A5565] text-sm lg:text-base`}>
+                    <p
+                      className={`${sourceSans.className} text-[#4A5565] text-sm lg:text-base`}
+                    >
                       For more information
                     </p>
                   </Link>
@@ -108,14 +115,19 @@ const MoreInfo = ({ onOpenBooking }: MoreInfoProps) => {
                         <Button
                           size="lg"
                           className="bg-[#DBB38E] h-12 hover:bg-[#DBB38E]/90 text-[#151515] px-8 py-6 rounded-full text-base lg:text-lg mb-12 leading-7"
-                          onClick={() => onOpenBooking()}
+                          onClick={() =>
+                            // onOpenBooking()
+                            router.push("/contact")
+                          }
                         >
                           Check Availability & Fixed Price
                         </Button>
                       </Reveal>
 
                       <Reveal animation="fade" duration={400} delay={520}>
-                        <p className="text-white text-sm">Takes less than 60 seconds.</p>
+                        <p className="text-white text-sm">
+                          Takes less than 60 seconds.
+                        </p>
                       </Reveal>
                     </div>
                   </div>
@@ -134,14 +146,16 @@ const MoreInfo = ({ onOpenBooking }: MoreInfoProps) => {
                   </Link>
                 </div>
               </Reveal>
-
             </div>
           </Reveal>
         </div>
       </section>
 
       <TermsModal isOpen={termsOpen} onClose={() => setTermsOpen(false)} />
-      <SampleReportsModal isOpen={samplesOpen} onClose={() => setSamplesOpen(false)} />
+      <SampleReportsModal
+        isOpen={samplesOpen}
+        onClose={() => setSamplesOpen(false)}
+      />
     </>
   );
 };

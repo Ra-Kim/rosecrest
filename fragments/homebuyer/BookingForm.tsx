@@ -13,14 +13,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import {
   MapPin,
   Home,
   Bed,
   Clock,
-  Zap,
   CheckCircle,
   Circle,
   PoundSterling,
@@ -30,8 +28,44 @@ import { sourceSans } from "@/lib/fonts";
 interface BookingFormProps {
   surveyLevel: 1 | 2 | 3;
   surveyTitle: string;
-  basePrice: number;
 }
+
+// ─── Pricing ─────────────────────────────────────────────────────────────────
+
+const LEVEL_2_PRICES: Record<string, number> = {
+  Studio: 290,
+  "1 Bedroom": 320,
+  "2 Bedroom": 370,
+  "3 Bedroom": 395,
+  "4 Bedroom": 435,
+  "5 Bedroom": 470,
+  "6 Bedroom": 500,
+  "7 Bedroom": 550,
+  "8 Bedroom": 600,
+  "9 Bedroom": 650,
+  "10+ Bedroom": 700,
+};
+
+const LEVEL_3_PRICES: Record<string, number> = {
+  Studio: 490,
+  "1 Bedroom": 545,
+  "2 Bedroom": 595,
+  "3 Bedroom": 620,
+  "4 Bedroom": 660,
+  "5 Bedroom": 695,
+  "6 Bedroom": 725,
+  "7 Bedroom": 775,
+  "8 Bedroom": 825,
+  "9 Bedroom": 875,
+  "10+ Bedroom": 925,
+};
+
+function getPrice(surveyType: string, bedrooms: string): number {
+  const prices = surveyType === "level-3" ? LEVEL_3_PRICES : LEVEL_2_PRICES;
+  return prices[bedrooms] ?? prices["1 Bedroom"];
+}
+
+// ─── Schema ──────────────────────────────────────────────────────────────────
 
 const formSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -44,19 +78,14 @@ const formSchema = z.object({
   propertyType: z.string().min(1, "Please select a property type"),
   propertyValue: z.string().min(1, "Please enter property value"),
   bedrooms: z.string().min(1, "Please select number of bedrooms"),
-  purchaseStage: z.string().min(1, "Please select purchase stage"),
   timeline: z.string().min(1, "Please select a timeline"),
   helpWith: z.string().optional(),
   surveyType: z.string().min(1, "Please select survey type"),
-  expressService: z.boolean(),
 });
 
-const BookingForm = ({
-  surveyLevel,
-  surveyTitle,
-  basePrice,
-}: BookingFormProps) => {
-  const expressServiceCost = 150;
+// ─── Component ───────────────────────────────────────────────────────────────
+
+const BookingForm = ({ surveyLevel, surveyTitle }: BookingFormProps) => {
   const surveyType = `level-${surveyLevel}`;
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -81,20 +110,25 @@ const BookingForm = ({
       propertyValue: "",
       bedrooms: "",
       surveyType,
-      purchaseStage: "",
       timeline: "",
       helpWith: "",
-      expressService: false,
     },
   });
 
-  const expressServiceChecked = useWatch({
+  const selectedBedrooms = useWatch({
     control,
-    name: "expressService",
-    defaultValue: false,
+    name: "bedrooms",
+    defaultValue: "",
   });
-  const totalPrice =
-    basePrice + (expressServiceChecked ? expressServiceCost : 0);
+  const selectedSurveyType = useWatch({
+    control,
+    name: "surveyType",
+    defaultValue: surveyType,
+  });
+
+  const totalPrice = selectedBedrooms
+    ? getPrice(selectedSurveyType, selectedBedrooms)
+    : getPrice(surveyType, "1 Bedroom");
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
@@ -139,8 +173,8 @@ const BookingForm = ({
           <p
             className={`${sourceSans.className} text-[#4A5565] text-sm max-w-xs`}
           >
-            Thank you. A member of our team will be in touch to confirm your
-            inspection date.
+            Thank you. Check your email for confirmation and next steps. We look
+            forward to helping you with your survey!
           </p>
         </div>
       </section>
@@ -172,7 +206,6 @@ const BookingForm = ({
               onSubmit={handleSubmit(onSubmit)}
               className="space-y-4"
             >
-              {/* Contact */}
               <p className="text-xs font-semibold text-[#6A7282] uppercase tracking-wide">
                 Your Details
               </p>
@@ -241,7 +274,6 @@ const BookingForm = ({
                 </div>
               </div>
 
-              {/* Property Location */}
               <p className="text-xs font-semibold text-[#6A7282] uppercase tracking-wide pt-2">
                 Property Location
               </p>
@@ -298,7 +330,6 @@ const BookingForm = ({
                 </div>
               </div>
 
-              {/* Property Details */}
               <p className="text-xs font-semibold text-[#6A7282] uppercase tracking-wide pt-2">
                 Property Details
               </p>
@@ -357,11 +388,17 @@ const BookingForm = ({
                             <SelectValue placeholder="Select" />
                           </SelectTrigger>
                           <SelectContent>
+                            <SelectItem value="Studio">Studio</SelectItem>
                             <SelectItem value="1 Bedroom">1</SelectItem>
                             <SelectItem value="2 Bedroom">2</SelectItem>
                             <SelectItem value="3 Bedroom">3</SelectItem>
                             <SelectItem value="4 Bedroom">4</SelectItem>
-                            <SelectItem value="5+ Bedroom">5+</SelectItem>
+                            <SelectItem value="5 Bedroom">5</SelectItem>
+                            <SelectItem value="6 Bedroom">6</SelectItem>
+                            <SelectItem value="7 Bedroom">7</SelectItem>
+                            <SelectItem value="8 Bedroom">8</SelectItem>
+                            <SelectItem value="9 Bedroom">9</SelectItem>
+                            <SelectItem value="10+ Bedroom">10+</SelectItem>
                           </SelectContent>
                         </Select>
                       )}
@@ -396,12 +433,10 @@ const BookingForm = ({
                 )}
               </div>
 
-              {/* Survey Details */}
               <p className="text-xs font-semibold text-[#6A7282] uppercase tracking-wide pt-2">
                 Survey Details
               </p>
 
-              {/* Survey type — pre-populated from page, user can still change */}
               <div className="space-y-1.5">
                 <Label className="text-sm font-medium text-gray-700">
                   Survey type
@@ -431,40 +466,6 @@ const BookingForm = ({
                 {errors.surveyType && (
                   <p className="text-xs text-red-500">
                     {errors.surveyType.message}
-                  </p>
-                )}
-              </div>
-
-              <div className="space-y-1.5">
-                <Label className="text-sm font-medium text-gray-700">
-                  Purchase stage
-                </Label>
-                <Controller
-                  name="purchaseStage"
-                  control={control}
-                  render={({ field }) => (
-                    <Select onValueChange={field.onChange} value={field.value}>
-                      <SelectTrigger className="h-11 rounded-xl border-[#E5E7EB] w-full text-sm">
-                        <SelectValue placeholder="Select stage" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Just viewing">
-                          Just viewing
-                        </SelectItem>
-                        <SelectItem value="Offer made">Offer made</SelectItem>
-                        <SelectItem value="Offer accepted">
-                          Offer accepted
-                        </SelectItem>
-                        <SelectItem value="Exchanged contracts">
-                          Exchanged contracts
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                  )}
-                />
-                {errors.purchaseStage && (
-                  <p className="text-xs text-red-500">
-                    {errors.purchaseStage.message}
                   </p>
                 )}
               </div>
@@ -517,39 +518,6 @@ const BookingForm = ({
                   {...register("helpWith")}
                 />
               </div>
-
-              {/* Express service */}
-              <div className="bg-amber-50 rounded-xl p-3.5 border border-amber-200">
-                <Controller
-                  name="expressService"
-                  control={control}
-                  render={({ field }) => (
-                    <div className="flex items-start gap-3">
-                      <Checkbox
-                        id="expressService-inline"
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                        className="mt-0.5 h-4 w-4 rounded-[3px] border-[#99A1AF] data-[state=checked]:bg-amber-600 data-[state=checked]:border-amber-500"
-                      />
-                      <Label
-                        htmlFor="expressService-inline"
-                        className="flex items-start gap-2 cursor-pointer"
-                      >
-                        <Zap className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-                        <span
-                          className={`text-sm text-gray-800 ${sourceSans.className}`}
-                        >
-                          Express service — Priority booking with faster
-                          turnaround{" "}
-                          <span className="text-amber-600 font-medium">
-                            (+£{expressServiceCost})
-                          </span>
-                        </span>
-                      </Label>
-                    </div>
-                  )}
-                />
-              </div>
             </form>
           </div>
 
@@ -569,15 +537,12 @@ const BookingForm = ({
               </h3>
               <div className={`space-y-4 mb-6 ${sourceSans.className}`}>
                 <div className="flex items-center justify-between text-[#4A5565] text-sm">
-                  <span>Base survey price</span>
-                  <span className="font-medium">£{basePrice}</span>
+                  <span>
+                    Survey price{" "}
+                    {selectedBedrooms ? `(${selectedBedrooms})` : ""}
+                  </span>
+                  <span className="font-medium">£{totalPrice}</span>
                 </div>
-                {expressServiceChecked && (
-                  <div className="flex items-center justify-between text-[#4A5565] text-sm">
-                    <span>Express service</span>
-                    <span className="font-medium">£{expressServiceCost}</span>
-                  </div>
-                )}
                 <div className="pt-4 border-t border-gray-200">
                   <div className="flex items-center justify-between">
                     <span className="font-semibold text-[#101828]">
@@ -589,6 +554,11 @@ const BookingForm = ({
                   </div>
                 </div>
               </div>
+              {!selectedBedrooms && (
+                <p className="text-xs text-[#9CA3AF] -mt-4 mb-4">
+                  Select bedrooms to see your exact price
+                </p>
+              )}
               <div className="bg-[#EFF6FF] rounded-[10px] p-4">
                 <h4 className="font-bold text-[#101828] mb-4 text-sm">
                   What happens next
@@ -616,7 +586,6 @@ const BookingForm = ({
           </div>
         </div>
 
-        {/* Submit */}
         {submitError && (
           <div className="max-w-7xl mx-auto mt-4 bg-red-50 border border-red-200 rounded-xl p-3 text-sm text-red-600 text-center">
             Something went wrong. Please try again or call us directly.

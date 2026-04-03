@@ -48,11 +48,10 @@ const Page = () => {
         ]}
       />
       <div className="py-20 lg:py-24">
-        <BookingForm
+        {/* <BookingForm
           surveyLevel={1}
           surveyTitle="Level 1 — Home Conditions Survey"
-          basePrice={450}
-        />
+        /> */}
       </div>
       <Footer />
     </div>

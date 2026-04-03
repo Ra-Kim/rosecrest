@@ -7,7 +7,6 @@ import {
   Home,
   Bed,
   Clock,
-  Zap,
   CheckCircle,
   Circle,
   PoundSterling,
@@ -18,7 +17,6 @@ import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -34,17 +32,48 @@ interface BookingModalProps {
   surveyLevel?: 1 | 2 | 3;
 }
 
-const SURVEY_PRICES: Record<string, number> = {
-  "level-1": 299,
-  "level-2": 450,
-  "level-3": 699,
+// ─── Pricing ─────────────────────────────────────────────────────────────────
+
+const LEVEL_2_PRICES: Record<string, number> = {
+  Studio: 290,
+  "1 Bedroom": 320,
+  "2 Bedroom": 370,
+  "3 Bedroom": 395,
+  "4 Bedroom": 435,
+  "5 Bedroom": 470,
+  "6 Bedroom": 500,
+  "7 Bedroom": 550,
+  "8 Bedroom": 600,
+  "9 Bedroom": 650,
+  "10+ Bedroom": 700,
 };
+
+const LEVEL_3_PRICES: Record<string, number> = {
+  Studio: 490,
+  "1 Bedroom": 545,
+  "2 Bedroom": 595,
+  "3 Bedroom": 620,
+  "4 Bedroom": 660,
+  "5 Bedroom": 695,
+  "6 Bedroom": 725,
+  "7 Bedroom": 775,
+  "8 Bedroom": 825,
+  "9 Bedroom": 875,
+  "10+ Bedroom": 925,
+};
+
+function getPrice(surveyType: string, bedrooms: string): number {
+  const prices = surveyType === "level-3" ? LEVEL_3_PRICES : LEVEL_2_PRICES;
+  return prices[bedrooms] ?? prices["1 Bedroom"];
+}
 
 const SURVEY_LABELS: Record<string, string> = {
   "level-1": "Level 1 — Home Conditions Survey",
   "level-2": "Level 2 — Homebuyer Survey",
   "level-3": "Level 3 — Building Survey",
 };
+
+// ─── Schema ──────────────────────────────────────────────────────────────────
 
 const formSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -57,20 +86,20 @@ const formSchema = z.object({
   propertyType: z.string().min(1, "Please select a property type"),
   propertyValue: z.string().min(1, "Please enter property value"),
   bedrooms: z.string().min(1, "Please select number of bedrooms"),
-  surveyType: z.string().min(1, "Please select survey type"),
-  purchaseStage: z.string().min(1, "Please select purchase stage"),
   timeline: z.string().min(1, "Please select a timeline"),
   helpWith: z.string().optional(),
-  expressService: z.boolean(),
+  surveyType: z.string().min(1, "Please select survey type"),
 });
+
+// ─── Component ───────────────────────────────────────────────────────────────
 
 const BookingModal = ({
   isOpen,
   onClose,
   surveyLevel = 2,
 }: BookingModalProps) => {
-  const expressServiceCost = 150;
   const defaultSurveyType = `level-${surveyLevel}`;
+  const [submitError, setSubmitError] = useState(false);
 
   const {
     register,
@@ -91,17 +120,15 @@ const BookingModal = ({
       propertyValue: "",
       bedrooms: "",
       surveyType: defaultSurveyType,
-      purchaseStage: "",
       timeline: "",
       helpWith: "",
-      expressService: false,
     },
   });
 
-  const expressServiceChecked = useWatch({
+  const selectedBedrooms = useWatch({
     control,
-    name: "expressService",
-    defaultValue: false,
+    name: "bedrooms",
+    defaultValue: "",
   });
   const selectedSurveyType = useWatch({
     control,
@@ -109,13 +136,11 @@ const BookingModal = ({
     defaultValue: defaultSurveyType,
   });
 
-  const activeSurveyPrice =
-    SURVEY_PRICES[selectedSurveyType] ?? SURVEY_PRICES[defaultSurveyType];
   const activeSurveyTitle =
     SURVEY_LABELS[selectedSurveyType] ?? SURVEY_LABELS[defaultSurveyType];
-  const totalPrice =
-    activeSurveyPrice + (expressServiceChecked ? expressServiceCost : 0);
-  const [submitError, setSubmitError] = useState(false);
+  const totalPrice = selectedBedrooms
+    ? getPrice(selectedSurveyType, selectedBedrooms)
+    : getPrice(defaultSurveyType, "1 Bedroom");
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setSubmitError(false);
@@ -178,8 +203,8 @@ const BookingModal = ({
               <p
                 className={`${sourceSans.className} text-[#4A5565] text-sm max-w-xs`}
               >
-                Thank you. A member of our team will be in touch to confirm your
-                inspection date.
+                Thank you. Check your email for confirmation and next steps. We
+                look forward to helping you with your survey!
               </p>
               <Button
                 onClick={onClose}
@@ -214,7 +239,7 @@ const BookingModal = ({
                     Your Details
                   </p>
 
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid sm:grid-cols-2 gap-3">
                     <div className="space-y-1.5">
                       <Label className="text-sm font-medium text-gray-700">
                         First Name
@@ -245,7 +270,7 @@ const BookingModal = ({
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid sm:grid-cols-2 gap-3">
                     <div className="space-y-1.5">
                       <Label className="text-sm font-medium text-gray-700">
                         Email
@@ -302,7 +327,7 @@ const BookingModal = ({
                     )}
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid sm:grid-cols-2 gap-3">
                     <div className="space-y-1.5">
                       <Label className="text-sm font-medium text-gray-700">
                         Town / City
@@ -340,7 +365,7 @@ const BookingModal = ({
                     Property Details
                   </p>
 
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid sm:grid-cols-2 gap-3">
                     <div className="space-y-1.5">
                       <Label className="text-sm font-medium text-gray-700">
                         Property Type
@@ -396,11 +421,17 @@ const BookingModal = ({
                                 <SelectValue placeholder="Select" />
                               </SelectTrigger>
                               <SelectContent>
+                                <SelectItem value="Studio">Studio</SelectItem>
                                 <SelectItem value="1 Bedroom">1</SelectItem>
                                 <SelectItem value="2 Bedroom">2</SelectItem>
                                 <SelectItem value="3 Bedroom">3</SelectItem>
                                 <SelectItem value="4 Bedroom">4</SelectItem>
-                                <SelectItem value="5+ Bedroom">5+</SelectItem>
+                                <SelectItem value="5 Bedroom">5</SelectItem>
+                                <SelectItem value="6 Bedroom">6</SelectItem>
+                                <SelectItem value="7 Bedroom">7</SelectItem>
+                                <SelectItem value="8 Bedroom">8</SelectItem>
+                                <SelectItem value="9 Bedroom">9</SelectItem>
+                                <SelectItem value="10+ Bedroom">10+</SelectItem>
                               </SelectContent>
                             </Select>
                           )}
@@ -479,45 +510,6 @@ const BookingModal = ({
 
                   <div className="space-y-1.5">
                     <Label className="text-sm font-medium text-gray-700">
-                      Purchase stage
-                    </Label>
-                    <Controller
-                      name="purchaseStage"
-                      control={control}
-                      render={({ field }) => (
-                        <Select
-                          onValueChange={field.onChange}
-                          value={field.value}
-                        >
-                          <SelectTrigger className="h-11 rounded-xl border-[#E5E7EB] w-full text-sm">
-                            <SelectValue placeholder="Select stage" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="Just viewing">
-                              Just viewing
-                            </SelectItem>
-                            <SelectItem value="Offer made">
-                              Offer made
-                            </SelectItem>
-                            <SelectItem value="Offer accepted">
-                              Offer accepted
-                            </SelectItem>
-                            <SelectItem value="Exchanged contracts">
-                              Exchanged contracts
-                            </SelectItem>
-                          </SelectContent>
-                        </Select>
-                      )}
-                    />
-                    {errors.purchaseStage && (
-                      <p className="text-xs text-red-500">
-                        {errors.purchaseStage.message}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <Label className="text-sm font-medium text-gray-700">
                       Timeline
                     </Label>
                     <div className="relative">
@@ -564,44 +556,13 @@ const BookingModal = ({
                       {...register("helpWith")}
                     />
                   </div>
+
                   {submitError && (
                     <div className="bg-red-50 border border-red-200 rounded-xl p-3 text-sm text-red-600">
                       Something went wrong. Please try again or call us
                       directly.
                     </div>
                   )}
-                  {/* Express service */}
-                  <div className="bg-amber-50 rounded-xl p-3.5 border border-amber-200">
-                    <Controller
-                      name="expressService"
-                      control={control}
-                      render={({ field }) => (
-                        <div className="flex items-start gap-3">
-                          <Checkbox
-                            id="expressService-modal"
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                            className="mt-0.5 h-4 w-4 rounded-[3px] border-[#99A1AF] data-[state=checked]:bg-amber-600 data-[state=checked]:border-amber-500"
-                          />
-                          <Label
-                            htmlFor="expressService-modal"
-                            className="flex items-start gap-2 cursor-pointer"
-                          >
-                            <Zap className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-                            <span
-                              className={`text-sm text-gray-800 ${sourceSans.className}`}
-                            >
-                              Express service — Priority booking with faster
-                              turnaround{" "}
-                              <span className="text-amber-600 font-medium">
-                                (+£{expressServiceCost})
-                              </span>
-                            </span>
-                          </Label>
-                        </div>
-                      )}
-                    />
-                  </div>
                 </form>
               </div>
 
@@ -620,15 +581,12 @@ const BookingModal = ({
                 </h3>
                 <div className={`space-y-3 ${sourceSans.className}`}>
                   <div className="flex items-center justify-between text-sm text-[#4A5565]">
-                    <span>Base survey price</span>
-                    <span className="font-medium">£{activeSurveyPrice}</span>
+                    <span>
+                      Survey price{" "}
+                      {selectedBedrooms ? `(${selectedBedrooms})` : ""}
+                    </span>
+                    <span className="font-medium">£{totalPrice}</span>
                   </div>
-                  {expressServiceChecked && (
-                    <div className="flex items-center justify-between text-sm text-[#4A5565]">
-                      <span>Express service</span>
-                      <span className="font-medium">£{expressServiceCost}</span>
-                    </div>
-                  )}
                   <div className="pt-3 border-t border-gray-200">
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-semibold text-[#101828]">
@@ -640,6 +598,11 @@ const BookingModal = ({
                     </div>
                   </div>
                 </div>
+                {!selectedBedrooms && (
+                  <p className="text-xs text-[#9CA3AF] mt-2">
+                    Select bedrooms to see your exact price
+                  </p>
+                )}
                 <div className="bg-[#EFF6FF] rounded-xl p-4 mt-5">
                   <h4 className="text-sm font-bold text-[#101828] mb-3">
                     What happens next

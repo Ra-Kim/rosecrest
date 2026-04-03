@@ -14,7 +14,7 @@ interface SurveyCardProps {
   features: string[];
   buttonText: string;
   buttonLink: string;
-  onSelectSurvey: VoidFunction
+  onSelectSurvey: VoidFunction;
 }
 
 const SurveyCard = ({
@@ -24,7 +24,7 @@ const SurveyCard = ({
   features,
   buttonText,
   buttonLink,
-  onSelectSurvey
+  onSelectSurvey,
 }: SurveyCardProps) => {
   const badgeColors = {
     green: "bg-green-100 text-green-700",
@@ -83,6 +83,16 @@ const SurveyCard = ({
 
       {/* CTA Button */}
       <div>
+        <Link
+          href="/contact"
+          className="inline-flex items-center justify-center gap-2 bg-[#262A6F] hover:bg-[#262A6F]/90 text-white rounded-full py-3 px-6 font-medium mt-4 sm:mt-0"
+        >
+          {/* {buttonText} */}
+          Contact us
+          <ArrowRight className="w-4 h-4" />
+        </Link>
+      </div>
+      {/* <div>
         <Button
           className="w-full bg-[#262A6F] hover:bg-[#262A6F]/90 text-white rounded-full py-6 font-medium mt-4 sm:mt-0"
           size="lg"
@@ -91,7 +101,7 @@ const SurveyCard = ({
           {buttonText}
           <ArrowRight className="w-4 h-4 ml-2" />
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 };

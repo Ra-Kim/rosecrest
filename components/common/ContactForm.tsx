@@ -12,16 +12,12 @@ import { sourceSans } from "@/lib/fonts";
 
 // ─── Schema ──────────────────────────────────────────────────────────────────
 
-const emailRegex =
-  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-z]{2,4}$/;
-
 const formSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().min(1, "Last name is required"),
   email: z
-    .string()
-    .min(1, "Email is required")
-    .regex(emailRegex, "Please enter a valid email address"),
+    .email("Please enter a valid email address")
+    .min(1, "Email is required"),
   phone: z.string().optional(),
   message: z.string().min(1, "Message is required"),
 });
