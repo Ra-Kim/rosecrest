@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Award, CheckCircle, Shield, ShieldHalf } from "lucide-react";
+// import { Award, CheckCircle, Shield, ShieldHalf } from "lucide-react";
 import { sourceSans } from "@/lib/fonts";
 import { Reveal } from "@/components/common/Reveal";
 import { useEnquiryStore } from "@/store/enquiry-store";
@@ -16,12 +16,12 @@ const partnerLogos = [
   { name: "SafeContractor", src: "/assets/brands/safecontractor.svg", height: 21, width: 133 },
 ];
 
-const trustBadges = [
-  { icon: Award, text: "RICS Regulated" },
-  { icon: CheckCircle, text: "Constructionline Gold" },
-  { icon: Shield, text: "SafeContractor approved" },
-  { icon: ShieldHalf, text: "Professional indemnity insured" },
-];
+// const trustBadges = [
+//   { icon: Award, text: "RICS Regulated" },
+//   { icon: CheckCircle, text: "Constructionline Gold" },
+//   { icon: Shield, text: "SafeContractor approved" },
+//   { icon: ShieldHalf, text: "Professional indemnity insured" },
+// ];
 
 const LandlordsDesc = () => {
   const { openEnquiry } = useEnquiryStore();
@@ -59,7 +59,7 @@ const LandlordsDesc = () => {
             </div>
           </Reveal>
 
-          <Reveal animation="fade-up" duration={500} delay={300}>
+          {/* <Reveal animation="fade-up" duration={500} delay={300}>
             <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-8">
               {trustBadges.map((badge, index) => (
                 <React.Fragment key={index}>
@@ -73,7 +73,7 @@ const LandlordsDesc = () => {
                 </React.Fragment>
               ))}
             </div>
-          </Reveal>
+          </Reveal> */}
 
           <Reveal animation="fade-up" duration={500} delay={400}>
             <div className="flex items-center gap-6 flex-wrap mt-1">
