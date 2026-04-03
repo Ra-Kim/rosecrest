@@ -6,10 +6,6 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { sourceSans } from "@/lib/fonts";
 import { Reveal } from "@/components/common/Reveal";
 
-// ─── Testimonial data ─────────────────────────────────────────────────────────
-// TODO: Replace avatar paths with real logos once received.
-// Purdy logo:    https://www.purdycontracts.co.uk  → save to /assets/images/logos/purdy.png
-// Din Solicitors: https://www.dinsolicitors.co.uk  → save to /assets/images/logos/din-solicitors.png
 
 const testimonials = [
   {
@@ -17,8 +13,7 @@ const testimonials = [
       "We instructed Rosecrest Group Ltd to provide independent oversight, monitoring, and reporting in relation to plumbing separation works at one of our sites. The service was delivered in a professional and structured manner, with clear communication throughout. Their oversight and reporting provided a transparent view of the works as they progressed, allowing us to monitor key stages and address any issues efficiently. The final reporting was clear, well presented, and supported our internal processes and decision-making. Overall, we found the service reliable and would be happy to work with Rosecrest Group Ltd again on future projects.",
     org: "Purdy — Part of Sureserve",
     name: "Purdy Contracts",
-    // Swap to /assets/images/logos/purdy.png once downloaded
-    avatar: "/assets/images/profile.png",
+    avatar: "/assets/images/logos/purdy.png",
     isLogo: true,
   },
   {
@@ -26,8 +21,7 @@ const testimonials = [
       "We have consistently found Rosecrest Group Ltd's expert reports to be professional, detailed, and highly reliable. In particular, their CPR Part 35-compliant reports and damp and mould investigations are thorough and clearly presented, making them well-suited for litigation purposes. The staff have been consistently helpful, professional, and responsive throughout our dealings, which has made the instruction process straightforward and efficient. Their reports have greatly assisted our clients in pursuing claims against their landlords by clearly identifying defects, causation, and the extent of disrepair. The findings have been instrumental in evidencing issues such as damp, mould, and structural defects, as well as ensuring that appropriate remedial work is recommended.",
     org: "Din Solicitors",
     name: "Trusted Solicitors for Claims",
-    // Swap to /assets/images/logos/din-solicitors.png once downloaded
-    avatar: "/assets/images/profile.png",
+    avatar: "/assets/images/logos/din-solicitors.svg",
     isLogo: true,
   },
 ];
