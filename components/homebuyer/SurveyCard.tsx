@@ -82,17 +82,16 @@ const SurveyCard = ({
       </div>
 
       {/* CTA Button */}
-      <div>
+      {/* <div>
         <Link
           href="/contact"
           className="inline-flex items-center justify-center gap-2 bg-[#262A6F] hover:bg-[#262A6F]/90 text-white rounded-full py-3 px-6 font-medium mt-4 sm:mt-0"
         >
-          {/* {buttonText} */}
-          Contact us
+          {buttonText}
           <ArrowRight className="w-4 h-4" />
         </Link>
-      </div>
-      {/* <div>
+      </div> */}
+      <div>
         <Button
           className="w-full bg-[#262A6F] hover:bg-[#262A6F]/90 text-white rounded-full py-6 font-medium mt-4 sm:mt-0"
           size="lg"
@@ -101,7 +100,7 @@ const SurveyCard = ({
           {buttonText}
           <ArrowRight className="w-4 h-4 ml-2" />
         </Button>
-      </div> */}
+      </div>
     </div>
   );
 };
